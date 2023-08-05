@@ -21,6 +21,59 @@
                     </div>
                 </div>
 
+                @if (Session::has('success'))
+                    @php
+                        $msg = Session::get('success');
+                    @endphp
+
+                    @push('message')
+                        <script>
+                            const Toast = Swal.mixin({
+                                toast: true,
+                                position: 'bottom-end',
+                                showConfirmButton: false,
+                                timer: 3000,
+                                timerProgressBar: true,
+                                didOpen: (toast) => {
+                                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                }
+                            })
+                            Toast.fire({
+                                icon: 'success',
+                                title: '{{ $msg }}'
+                            })
+                        </script>
+                    @endpush
+                @endif
+
+                @if (Session::has('error'))
+                    @php
+                        $msg = Session::get('error');
+                    @endphp
+
+                    @push('message')
+                        <script>
+                            const Toast = Swal.mixin({
+                                toast: true,
+                                position: 'bottom-end',
+                                showConfirmButton: false,
+                                timer: 3000,
+                                timerProgressBar: true,
+                                didOpen: (toast) => {
+                                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                }
+                            })
+
+                            Toast.fire({
+                                icon: 'error',
+                                title: '{{ $msg }}'
+                            })
+                        </script>
+                    @endpush
+                @endif
+
                 <div class="row">
                     <div class="col-xl-5">
                         <div class="pd-20 card-box mb-2">
@@ -38,7 +91,9 @@
                                         <option value="" selected disabled>Please select a country</option>
 
                                         @foreach ($countries as $country)
-                                            <option value="{{$country->id}}" {{$country->id == $province->country_id ? 'selected' : ''}}>{{$country->name}}</option>
+                                            <option value="{{ $country->id }}"
+                                                {{ $country->id == $province->country_id ? 'selected' : '' }}>
+                                                {{ $country->name }}</option>
                                         @endforeach
                                     </select>
 
@@ -51,7 +106,8 @@
 
                                 <div class="form-group">
                                     <label>Province Name :</label>
-                                    <input type="text" name="name" required class="form-control" value="{{old('name',$province->name)}}">
+                                    <input type="text" name="name" required class="form-control"
+                                        value="{{ old('name', $province->name) }}">
                                     @error('name')
                                         <div class="text-danger">
                                             {{ $message }}

@@ -21,10 +21,64 @@
                     </div>
                 </div>
 
+                @if (Session::has('success'))
+                    @php
+                        $msg = Session::get('success');
+                    @endphp
+
+                    @push('message')
+                        <script>
+                            const Toast = Swal.mixin({
+                                toast: true,
+                                position: 'bottom-end',
+                                showConfirmButton: false,
+                                timer: 3000,
+                                timerProgressBar: true,
+                                didOpen: (toast) => {
+                                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                }
+                            })
+                            Toast.fire({
+                                icon: 'success',
+                                title: '{{ $msg }}'
+                            })
+                        </script>
+                    @endpush
+                @endif
+
+                @if (Session::has('error'))
+                    @php
+                        $msg = Session::get('error');
+                    @endphp
+
+                    @push('message')
+                        <script>
+                            const Toast = Swal.mixin({
+                                toast: true,
+                                position: 'bottom-end',
+                                showConfirmButton: false,
+                                timer: 3000,
+                                timerProgressBar: true,
+                                didOpen: (toast) => {
+                                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                }
+                            })
+
+                            Toast.fire({
+                                icon: 'error',
+                                title: '{{ $msg }}'
+                            })
+                        </script>
+                    @endpush
+                @endif
+
                 <div class="row">
                     <div class="col-xl-5">
                         <div class="pd-20 card-box mb-2">
-                            <form action="{{ $country->id ? route('country.update',$country) : route('country.store') }}" method="POST">
+                            <form action="{{ $country->id ? route('country.update', $country) : route('country.store') }}"
+                                method="POST">
                                 @csrf
                                 @isset($country->id)
                                     @method('PUT')
@@ -32,7 +86,8 @@
                                 <div class="form-group">
                                     <label>Country Name :</label>
 
-                                    <input type="text" required name="name" value="{{ old('name',$country->name) }}" class="form-control" />
+                                    <input type="text" required name="name" value="{{ old('name', $country->name) }}"
+                                        class="form-control" />
                                     @error('name')
                                         <div class="text-danger">
                                             {{ $message }}
@@ -41,7 +96,8 @@
                                 </div>
 
                                 <div class="form-group d-flex justify-content-end">
-                                    <input type="submit" value="{{$country->id ? "Update" : "Save"}}" class="btn btn-info">
+                                    <input type="submit" value="{{ $country->id ? 'Update' : 'Save' }}"
+                                        class="btn btn-info">
                                 </div>
                             </form>
                         </div>
@@ -64,7 +120,7 @@
                                         @foreach ($countries as $country)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td>{{$country->name  }}</td>
+                                                <td>{{ $country->name }}</td>
 
                                                 <td>
                                                     <div class="dropdown">
@@ -84,8 +140,7 @@
                                                                 class="form-inline d-inline">
                                                                 @csrf
                                                                 @method('delete')
-                                                                <button type="submit"
-                                                                    class="dropdown-item"><i
+                                                                <button type="submit" class="dropdown-item"><i
                                                                         class="dw dw-delete-3"></i>
                                                                     Delete</button>
                                                             </form>

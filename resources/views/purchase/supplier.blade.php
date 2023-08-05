@@ -21,6 +21,59 @@
                     </div>
                 </div>
 
+                @if (Session::has('success'))
+                    @php
+                        $msg = Session::get('success');
+                    @endphp
+
+                    @push('message')
+                        <script>
+                            const Toast = Swal.mixin({
+                                toast: true,
+                                position: 'bottom-end',
+                                showConfirmButton: false,
+                                timer: 3000,
+                                timerProgressBar: true,
+                                didOpen: (toast) => {
+                                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                }
+                            })
+                            Toast.fire({
+                                icon: 'success',
+                                title: '{{ $msg }}'
+                            })
+                        </script>
+                    @endpush
+                @endif
+
+                @if (Session::has('error'))
+                    @php
+                        $msg = Session::get('error');
+                    @endphp
+
+                    @push('message')
+                        <script>
+                            const Toast = Swal.mixin({
+                                toast: true,
+                                position: 'bottom-end',
+                                showConfirmButton: false,
+                                timer: 3000,
+                                timerProgressBar: true,
+                                didOpen: (toast) => {
+                                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                }
+                            })
+
+                            Toast.fire({
+                                icon: 'error',
+                                title: '{{ $msg }}'
+                            })
+                        </script>
+                    @endpush
+                @endif
+
                 <div class="row">
                     <div class="col-xl-12">
                         <div class="pd-20 card-box mb-2">
@@ -42,7 +95,7 @@
 
                                                 @foreach ($branches as $branch)
                                                     <option value="{{ $branch->id }}"
-                                                        {{ $branch->branch_name=="Main Branch" ? 'selected' : '' }}{{ $branch->id == $supplier->branch_id ? 'selected' : '' }}>
+                                                        {{ $branch->branch_name == 'Main Branch' ? 'selected' : '' }}{{ $branch->id == $supplier->branch_id ? 'selected' : '' }}>
                                                         {{ $branch->branch_name }}</option>
                                                 @endforeach
                                             </select>
@@ -58,8 +111,8 @@
                                         <div class="form-group">
                                             <label>Supplier Name *:</label>
 
-                                            <input type="text" name="name" required value="{{ old('name', $supplier->name) }}"
-                                                class="form-control" />
+                                            <input type="text" name="name" required
+                                                value="{{ old('name', $supplier->name) }}" class="form-control" />
                                             @error('name')
                                                 <div class="text-danger">
                                                     {{ $message }}
@@ -118,7 +171,8 @@
 
                                                 @foreach ($countries as $country)
                                                     <option value="{{ $country->id }}"
-                                                        {{ old('country_id') == $country->id ? 'selected' : '' }} {{ $country->id == $supplier->country_id ? 'selected' : '' }}>
+                                                        {{ old('country_id') == $country->id ? 'selected' : '' }}
+                                                        {{ $country->id == $supplier->country_id ? 'selected' : '' }}>
                                                         {{ $country->name }}</option>
                                                 @endforeach
                                             </select>
@@ -139,7 +193,8 @@
                                                 <option value="" selected disabled>Please select a province</option>
 
                                                 @foreach ($provinces as $province)
-                                                    <option value="{{ $province->id }}" {{ old('province_id') == $province->id ? 'selected' : '' }}
+                                                    <option value="{{ $province->id }}"
+                                                        {{ old('province_id') == $province->id ? 'selected' : '' }}
                                                         {{ $province->id == $supplier->province_id ? 'selected' : '' }}>
                                                         {{ $province->name }}</option>
                                                 @endforeach
@@ -200,14 +255,14 @@
                                         @foreach ($suppliers as $supplier)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td>{{$supplier->branch->branch_name  }}</td>
-                                                <td>{{$supplier->name  }}</td>
-                                                <td>{{$supplier->email}}</td>
-                                                <td>{{$supplier->vat_number}}</td>
-                                                <td>{{$supplier->phone}}</td>
-                                                <td>{{$supplier->country ? $supplier->country->name : "Null"}}</td>
-                                                <td>{{$supplier->province ? $supplier->province->name : "Null"}}</td>
-                                                <td>{{$supplier->address}}</td>
+                                                <td>{{ $supplier->branch->branch_name }}</td>
+                                                <td>{{ $supplier->name }}</td>
+                                                <td>{{ $supplier->email }}</td>
+                                                <td>{{ $supplier->vat_number }}</td>
+                                                <td>{{ $supplier->phone }}</td>
+                                                <td>{{ $supplier->country ? $supplier->country->name : 'Null' }}</td>
+                                                <td>{{ $supplier->province ? $supplier->province->name : 'Null' }}</td>
+                                                <td>{{ $supplier->address }}</td>
 
 
                                                 <td>
@@ -228,8 +283,7 @@
                                                                 class="form-inline d-inline">
                                                                 @csrf
                                                                 @method('delete')
-                                                                <button type="submit"
-                                                                    class="dropdown-item"><i
+                                                                <button type="submit" class="dropdown-item"><i
                                                                         class="dw dw-delete-3"></i>
                                                                     Delete</button>
                                                             </form>

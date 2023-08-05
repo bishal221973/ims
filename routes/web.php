@@ -13,6 +13,7 @@ use App\Http\Controllers\ProvinceController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\PurchasePaymentController;
 use App\Http\Controllers\SalesController;
+use App\Http\Controllers\SalesReturnController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\TaxController;
 use App\Http\Controllers\UnitController;
@@ -145,3 +146,10 @@ Route::get('sales/list',[SalesController::class,'index'])->name('sales.index');
 Route::get('sales/{id}/payment',[SalesController::class,'repayment'])->name('sales.repayment');
 Route::delete('sales/{id}/delete',[SalesController::class,'delete'])->name('sales.delete');
 
+Route::get('sales-return',[SalesReturnController::class,'index'])->name('salesreturn.index');
+// Route::get('sales-return/create',[SalesReturnController::class,'create'])->name('salesreturn.create');
+Route::post('sales-return',[SalesReturnController::class,'store'])->name('salesreturn.store');
+Route::get('salesReturn/{invoice}',[SalesReturnController::class,'salesReturn'])->name('salesReturn');
+
+// Route::get('sales-return/{id}/edit',[SalesReturnController::class,'edit'])->name('salesreturn.edit');
+// Route::put('sales-return/{sales-return}/update',[SalesReturnController::class,'update'])->name('salesreturn.update');

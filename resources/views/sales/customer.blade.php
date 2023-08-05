@@ -21,6 +21,59 @@
                     </div>
                 </div>
 
+                @if (Session::has('success'))
+                    @php
+                        $msg = Session::get('success');
+                    @endphp
+
+                    @push('message')
+                        <script>
+                            const Toast = Swal.mixin({
+                                toast: true,
+                                position: 'bottom-end',
+                                showConfirmButton: false,
+                                timer: 3000,
+                                timerProgressBar: true,
+                                didOpen: (toast) => {
+                                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                }
+                            })
+                            Toast.fire({
+                                icon: 'success',
+                                title: '{{ $msg }}'
+                            })
+                        </script>
+                    @endpush
+                @endif
+
+                @if (Session::has('error'))
+                    @php
+                        $msg = Session::get('error');
+                    @endphp
+
+                    @push('message')
+                        <script>
+                            const Toast = Swal.mixin({
+                                toast: true,
+                                position: 'bottom-end',
+                                showConfirmButton: false,
+                                timer: 3000,
+                                timerProgressBar: true,
+                                didOpen: (toast) => {
+                                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                }
+                            })
+
+                            Toast.fire({
+                                icon: 'error',
+                                title: '{{ $msg }}'
+                            })
+                        </script>
+                    @endpush
+                @endif
+
                 <div class="row">
                     <div class="col-xl-12">
                         <div class="pd-20 card-box mb-2">
@@ -58,8 +111,8 @@
                                         <div class="form-group">
                                             <label>Supplier Name *:</label>
 
-                                            <input type="text" name="name" required  value="{{ old('name', $customer->name) }}"
-                                                class="form-control" />
+                                            <input type="text" name="name" required
+                                                value="{{ old('name', $customer->name) }}" class="form-control" />
                                             @error('name')
                                                 <div class="text-danger">
                                                     {{ $message }}
@@ -117,7 +170,8 @@
                                                 <option value="" selected disabled>Please select a country</option>
 
                                                 @foreach ($countries as $country)
-                                                    <option value="{{ $country->id }}" {{ old('country_id') == $country->id ? 'selected' : '' }}
+                                                    <option value="{{ $country->id }}"
+                                                        {{ old('country_id') == $country->id ? 'selected' : '' }}
                                                         {{ $country->id == $customer->country_id ? 'selected' : '' }}>
                                                         {{ $country->name }}</option>
                                                 @endforeach
@@ -139,7 +193,8 @@
                                                 <option value="" selected disabled>Please select a province</option>
 
                                                 @foreach ($provinces as $province)
-                                                    <option value="{{ $province->id }}" {{ old('province_id') == $province->id ? 'selected' : '' }}
+                                                    <option value="{{ $province->id }}"
+                                                        {{ old('province_id') == $province->id ? 'selected' : '' }}
                                                         {{ $province->id == $customer->province_id ? 'selected' : '' }}>
                                                         {{ $province->name }}</option>
                                                 @endforeach

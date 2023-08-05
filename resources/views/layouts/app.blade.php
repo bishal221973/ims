@@ -208,6 +208,7 @@
     <script></script>
 
     @yield('message')
+    @stack('message')
 
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NXZMQSS" height="0" width="0"
             style="display: none; visibility: hidden"></iframe></noscript>
@@ -259,21 +260,58 @@
                 cache: false,
                 dataType: 'json',
                 success: function(dataResult) {
-                    // alert();
                     $("#txtCustomerName").val(dataResult.data.name);
                     $("#txtCustomerEmail").val(dataResult.data.email);
                     $("#customer_id").val(dataResult.data.id);
                     $("#vat_number").val(dataResult.data.vat_number);
-                    // $("#customer_id").val(dataResult.data.province.country.id).change();
-                    // $("#ProvinceId").val(dataResult.data.province.id).change();
-                    // $('#countryId option[value='+dataResult.data.country_id+']').prop('selected', 'selected').change();
-                    // $('#txtCustomerCountry').prop('selected', true)
-                    // $("#txtCustomerName").val(dataResult.data.name);
                     $("#txtCustomerAddress").val(dataResult.data.address);
                 }
             });
         });
     </script>
+
+<script>
+    $("#txtSalesInvoiceNumber").on('input', function(e) {
+        e.preventDefault;
+        var invoiceNumber = $(this).val();
+        var url = "{{ route('salesReturn', ':invoice') }}";
+
+        $('#myData').empty();
+
+        url = url.replace(':invoice', invoiceNumber);
+        $.ajax({
+            url: url,
+            type: "GET",
+            data: {
+                _token: '{{ csrf_token() }}'
+            },
+            cache: false,
+            dataType: 'json',
+            success: function(dataResult) {
+                $("#txtSalesCustomerName").val(dataResult.data.customer.name);
+                $("#txtSalesCustomerPhone").val(dataResult.data.customer.phone);
+                $("#txtSalesCustomerDate").val(dataResult.data.transaction_date);
+                $("#salesId").val(dataResult.data.id);
+
+
+                for (var i = 0; i < dataResult.data.sales_product.length; i++) {
+                    // console.log(dataResult.data);
+                    $('#myData').append('<tr><td></td><td>' + dataResult.data.sales_product[i]
+                        .product.name + '</td><td>' + dataResult.data.sales_product[i]
+                        .quantity + '(' + dataResult.data.sales_product[i].product.unit.name + ')' +
+                        '</td><td> RS. ' + dataResult.data.sales_product[i]
+                        .price + ' /-</td><td><input type="hidden" name="product_id[]" value="' +
+                        dataResult
+                        .data.sales_product[i].product_id +
+                        '"/><input type="text" name="quantity[]" class="form-control"></td></tr>'
+                    )
+                    // $('#myData').append('<tr><td>' + response[0][i]['id'] + '</td><td>' + response[0][i]['first_name'] + " " + response[0][i]['last_name'] + '</td><td>' + response[0][i]['table'] + '</td><td>' + response[0][i]['items_won'] + '</td><td>' + response[0][i]['pledges_made'] +'</td><td>' + response[0][i]['amount_owed'] + '</td><td><button class="btn btn-primary">CLICK HERE</button></td></tr>');
+                    // $('#myData').append('<tr><td>' + dataResult.data.sales_product[i].+ '</td><td>' + + " " +  + '</td><td>' +  + '</td><td>' +  + '</td><td>' +  +'</td><td>' +  + '</td><td><button class="btn btn-primary">CLICK HERE</button></td></tr>');
+                }
+            }
+        });
+    });
+</script>
 </body>
 
 </html>

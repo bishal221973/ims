@@ -25,6 +25,59 @@
                     </div>
                 </div>
 
+                @if (Session::has('success'))
+                @php
+                    $msg = Session::get('success');
+                @endphp
+
+                @push('message')
+                    <script>
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'bottom-end',
+                            showConfirmButton: false,
+                            timer: 3000,
+                            timerProgressBar: true,
+                            didOpen: (toast) => {
+                                toast.addEventListener('mouseenter', Swal.stopTimer)
+                                toast.addEventListener('mouseleave', Swal.resumeTimer)
+                            }
+                        })
+                        Toast.fire({
+                            icon: 'success',
+                            title: '{{ $msg }}'
+                        })
+                    </script>
+                @endpush
+            @endif
+
+            @if (Session::has('error'))
+                @php
+                    $msg = Session::get('error');
+                @endphp
+
+                @push('message')
+                    <script>
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'bottom-end',
+                            showConfirmButton: false,
+                            timer: 3000,
+                            timerProgressBar: true,
+                            didOpen: (toast) => {
+                                toast.addEventListener('mouseenter', Swal.stopTimer)
+                                toast.addEventListener('mouseleave', Swal.resumeTimer)
+                            }
+                        })
+
+                        Toast.fire({
+                            icon: 'error',
+                            title: '{{ $msg }}'
+                        })
+                    </script>
+                @endpush
+            @endif
+
                 <!-- multiple select row Datatable start -->
                 <div class="card-box mb-30">
                     <div class="pd-20">

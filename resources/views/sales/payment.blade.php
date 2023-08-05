@@ -21,6 +21,59 @@
                     </div>
                 </div>
 
+                @if (Session::has('success'))
+                    @php
+                        $msg = Session::get('success');
+                    @endphp
+
+                    @push('message')
+                        <script>
+                            const Toast = Swal.mixin({
+                                toast: true,
+                                position: 'bottom-end',
+                                showConfirmButton: false,
+                                timer: 3000,
+                                timerProgressBar: true,
+                                didOpen: (toast) => {
+                                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                }
+                            })
+                            Toast.fire({
+                                icon: 'success',
+                                title: '{{ $msg }}'
+                            })
+                        </script>
+                    @endpush
+                @endif
+
+                @if (Session::has('error'))
+                    @php
+                        $msg = Session::get('error');
+                    @endphp
+
+                    @push('message')
+                        <script>
+                            const Toast = Swal.mixin({
+                                toast: true,
+                                position: 'bottom-end',
+                                showConfirmButton: false,
+                                timer: 3000,
+                                timerProgressBar: true,
+                                didOpen: (toast) => {
+                                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                }
+                            })
+
+                            Toast.fire({
+                                icon: 'error',
+                                title: '{{ $msg }}'
+                            })
+                        </script>
+                    @endpush
+                @endif
+
                 <div class="row">
                     <div class="col-xl-7">
                         <div class="pd-20 card-box mb-2">
@@ -140,7 +193,8 @@
                                             <strong>Grand Total</strong>
                                         </td>
                                         <td colspan="2">
-                                            <label>RS. <span id="grandTotal"> {{ $sales->salesAmount->grand_total }} </span>/-</label>
+                                            <label>RS. <span id="grandTotal"> {{ $sales->salesAmount->grand_total }}
+                                                </span>/-</label>
                                         </td>
                                     </tr>
                                 </table>
@@ -154,7 +208,7 @@
                             <input type="hidden" name="sales_id" value="{{ $sales->id }}">
                             <div class="pd-20 card-box mb-2">
                                 <div class="rotm-group">
-                                    <label>{{$edit ? "Remaining Amount" : "Total Price (including all taxs)"}}</label>
+                                    <label>{{ $edit ? 'Remaining Amount' : 'Total Price (including all taxs)' }}</label>
                                     <input type="text" name="total" class="form-control" readonly
                                         value="{{ $edit ? $sales->due : $sales->salesAmount->grand_total }}">
                                 </div>
