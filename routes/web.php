@@ -12,6 +12,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProvinceController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\PurchasePaymentController;
+use App\Http\Controllers\SalesController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\TaxController;
 use App\Http\Controllers\UnitController;
@@ -133,3 +134,11 @@ Route::get('purchase/{id}/active',[PurchaseController::class,'active'])->name('p
 Route::get('purchase-payment/{id}',[PurchasePaymentController::class,'payment'])->name('payment');
 Route::get('purchase/{id}/payment',[PurchasePaymentController::class,'repayment'])->name('repayment');
 Route::post('purchase/pay',[PurchasePaymentController::class,'pay'])->name('pay');
+
+Route::get('sales',[SalesController::class,'create'])->name('sales.create');
+Route::post('sales',[SalesController::class,'store'])->name('sales.store');
+Route::get('sales-payment/{id}',[SalesController::class,'payment'])->name('sales.payment');
+Route::post('sales/pay',[SalesController::class,'paySales'])->name('paySales');
+Route::get('sales/list',[SalesController::class,'index'])->name('sales.index');
+Route::get('sales/{id}/payment',[SalesController::class,'repayment'])->name('sales.repayment');
+Route::delete('sales/{id}/delete',[SalesController::class,'delete'])->name('sales.delete');

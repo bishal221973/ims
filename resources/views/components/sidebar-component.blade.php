@@ -34,8 +34,8 @@
                         <span class="micon bi bi-table"></span><span class="mtext">Sales</span>
                     </a>
                     <ul class="submenu">
-                        <li><a href="basic-table.html">Sales List</a></li>
-                        <li><a href="datatable.html">New Sales</a></li>
+                        <li><a href="{{route('sales.index')}}">Sales List</a></li>
+                        <li><a href="{{route('sales.create')}}">New Sales</a></li>
                         <li><a href="datatable.html">Sales Return</a></li>
                         <li><a href="{{route('customer.index')}}">New Customer</a></li>
                     </ul>
