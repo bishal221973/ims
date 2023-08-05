@@ -30,9 +30,9 @@
                                     @method('PUT')
                                 @endisset
                                 <div class="form-group">
-                                    <label>Category Name :</label>
+                                    <label>Category Name *:</label>
 
-                                    <input type="text" name="name" value="{{ old('name',$category->name) }}" class="form-control" />
+                                    <input type="text" name="name" value="{{ old('name',$category->name) }}" class="form-control" required/>
                                     @error('name')
                                         <div class="text-danger">
                                             {{ $message }}

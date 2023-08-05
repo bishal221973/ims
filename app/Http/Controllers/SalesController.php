@@ -19,18 +19,29 @@ class SalesController extends Controller
 {
     public function index()
     {
-        $org_id=orgId();
+        $org_id = orgId();
         $sales = Sales::where('organization_id', $org_id)->with(['product', 'customer', 'tax', 'salesProduct.product', 'salesAmount'])->latest()->get();
-        return view('sales.salesList',compact('sales'));
+        return view('sales.salesList', compact('sales'));
     }
     public function create()
     {
+
         $org_id = orgId();
+        if(Auth()->user()->roles[0]->name=="super-admin"){
+            $org= Organization::where('status',1)->first();
+            $branch= Branch::where('user_id',$org->user_id)->first();
+        }
+        $invoice_number=0;
+        $sales= Sales::where('organization_id',$org_id)->where('branch_id',$branch->id)->latest()->first();
+        if($sales){
+            $invoice_number=$sales->invoice_number;
+        }
+
         $products = Product::where('organization_id', $org_id)->latest()->get();
         $taxs = Tax::where('organization_id', $org_id)->latest()->get();
         $customers = Customer::where('organization_id', $org_id)->latest()->get();
         $branches = Branch::where('organization_id', $org_id)->latest()->get();
-        return view('sales.sales', compact(['products', 'taxs', 'customers', 'branches']));
+        return view('sales.sales', compact(['products', 'taxs', 'customers', 'branches','invoice_number']));
     }
 
     public function store(Request $request)
@@ -42,6 +53,8 @@ class SalesController extends Controller
         $totalTaxRate = 0;
         $totalTaxAmount = 0;
         $grandTotal = 0;
+
+        $invoiceType="Normal";
 
         $orgId = orgId();
 
@@ -89,16 +102,24 @@ class SalesController extends Controller
                 'price' => $request->price[$key],
             ]);
             $subTotal = $subTotal + ($request->quantity[$key] * $request->price[$key]);
+
+            $product=Product::where('id',$request->product_id[$key])->first();
+            $product->update([
+                'stock'=>$product->stock-$request->quantity[$key]
+            ]);
         }
 
-        foreach ($request->tax as $key => $item) {
-            SalesTax::create([
-                'organization_id' => $orgId,
-                'sales_id' => $sales->id,
-                'tax_name' => Tax::where('id', $item)->first()->name,
-                'tax_rate' => Tax::where('id', $item)->first()->value,
-            ]);
-            $totalTaxRate = $totalTaxRate + Tax::where('id', $item)->first()->value;
+        if ($request->tax) {
+            $invoiceType="tax";
+            foreach ($request->tax as $key => $item) {
+                SalesTax::create([
+                    'organization_id' => $orgId,
+                    'sales_id' => $sales->id,
+                    'tax_name' => Tax::where('id', $item)->first()->name,
+                    'tax_rate' => Tax::where('id', $item)->first()->value,
+                ]);
+                $totalTaxRate = $totalTaxRate + Tax::where('id', $item)->first()->value;
+            }
         }
 
         if ($request->discount != "") {
@@ -122,6 +143,7 @@ class SalesController extends Controller
 
         $sales->update([
             'due' => $grandTotal,
+            'invoice_type'=>$invoiceType,
         ]);
 
         return redirect()->route('sales.payment', $sales->id)->with('success', "New sales saved");
@@ -138,29 +160,29 @@ class SalesController extends Controller
 
     public function paySales(Request $request)
     {
-        $paythrough="other";
-        if($request->pay_through){
-            $paythrough=$request->pay_through;
+        $paythrough = "other";
+        if ($request->pay_through) {
+            $paythrough = $request->pay_through;
         }
         SalesPayment::create([
-            'organization_id'=>orgId(),
-            'sales_id'=>$request->sales_id,
-            'paid_amount'=>$request->paying,
-            'remaining_amount'=>$request->total-$request->paying,
-            'pay_through'=>$paythrough,
+            'organization_id' => orgId(),
+            'sales_id' => $request->sales_id,
+            'paid_amount' => $request->paying,
+            'remaining_amount' => $request->total - $request->paying,
+            'pay_through' => $paythrough,
         ]);
 
-        Sales::where('id',$request->sales_id)->first()->update([
-            'due'=>$request->total-$request->paying,
+        Sales::where('id', $request->sales_id)->first()->update([
+            'due' => $request->total - $request->paying,
         ]);
 
-        return redirect()->route('sales.index')->with('success',"Payment successfull.");
+        return redirect()->route('sales.index')->with('success', "Payment successfull.");
     }
 
     public function repayment($id)
     {
         $org_id = orgId();
-        $edit=true;
+        $edit = true;
         $sales = Sales::where('organization_id', $org_id)->where('id', $id)->with(['product', 'customer', 'tax', 'salesProduct.product', 'salesAmount'])->first();
 
         $organization = Organization::where('id', $org_id)->first();
@@ -169,17 +191,17 @@ class SalesController extends Controller
             return redirect()->back()->with('error', "Data not found");
         }
 
-        return view('sales.payment', compact('sales', 'organization','edit'));
+        return view('sales.payment', compact('sales', 'organization', 'edit'));
     }
 
     public function delete($id)
     {
         $data = Sales::where('id', $id)->where('organization_id', orgId())->first();
 
-        if(!$data){
+        if (!$data) {
             return redirect()->back()->with('error', "No data found");
         }
         $data->delete();
-        return redirect()->route('sales.index')->with('success',"Sales removed");
+        return redirect()->route('sales.index')->with('success', "Sales removed");
     }
 }

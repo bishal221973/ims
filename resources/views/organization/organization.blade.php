@@ -141,10 +141,10 @@
                                         <label>Phone :</label>
                                         @if ($organization->id)
                                             <input type="number" value="{{ old('phone', $organization->user->phone) }}"
-                                                class="form-control date-picker"name="phone" />
+                                                class="form-control"name="phone" />
                                         @else
                                             <input type="number" value="{{ old('phone') }}"
-                                                class="form-control date-picker"name="phone" />
+                                                class="form-control"name="phone" />
                                         @endif
                                         @error('phone')
                                             <div class="text-danger">

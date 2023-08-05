@@ -32,7 +32,7 @@
                                 <div class="form-group">
                                     <label>Country Name :</label>
 
-                                    <input type="text" name="name" value="{{ old('name',$country->name) }}" class="form-control" />
+                                    <input type="text" required name="name" value="{{ old('name',$country->name) }}" class="form-control" />
                                     @error('name')
                                         <div class="text-danger">
                                             {{ $message }}

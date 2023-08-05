@@ -13,7 +13,7 @@
                                         <a href="index.html">Home</a>
                                     </li>
                                     <li class="breadcrumb-item active" aria-current="page">
-                                        Opening Balance
+                                        Fiscal Year
                                     </li>
                                 </ol>
                             </nav>
@@ -32,10 +32,10 @@
                                     @method('PUT')
                                 @endisset
                                 <div class="form-group">
-                                    <label>Name :</label>
+                                    <label>Name *:</label>
 
                                     <input type="text" name="name" value="{{ old('name', $fiscalYear->name) }}"
-                                        class="form-control" />
+                                        class="form-control" required />
                                     @error('name')
                                         <div class="text-danger">
                                             {{ $message }}
@@ -43,10 +43,11 @@
                                     @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label>Opening Date :</label>
+                                    <label>Opening Date *:</label>
 
                                     <input type="text" name="opening_date" id="nepali-datepicker"
-                                        value="{{ old('opening_date', $fiscalYear->opening_date) }}" class="form-control" />
+                                        value="{{ old('opening_date', $fiscalYear->opening_date) }}" class="form-control"
+                                        required />
                                     @error('opening_date')
                                         <div class="text-danger">
                                             {{ $message }}
@@ -55,11 +56,11 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Closing Date :</label>
+                                    <label>Closing Date *:</label>
 
                                     <input type="text" name="closeing_date" id="nepali-datepicker1"
                                         value="{{ old('closeing_date', $fiscalYear->closeing_date) }}"
-                                        class="form-control" />
+                                        class="form-control" required/>
                                     @error('closeing_date')
                                         <div class="text-danger">
                                             {{ $message }}
@@ -95,10 +96,10 @@
                                         @foreach ($fiscalYears as $fiscalYear)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td>{{$fiscalYear->name  }}</td>
-                                                <td>{{$fiscalYear->opening_date  }}</td>
-                                                <td>{{$fiscalYear->closeing_date  }}</td>
-                                                <td>{{$fiscalYear->status == 0 ? "Inactive" : "Active"  }}</td>
+                                                <td>{{ $fiscalYear->name }}</td>
+                                                <td>{{ $fiscalYear->opening_date }}</td>
+                                                <td>{{ $fiscalYear->closeing_date }}</td>
+                                                <td>{{ $fiscalYear->status == 0 ? 'Inactive' : 'Active' }}</td>
 
                                                 <td>
                                                     <div class="dropdown">
@@ -112,14 +113,14 @@
                                                                 href="{{ route('fiscalyear.edit', $fiscalYear) }}"><i
                                                                     class="dw dw-edit2"></i>
                                                                 Edit</a>
-                                                            <form action="{{ route('fiscalyear.delete', $fiscalYear->id) }}"
+                                                            <form
+                                                                action="{{ route('fiscalyear.delete', $fiscalYear->id) }}"
                                                                 method="post"
                                                                 onsubmit="return confirm('Are you sure to delete ?')"
                                                                 class="form-inline d-inline">
                                                                 @csrf
                                                                 @method('delete')
-                                                                <button type="submit"
-                                                                    class="dropdown-item"><i
+                                                                <button type="submit" class="dropdown-item"><i
                                                                         class="dw dw-delete-3"></i>
                                                                     Delete</button>
                                                             </form>

@@ -68,4 +68,11 @@ class ProvinceController extends Controller
         $data->delete();
         return redirect()->route('province.index')->with('success',"Province removed");
     }
+
+    public function select($id){
+        $provinces = Province::where('country_id', $id)->where('organization_id', orgId())->get();
+        return response()->json([
+            'provinces' => $provinces
+        ]);
+    }
 }

@@ -13,7 +13,7 @@
                                         <a href="index.html">Home</a>
                                     </li>
                                     <li class="breadcrumb-item active" aria-current="page">
-                                        Organization
+                                        Branch
                                     </li>
                                 </ol>
                             </nav>
@@ -197,7 +197,7 @@
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label>Name :</label>
+                                        <label>Name *:</label>
                                         <input type="text" name="branch_name" {{$branch->id ? 'readonly' : ''}}
                                             value="{{ old('branch_name', $branch->branch_name) }}"
                                             class="form-control" />

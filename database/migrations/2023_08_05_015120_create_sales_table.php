@@ -23,6 +23,7 @@ return new class extends Migration
             $table->foreign('branch_id')->references('id')->on('branches')->onDelete('cascade');
             $table->string('transaction_date')->nullable();
             $table->string('invoice_number')->nullable();
+            $table->string('invoice_type')->nullable();
             $table->string('discount')->nullable();
             $table->string('due')->nullable();
             $table->timestamps();

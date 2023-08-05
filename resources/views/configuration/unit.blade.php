@@ -30,9 +30,9 @@
                                     @method('PUT')
                                 @endisset
                                 <div class="form-group">
-                                    <label>Brand Name :</label>
+                                    <label>Unit Name *:</label>
 
-                                    <input type="text" name="name" value="{{ old('name',$unit->name) }}" class="form-control" />
+                                    <input type="text" name="name" value="{{ old('name',$unit->name) }}" class="form-control" required/>
                                     @error('name')
                                         <div class="text-danger">
                                             {{ $message }}

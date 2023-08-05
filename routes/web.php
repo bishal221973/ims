@@ -91,6 +91,7 @@ Route::post('province',[ProvinceController::class,'store'])->name('province.stor
 Route::get('province/{id}/edit',[ProvinceController::class,'edit'])->name('province.edit');
 Route::put('province/{province}/update',[ProvinceController::class,'update'])->name('province.update');
 Route::delete('province/{id}/delete',[ProvinceController::class,'delete'])->name('province.delete');
+Route::get('province/{id}/select',[ProvinceController::class,'select'])->name('province.select');
 
 Route::get('product',[ProductController::class,'index'])->name('product.index');
 Route::post('product',[ProductController::class,'store'])->name('product.store');
@@ -109,6 +110,7 @@ Route::post('customer',[CustomerController::class,'store'])->name('customer.stor
 Route::get('customer/{id}/edit',[CustomerController::class,'edit'])->name('customer.edit');
 Route::put('customer/{customer}/update',[CustomerController::class,'update'])->name('customer.update');
 Route::delete('customer/{id}/delete',[CustomerController::class,'delete'])->name('customer.delete');
+Route::get('filter-customer/{number}',[CustomerController::class,'filterCustomer'])->name('filterCustomer');
 
 Route::get('fiscal-year',[FiscalYearController::class,'index'])->name('fiscalyear.index');
 Route::post('fiscal-year',[FiscalYearController::class,'store'])->name('fiscalyear.store');
@@ -142,3 +144,4 @@ Route::post('sales/pay',[SalesController::class,'paySales'])->name('paySales');
 Route::get('sales/list',[SalesController::class,'index'])->name('sales.index');
 Route::get('sales/{id}/payment',[SalesController::class,'repayment'])->name('sales.repayment');
 Route::delete('sales/{id}/delete',[SalesController::class,'delete'])->name('sales.delete');
+

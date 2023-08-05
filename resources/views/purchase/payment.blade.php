@@ -12,8 +12,11 @@
                                     <li class="breadcrumb-item">
                                         <a href="index.html">Home</a>
                                     </li>
+                                    <li class="breadcrumb-item">
+                                        <a href="index.html">Purchase</a>
+                                    </li>
                                     <li class="breadcrumb-item active" aria-current="page">
-                                        Category
+                                        Payment
                                     </li>
                                 </ol>
                             </nav>
@@ -154,7 +157,7 @@
                             <input type="hidden" name="purchase_id" value="{{ $purchase->id }}">
                             <div class="pd-20 card-box mb-2">
                                 <div class="rotm-group">
-                                    <label>{{$edit ? "Remaining Amount" : "Total Price (<i>including all taxs</i>)"}}</label>
+                                    <label>{{$edit ? "Remaining Amount" : "Total Price (including all taxs)"}}</label>
                                     <input type="text" name="total" class="form-control" readonly
                                         value="{{ $edit ? $purchase->due : $amount->grand_total }}">
                                 </div>

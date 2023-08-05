@@ -95,4 +95,11 @@ class CustomerController extends Controller
         $data->delete();
         return redirect()->route('customer.index')->with('success',"Customer removed");
     }
+    public function filterCustomer($number)
+    {
+        $customer = Customer::with('province.country')->where('phone', $number)->where('organization_id', orgId())->first();
+        return response()->json([
+            'data' => $customer
+        ]);
+    }
 }

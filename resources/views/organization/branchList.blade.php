@@ -14,13 +14,13 @@
                                         <a href="index.html">Home</a>
                                     </li>
                                     <li class="breadcrumb-item active" aria-current="page">
-                                        Organization
+                                        Branch
                                     </li>
                                 </ol>
                             </nav>
                         </div>
                         <div class="col-md-6 col-sm-12 text-right">
-                            <a href="{{ route('organization.create') }}" class="btn btn-info">New Organization</a>
+                            <a href="{{ route('branch.create') }}" class="btn btn-info">New Branch</a>
                         </div>
                     </div>
                 </div>
@@ -35,11 +35,9 @@
                             <thead>
                                 <tr>
                                     <th>SN</th>
-                                    <th class="table-plus datatable-nosort">Name</th>
+                                    <th>Admin</th>
                                     <th>Organization</th>
                                     <th>Branch</th>
-
-                                    <th>Opening Stock</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -59,7 +57,6 @@
                                             {{ $branch->organization->organization_email ? $branch->organization->organization_email : '' }}
                                         </td>
                                         <td>{{$branch->branch_name}}</td>
-                                        <td>Not Defined</td>
                                         <td>
                                             <div class="dropdown">
                                                 <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle text-decoration-none"

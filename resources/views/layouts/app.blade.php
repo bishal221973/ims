@@ -122,7 +122,7 @@
             border: 1px solid #ccc;
         }
 
-        .lastRow td{
+        .lastRow td {
             padding-bottom: 100px !important;
             border: none !important;
             border: 1px solid #ccc !important;
@@ -191,6 +191,7 @@
     <script src="{{ asset('src/plugins/datatables/js/vfs_fonts.js') }}"></script>
     <!-- Datatable Setting js -->
     <script src="{{ asset('vendors/scripts/datatable-setting.js') }}"></script>
+    @stack('addProduct')
 
     <script src="{{ asset('nepalidate.js') }}"></script>
     <script type="text/javascript">
@@ -211,7 +212,68 @@
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NXZMQSS" height="0" width="0"
             style="display: none; visibility: hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
-    @stack('addProduct')
+
+    <script>
+        $('#countryId').on('change', function() {
+            var id = $(this).val();
+            var url = "{{ route('province.select', ':id') }}";
+            // alert(id);
+            url = url.replace(':id', id);
+            $("#ProvinceId").empty();
+            $.ajax({
+                url: url,
+                type: "GET",
+                data: {
+                    _token: '{{ csrf_token() }}'
+                },
+                cache: false,
+                dataType: 'json',
+                success: function(dataResult) {
+                    var resultData = dataResult.provinces;
+                    var bodyData = '';
+                    var i = 0;
+                    for (var i = 0; i < dataResult.provinces.length; i++) {
+                        $('#ProvinceId').append($('<option>', {
+                            value: dataResult.provinces[i].id,
+                            text: dataResult.provinces[i].name
+                        }));
+                        // appendImageCategorySelect(resultData[i].id, resultData[i].category);
+                    }
+                }
+            });
+        });
+    </script>
+    <script>
+        $("#txtPhoneNumber").on("input", function() {
+            var phoneNumber = $(this).val();
+
+            var url = "{{ route('filterCustomer', ':number') }}";
+            url = url.replace(':number', phoneNumber);
+            $("#ProvinceId").empty();
+            $.ajax({
+                url: url,
+                type: "GET",
+                data: {
+                    _token: '{{ csrf_token() }}'
+                },
+                cache: false,
+                dataType: 'json',
+                success: function(dataResult) {
+                    // alert();
+                    $("#txtCustomerName").val(dataResult.data.name);
+                    $("#txtCustomerEmail").val(dataResult.data.email);
+                    $("#customer_id").val(dataResult.data.id);
+                    $("#vat_number").val(dataResult.data.vat_number);
+                    // $("#customer_id").val(dataResult.data.province.country.id).change();
+                    // $("#ProvinceId").val(dataResult.data.province.id).change();
+                    // $('#countryId option[value='+dataResult.data.country_id+']').prop('selected', 'selected').change();
+                    // $('#txtCustomerCountry').prop('selected', true)
+                    // $("#txtCustomerName").val(dataResult.data.name);
+                    $("#txtCustomerAddress").val(dataResult.data.address);
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

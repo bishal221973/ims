@@ -79,6 +79,10 @@ class PurchaseController extends Controller
                 'price' => $request->price[$key],
             ]);
             $subTotal = $subTotal + ($request->quantity[$key] * $request->price[$key]);
+            $product=Product::where('id',$request->product_id[$key])->first();
+            $product->update([
+                'stock'=>$product->stock+$request->quantity[$key]
+            ]);
         }
 
         foreach ($request->tax as $key => $item) {

@@ -13,7 +13,7 @@
                                         <a href="index.html">Home</a>
                                     </li>
                                     <li class="breadcrumb-item active" aria-current="page">
-                                        Category
+                                        Product
                                     </li>
                                 </ol>
                             </nav>
@@ -33,10 +33,10 @@
                                 <div class="row">
                                     <div class="col-xl-3">
                                         <div class="form-group">
-                                            <label>Product Name :</label>
+                                            <label>Product Name *:</label>
 
                                             <input type="text" name="name" value="{{ old('name', $product->name) }}"
-                                                class="form-control" />
+                                                class="form-control" required/>
                                             @error('name')
                                                 <div class="text-danger">
                                                     {{ $message }}
@@ -46,9 +46,9 @@
                                     </div>
                                     <div class="col-xl-3">
                                         <div class="form-group">
-                                            <label>Category :</label>
+                                            <label>Category *:</label>
                                             <select class="custom-select2 form-control" name="category_id"
-                                                style="width: 100%; height: 38px">
+                                                style="width: 100%; height: 38px" required>
                                                 <option value="" selected disabled>Please select a category</option>
 
                                                 @foreach ($categories as $category)
@@ -67,9 +67,9 @@
 
                                     <div class="col-xl-3">
                                         <div class="form-group">
-                                            <label>Brand :</label>
+                                            <label>Brand *:</label>
                                             <select class="custom-select2 form-control" name="brand_id"
-                                                style="width: 100%; height: 38px">
+                                                style="width: 100%; height: 38px" required>
                                                 <option value="" selected disabled>Please select a brand</option>
 
                                                 @foreach ($brands as $brand)
@@ -88,9 +88,9 @@
 
                                     <div class="col-xl-3">
                                         <div class="form-group">
-                                            <label>Unit :</label>
+                                            <label>Unit *:</label>
                                             <select class="custom-select2 form-control" name="unit_id"
-                                                style="width: 100%; height: 38px">
+                                                style="width: 100%; height: 38px" required>
                                                 <option value="" selected disabled>Please select a unit</option>
 
                                                 @foreach ($units as $unit)

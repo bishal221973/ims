@@ -33,7 +33,7 @@
                                 @endisset
                                 <div class="form-group">
                                     <label>Country Name :</label>
-                                    <select class="custom-select2 form-control" name="country_id"
+                                    <select class="custom-select2 form-control" required name="country_id"
                                         style="width: 100%; height: 38px">
                                         <option value="" selected disabled>Please select a country</option>
 
@@ -51,7 +51,7 @@
 
                                 <div class="form-group">
                                     <label>Province Name :</label>
-                                    <input type="text" name="name" class="form-control" value="{{old('name',$province->name)}}">
+                                    <input type="text" name="name" required class="form-control" value="{{old('name',$province->name)}}">
                                     @error('name')
                                         <div class="text-danger">
                                             {{ $message }}

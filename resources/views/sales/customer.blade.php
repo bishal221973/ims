@@ -34,9 +34,9 @@
                                 <div class="row">
                                     <div class="col-xl-3">
                                         <div class="form-group">
-                                            <label>Branch Name :</label>
+                                            <label>Branch Name *:</label>
 
-                                            <select class="custom-select2 form-control" name="branch_id"
+                                            <select class="custom-select2 form-control" required name="branch_id"
                                                 style="width: 100%; height: 38px">
                                                 <option value="" selected disabled>Please select a branch</option>
 
@@ -56,9 +56,9 @@
                                     </div>
                                     <div class="col-xl-3">
                                         <div class="form-group">
-                                            <label>Supplier Name :</label>
+                                            <label>Supplier Name *:</label>
 
-                                            <input type="text" name="name" value="{{ old('name', $customer->name) }}"
+                                            <input type="text" name="name" required  value="{{ old('name', $customer->name) }}"
                                                 class="form-control" />
                                             @error('name')
                                                 <div class="text-danger">
@@ -97,9 +97,9 @@
 
                                     <div class="col-xl-3">
                                         <div class="form-group">
-                                            <label>Phone Number :</label>
+                                            <label>Phone Number *:</label>
 
-                                            <input type="text" name="phone"
+                                            <input type="text" name="phone" required
                                                 value="{{ old('phone', $customer->phone) }}" class="form-control" />
                                             @error('phone')
                                                 <div class="text-danger">
@@ -113,11 +113,11 @@
                                         <div class="form-group">
                                             <label>Country Name :</label>
                                             <select class="custom-select2 form-control" name="country_id"
-                                                style="width: 100%; height: 38px">
+                                                style="width: 100%; height: 38px" id="countryId">
                                                 <option value="" selected disabled>Please select a country</option>
 
                                                 @foreach ($countries as $country)
-                                                    <option value="{{ $country->id }}"
+                                                    <option value="{{ $country->id }}" {{ old('country_id') == $country->id ? 'selected' : '' }}
                                                         {{ $country->id == $customer->country_id ? 'selected' : '' }}>
                                                         {{ $country->name }}</option>
                                                 @endforeach
@@ -135,11 +135,11 @@
                                         <div class="form-group">
                                             <label>Province :</label>
                                             <select class="custom-select2 form-control" name="province_id"
-                                                style="width: 100%; height: 38px">
+                                                style="width: 100%; height: 38px" id="ProvinceId">
                                                 <option value="" selected disabled>Please select a province</option>
 
                                                 @foreach ($provinces as $province)
-                                                    <option value="{{ $province->id }}"
+                                                    <option value="{{ $province->id }}" {{ old('province_id') == $province->id ? 'selected' : '' }}
                                                         {{ $province->id == $customer->province_id ? 'selected' : '' }}>
                                                         {{ $province->name }}</option>
                                                 @endforeach
@@ -154,9 +154,9 @@
                                     </div>
                                     <div class="col-xl-3">
                                         <div class="form-group">
-                                            <label>Address :</label>
+                                            <label>Address *:</label>
 
-                                            <input type="text" name="address"
+                                            <input type="text" name="address" required
                                                 value="{{ old('address', $customer->address) }}" class="form-control" />
                                             @error('address')
                                                 <div class="text-danger">
