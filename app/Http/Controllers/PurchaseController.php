@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Branch;
+use App\Models\Brand;
 use App\Models\Cogs;
 use App\Models\FiscalYear;
 use App\Models\Organization;
@@ -33,7 +35,8 @@ class PurchaseController extends Controller
         $products = Product::where('organization_id', $org_id)->latest()->get();
         $taxs = Tax::where('organization_id', $org_id)->latest()->get();
         $suppliers = Supplier::where('organization_id', $org_id)->latest()->get();
-        return view('purchase.purchase', compact('products', 'taxs', 'suppliers'));
+        $branches = Branch::where('organization_id', $org_id)->latest()->get();
+        return view('purchase.purchase', compact('products', 'taxs', 'suppliers','branches'));
     }
 
     public function store(Request $request)
@@ -45,10 +48,7 @@ class PurchaseController extends Controller
         $totalTaxAmount = 0;
         $grandTotal = 0;
         $orgId = orgId();
-        $cogs = Cogs::where('organization_id', $orgId)->first();
-        if (!$cogs) {
-            return redirect('/opening-balance')->with('error', "Please enter your opening balance.");
-        }
+
         $fiscalYearId = FiscalYear::select('id')->where('organization_id', $orgId)->where('status', 1)->first();
         if (!$orgId) {
             return redirect()->back()->with('error', "Please select an organization.");
@@ -62,6 +62,7 @@ class PurchaseController extends Controller
             'transaction_date' => 'required',
             'invoice_number' => 'required',
             'discount' => 'nullable',
+            'branch_id'=>'required',
         ]);
         $purchaseData['organization_id'] = $orgId;
         $purchaseData['fiscal_year_id'] = $fiscalYearId->id;

@@ -19,6 +19,8 @@ return new class extends Migration
             $table->foreign('supplier_id')->references('id')->on('suppliers')->onDelete('cascade');
             $table->unsignedBigInteger('fiscal_year_id');
             $table->foreign('fiscal_year_id')->references('id')->on('fiscal_years')->onDelete('cascade');
+            $table->unsignedBigInteger('branch_id');
+            $table->foreign('branch_id')->references('id')->on('branches')->onDelete('cascade');
             $table->string('transaction_date')->nullable();
             $table->string('invoice_number')->nullable();
             $table->string('discount')->nullable();

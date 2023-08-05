@@ -107,7 +107,27 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Branch Name :</label>
+                                            <select class="custom-select2 form-control" name="branch_id"
+                                                style="width: 100%; height: 38px">
+                                                <option value="" selected disabled>Please select a branch</option>
+
+                                                @foreach ($branches as $branch)
+                                                    <option value="{{ $branch->id }}"
+                                                        {{ $branch->branch_name == 'Main Branch' ? 'selected' : '' }}>
+                                                        {{ $branch->branch_name }}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('supplier_id')
+                                                <div class="text-danger">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label>Invoice Number :</label>
                                             <input type="number" class="form-control" name="invoice_number" required>
@@ -118,7 +138,7 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label>Discount :</label>
                                             <input type="number" class="form-control" name="discount" required>
