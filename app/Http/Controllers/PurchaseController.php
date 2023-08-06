@@ -26,7 +26,7 @@ class PurchaseController extends Controller
 
     public function index()
     {
-        $purchases=Purchase::where('organization_id',orgId())->with('product', 'supplier', 'purchaseProduct.product.unit', 'tax','purchaseAmount')->latest()->get();
+        $purchases=Purchase::where('organization_id',orgId())->with('product', 'supplier', 'purchaseProduct.product.unit', 'tax','purchaseAmount','branch')->latest()->get();
         return view('purchase.purchaseList',compact('purchases'));
     }
     public function create()

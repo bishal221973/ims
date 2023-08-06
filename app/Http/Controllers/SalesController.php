@@ -31,6 +31,9 @@ class SalesController extends Controller
             $org= Organization::where('status',1)->first();
             $branch= Branch::where('user_id',$org->user_id)->first();
         }
+        if(Auth()->user()->roles[0]->name=="admin"){
+            $branch= Branch::where('user_id',Auth()->user()->id)->first();
+        }
         $invoice_number=0;
         $sales= Sales::where('organization_id',$org_id)->where('branch_id',$branch->id)->latest()->first();
         if($sales){

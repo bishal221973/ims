@@ -48,7 +48,7 @@ Route::post('organization',[OrganizationController::class,'store'])->name('organ
 Route::get('organization/{organization}/edit',[OrganizationController::class,'edit'])->name('organization.edit');
 Route::put('organization/{organization}/update',[OrganizationController::class,'update'])->name('organization.update');
 Route::delete('organization/{organization}/delete',[OrganizationController::class,'delete'])->name('organization.delete');
-Route::get('organization/{organization}/active',[OrganizationController::class,'active'])->name('organization.active')->middleware('session');
+Route::get('organization/{organization}/active',[OrganizationController::class,'active'])->name('organization.active');
 
 Route::get('branch',[BranchController::class,'index'])->name('branch.index');
 Route::get('branch/create',[BranchController::class,'create'])->name('branch.create');

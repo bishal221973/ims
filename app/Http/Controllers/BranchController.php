@@ -71,6 +71,9 @@ class BranchController extends Controller
 
         Branch::create($branchData);
 
+        $user->assignRole("branch-admin");
+
+
         return redirect()->back()->with('success', "New branch saved.");
     }
 

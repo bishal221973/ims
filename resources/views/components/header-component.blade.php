@@ -49,22 +49,24 @@
         </div>
     </div>
     <div class="header-right    ">
-        <div class="user-info-dropdown">
-            <div class="dropdown h-100 d-flex align-items-center">
-                <a class="dropdown-toggle h-100 d-flex align-items-center" href="#" role="button"
-                    data-toggle="dropdown">
-                    <span class="user-name">{{ $myOrg ? $myOrg->organization_name : 'Organization' }}</span>
-                </a>
-                <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                    @foreach (App\Models\Organization::select('id', 'organization_name')->latest()->get() as $item)
-                        <a class="dropdown-item" href="{{ route('organization.active', $item) }}">
-                            {{ $item->organization_name }}
-                        </a>
-                    @endforeach
+        @role('super-admin')
+            <div class="user-info-dropdown">
+                <div class="dropdown h-100 d-flex align-items-center">
+                    <a class="dropdown-toggle h-100 d-flex align-items-center" href="#" role="button"
+                        data-toggle="dropdown">
+                        <span class="user-name">{{ $myOrg ? $myOrg->organization_name : 'Organization' }}</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                        @foreach (App\Models\Organization::select('id', 'organization_name')->latest()->get() as $item)
+                            <a class="dropdown-item" href="{{ route('organization.active', $item) }}">
+                                {{ $item->organization_name }}
+                            </a>
+                        @endforeach
+                    </div>
                 </div>
             </div>
-        </div>
-        <div style="width: 40px"></div>
+            <div style="width: 40px"></div>
+        @endrole
         <div class="user-info-dropdown">
             <div class="dropdown h-100 d-flex align-items-center">
                 <a class="dropdown-toggle h-100 d-flex align-items-center" href="#" role="button"

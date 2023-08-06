@@ -84,6 +84,9 @@
                                     <thead>
                                         <tr>
                                             <th>SN</th>
+                                            @hasanyrole('super-admin|admin')
+                                                <th>Branch</th>
+                                            @endhasanyrole
                                             <th>Supplier</th>
                                             <th>Transaction Date</th>
                                             <th>Invoice Number</th>
@@ -97,6 +100,9 @@
                                         @foreach ($purchases as $purchase)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
+                                                @hasanyrole('super-admin|admin')
+                                                    <th>{{$purchase->branch->branch_name}}</th>
+                                                @endhasanyrole
                                                 <td>
                                                     {{ $purchase->supplier->name }} <br>
                                                     {{ $purchase->supplier->email }}

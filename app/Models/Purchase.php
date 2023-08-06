@@ -39,4 +39,10 @@ class Purchase extends Model
     {
         return $this->hasOne(PurchaseAmount::class);
     }
+
+    public function branch()
+    {
+        return $this->belongsTo(Branch::class);
+    }
+
 }

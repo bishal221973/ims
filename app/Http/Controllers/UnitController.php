@@ -10,6 +10,7 @@ class UnitController extends Controller
     public function index(Unit $unit)
     {
         $orgId = orgId();
+        // return $orgId;
         $units = Unit::where('organization_id', $orgId)->latest()->get();
         return view('configuration.unit', compact('units', 'unit'));
     }
