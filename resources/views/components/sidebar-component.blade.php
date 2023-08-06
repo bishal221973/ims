@@ -84,7 +84,7 @@
                         <span class="micon bi bi-bug"></span><span class="mtext">Project</span>
                     </a>
                     <ul class="submenu">
-                        <li><a href="400.html">New Project</a></li>
+                        <li><a href="{{route('project.index')}}">New Project</a></li>
                         <li><a href="403.html">Assign Project</a></li>
                     </ul>
                 </li>

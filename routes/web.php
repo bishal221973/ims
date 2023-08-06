@@ -11,6 +11,7 @@ use App\Http\Controllers\FiscalYearController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProvinceController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\PurchasePaymentController;
@@ -175,6 +176,14 @@ Route::get('employee',[EmployeeController::class,'index'])->name('employee.index
 Route::get('employee/{employee}/edit',[EmployeeController::class,'edit'])->name('employee.edit');
 Route::put('employee/{employee}/update',[EmployeeController::class,'update'])->name('employee.update');
 Route::delete('employee/{employee}/delete',[EmployeeController::class,'delete'])->name('employee.delete');
+
+
+Route::get('project/create',[ProjectController::class,'create'])->name('project.create');
+Route::post('project',[ProjectController::class,'store'])->name('project.store');
+Route::get('project',[ProjectController::class,'index'])->name('project.index');
+Route::get('project/{project}/edit',[ProjectController::class,'edit'])->name('project.edit');
+Route::put('project/{project}/update',[ProjectController::class,'update'])->name('project.update');
+Route::delete('project/{project}/delete',[ProjectController::class,'delete'])->name('project.delete');
 
 // Route::get('sales-return/{id}/edit',[SalesReturnController::class,'edit'])->name('salesreturn.edit');
 // Route::put('sales-return/{sales-return}/update',[SalesReturnController::class,'update'])->name('salesreturn.update');
