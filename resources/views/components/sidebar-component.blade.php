@@ -56,9 +56,9 @@
                         <span class="micon bi bi-command"></span><span class="mtext">Report</span>
                     </a>
                     <ul class="submenu">
-                        <li><a href="bootstrap-icon.html">Purchase Report</a></li>
-                        <li><a href="font-awesome.html">Inventory Report</a></li>
-                        <li><a href="foundation.html">Sales Report</a></li>
+                        <li><a href="{{route('purchaseReport')}}">Purchase Report</a></li>
+                        <li><a href="{{route('inventoryReport')}}">Inventory Report</a></li>
+                        <li><a href="{{route('salesReport')}}">Sales Report</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
@@ -75,8 +75,8 @@
                         <span class="micon bi bi-file-earmark-text"></span><span class="mtext">Role</span>
                     </a>
                     <ul class="submenu">
-                        <li><a href="video-player.html">Role List</a></li>
-                        <li><a href="login.html">New Role</a></li>
+                        <li><a href="{{route('role.index')}}">Role List</a></li>
+                        <li><a href="{{route('role.create')}}">New Role</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
@@ -94,8 +94,8 @@
                         <span class="micon bi bi-back"></span><span class="mtext">Employee</span>
                     </a>
                     <ul class="submenu">
-                        <li><a href="blank.html">Employee List</a></li>
-                        <li><a href="contact-directory.html">New Employee</a></li>
+                        <li><a href="{{route('employee.index')}}">Employee List</a></li>
+                        <li><a href="{{route('employee.create')}}">New Employee</a></li>
                         <li><a href="blog.html">Time Schedule</a></li>
                     </ul>
                 </li>

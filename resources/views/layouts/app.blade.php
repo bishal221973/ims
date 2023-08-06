@@ -177,10 +177,6 @@
     <script src="{{ asset('vendors/scripts/process.js') }}"></script>
     <script src="{{ asset('vendors/scripts/layout-settings.js') }}"></script>
 
-    <!-- Google Tag Manager (noscript) -->
-    <script src="{{ asset('src/plugins/jquery-steps/jquery.steps.js') }}"></script>
-    <script src="{{ asset('vendors/scripts/steps-setting.js') }}"></script>
-    <!-- Google Tag Manager (noscript) -->
 
     <script src="{{ asset('src/plugins/datatables/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('src/plugins/datatables/js/dataTables.bootstrap4.min.js') }}"></script>

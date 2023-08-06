@@ -6,6 +6,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CogsController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\FiscalYearController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrganizationController;
@@ -13,6 +14,8 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProvinceController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\PurchasePaymentController;
+use App\Http\Controllers\ReportController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SalesController;
 use App\Http\Controllers\SalesReturnController;
 use App\Http\Controllers\SupplierController;
@@ -154,6 +157,24 @@ Route::get('salesReturn/{invoice}',[SalesReturnController::class,'salesReturn'])
 
 Route::get('totalpurchase/{month}',[HomeController::class,'totalPurchase'])->name('totalPurchase');
 Route::get('totalsales/{month}',[HomeController::class,'totalSales'])->name('totalSales');
+
+Route::get('purchase-report',[ReportController::class,'purchaseReport'])->name('purchaseReport');
+Route::get('sales-report',[ReportController::class,'salesReport'])->name('salesReport');
+Route::get('inventory-report',[ReportController::class,'inventoryReport'])->name('inventoryReport');
+
+Route::get('role/create',[RoleController::class,'create'])->name('role.create');
+Route::post('role',[RoleController::class,'store'])->name('role.store');
+Route::get('role',[RoleController::class,'index'])->name('role.index');
+Route::get('role/{role}/edit',[RoleController::class,'edit'])->name('role.edit');
+Route::put('role/{role}/update',[RoleController::class,'update'])->name('role.update');
+Route::delete('role/{role}/delete',[RoleController::class,'delete'])->name('role.delete');
+
+Route::get('employee/create',[EmployeeController::class,'create'])->name('employee.create');
+Route::post('employee',[EmployeeController::class,'store'])->name('employee.store');
+Route::get('employee',[EmployeeController::class,'index'])->name('employee.index');
+Route::get('employee/{employee}/edit',[EmployeeController::class,'edit'])->name('employee.edit');
+Route::put('employee/{employee}/update',[EmployeeController::class,'update'])->name('employee.update');
+Route::delete('employee/{employee}/delete',[EmployeeController::class,'delete'])->name('employee.delete');
 
 // Route::get('sales-return/{id}/edit',[SalesReturnController::class,'edit'])->name('salesreturn.edit');
 // Route::put('sales-return/{sales-return}/update',[SalesReturnController::class,'update'])->name('salesreturn.update');
