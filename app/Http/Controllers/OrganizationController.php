@@ -77,6 +77,7 @@ class OrganizationController extends Controller
         $orgData['user_id'] = $user->id;
 
         $org=Organization::create($orgData);
+        $user->assignRole("admin");
 
         Branch::create([
             'organization_id'=>$org->id,

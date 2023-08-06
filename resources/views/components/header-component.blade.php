@@ -2,7 +2,8 @@
     $myOrg = App\Models\Organization::select('id', 'logo', 'organization_name')
         ->where('status', 1)
         ->first();
-        $activeFiscalYear = App\Models\FiscalYear::select('id','name')->where('organization_id',orgId())
+    $activeFiscalYear = App\Models\FiscalYear::select('id', 'name')
+        ->where('organization_id', orgId())
         ->where('status', 1)
         ->first();
 @endphp
@@ -71,7 +72,7 @@
                     <span class="user-name">{{ $activeFiscalYear ? $activeFiscalYear->name : 'Fiscal Year' }}</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                    @foreach (App\Models\FiscalYear::select('id', 'name')->where('organization_id',orgId())->latest()->get() as $item)
+                    @foreach (App\Models\FiscalYear::select('id', 'name')->where('organization_id', orgId())->latest()->get() as $item)
                         <a class="dropdown-item" href="{{ route('fiscalyear.active', $item->id) }}">
                             {{ $item->name }}
                         </a>
@@ -84,14 +85,22 @@
             <div class="dropdown">
                 <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
                     <span class="user-icon">
-                        <img src="vendors/images/photo1.jpg" alt="" />
+                        <img src="{{ asset('vendors/images/photo1.jpg') }}" alt="" />
                     </span>
-                    <span class="user-name"></span>
+                    <span class="font-weight-bold user-name">{{ Auth::user()->name }}</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
                     <a class="dropdown-item" href="{{ route('user.profile') }}"><i class="dw dw-user1"></i> Profile</a>
                     <a class="dropdown-item" href="profile.html"><i class="dw dw-settings2"></i> Setting</a>
-                    <a class="dropdown-item" href="login.html"><i class="dw dw-logout"></i> Log Out</a>
+                    <a class="dropdown-item text-danger" href="{{ route('logout') }}"
+                        onclick="event.preventDefault();
+                                         document.getElementById('logout-form').submit();">
+                        <i class="dw dw-logout"></i>
+                        {{ __('Logout') }}
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
                 </div>
             </div>
         </div>

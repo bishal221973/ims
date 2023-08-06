@@ -7,6 +7,7 @@ use App\Http\Controllers\CogsController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\FiscalYearController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProvinceController;
@@ -150,6 +151,9 @@ Route::get('sales-return',[SalesReturnController::class,'index'])->name('salesre
 // Route::get('sales-return/create',[SalesReturnController::class,'create'])->name('salesreturn.create');
 Route::post('sales-return',[SalesReturnController::class,'store'])->name('salesreturn.store');
 Route::get('salesReturn/{invoice}',[SalesReturnController::class,'salesReturn'])->name('salesReturn');
+
+Route::get('totalpurchase/{month}',[HomeController::class,'totalPurchase'])->name('totalPurchase');
+Route::get('totalsales/{month}',[HomeController::class,'totalSales'])->name('totalSales');
 
 // Route::get('sales-return/{id}/edit',[SalesReturnController::class,'edit'])->name('salesreturn.edit');
 // Route::put('sales-return/{sales-return}/update',[SalesReturnController::class,'update'])->name('salesreturn.update');

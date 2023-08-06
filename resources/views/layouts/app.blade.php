@@ -104,7 +104,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('vendors/styles/style.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('nepalidate.css') }}" />
 
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-GBZ3SGGX85"></script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2973766580778258"
@@ -159,12 +159,17 @@
 
 <body class="login-page">
 
-    <x-header-component />
+    @guest
+        @yield('content')
+    @else
+        <x-header-component />
 
-    <x-sidebar-component />
-    <div class="mobile-menu-overlay"></div>
+        <x-sidebar-component />
+        <div class="mobile-menu-overlay"></div>
+        @yield('content')
+    @endguest
 
-    @yield('content')
+
 
 
     <script src="{{ asset('vendors/scripts/core.js') }}"></script>
@@ -201,7 +206,6 @@
         var mainInput = document.getElementById("nepali-datepicker1");
         mainInput.nepaliDatePicker();
     </script>
-
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -270,15 +274,56 @@
         });
     </script>
 
-<script>
-    $("#txtSalesInvoiceNumber").on('input', function(e) {
-        e.preventDefault;
-        var invoiceNumber = $(this).val();
-        var url = "{{ route('salesReturn', ':invoice') }}";
+    <script>
+        $("#txtSalesInvoiceNumber").on('input', function(e) {
+            e.preventDefault;
+            var invoiceNumber = $(this).val();
+            var url = "{{ route('salesReturn', ':invoice') }}";
 
-        $('#myData').empty();
+            $('#myData').empty();
 
-        url = url.replace(':invoice', invoiceNumber);
+            url = url.replace(':invoice', invoiceNumber);
+            $.ajax({
+                url: url,
+                type: "GET",
+                data: {
+                    _token: '{{ csrf_token() }}'
+                },
+                cache: false,
+                dataType: 'json',
+                success: function(dataResult) {
+                    $("#txtSalesCustomerName").val(dataResult.data.customer.name);
+                    $("#txtSalesCustomerPhone").val(dataResult.data.customer.phone);
+                    $("#txtSalesCustomerDate").val(dataResult.data.transaction_date);
+                    $("#salesId").val(dataResult.data.id);
+
+
+                    for (var i = 0; i < dataResult.data.sales_product.length; i++) {
+                        // console.log(dataResult.data);
+                        $('#myData').append('<tr><td></td><td>' + dataResult.data.sales_product[i]
+                            .product.name + '</td><td>' + dataResult.data.sales_product[i]
+                            .quantity + '(' + dataResult.data.sales_product[i].product.unit.name +
+                            ')' +
+                            '</td><td> RS. ' + dataResult.data.sales_product[i]
+                            .price +
+                            ' /-</td><td><input type="hidden" name="product_id[]" value="' +
+                            dataResult
+                            .data.sales_product[i].product_id +
+                            '"/><input type="text" name="quantity[]" class="form-control"></td></tr>'
+                        )
+                        // $('#myData').append('<tr><td>' + response[0][i]['id'] + '</td><td>' + response[0][i]['first_name'] + " " + response[0][i]['last_name'] + '</td><td>' + response[0][i]['table'] + '</td><td>' + response[0][i]['items_won'] + '</td><td>' + response[0][i]['pledges_made'] +'</td><td>' + response[0][i]['amount_owed'] + '</td><td><button class="btn btn-primary">CLICK HERE</button></td></tr>');
+                        // $('#myData').append('<tr><td>' + dataResult.data.sales_product[i].+ '</td><td>' + + " " +  + '</td><td>' +  + '</td><td>' +  + '</td><td>' +  +'</td><td>' +  + '</td><td><button class="btn btn-primary">CLICK HERE</button></td></tr>');
+                    }
+                }
+            });
+        });
+    </script>
+
+    <script>
+        var month = NepaliFunctions.GetCurrentBsMonth();
+        var url = "{{ route('totalPurchase', ':month') }}";
+        url = url.replace(':month', month);
+        $("#ProvinceId").empty();
         $.ajax({
             url: url,
             type: "GET",
@@ -288,30 +333,31 @@
             cache: false,
             dataType: 'json',
             success: function(dataResult) {
-                $("#txtSalesCustomerName").val(dataResult.data.customer.name);
-                $("#txtSalesCustomerPhone").val(dataResult.data.customer.phone);
-                $("#txtSalesCustomerDate").val(dataResult.data.transaction_date);
-                $("#salesId").val(dataResult.data.id);
-
-
-                for (var i = 0; i < dataResult.data.sales_product.length; i++) {
-                    // console.log(dataResult.data);
-                    $('#myData').append('<tr><td></td><td>' + dataResult.data.sales_product[i]
-                        .product.name + '</td><td>' + dataResult.data.sales_product[i]
-                        .quantity + '(' + dataResult.data.sales_product[i].product.unit.name + ')' +
-                        '</td><td> RS. ' + dataResult.data.sales_product[i]
-                        .price + ' /-</td><td><input type="hidden" name="product_id[]" value="' +
-                        dataResult
-                        .data.sales_product[i].product_id +
-                        '"/><input type="text" name="quantity[]" class="form-control"></td></tr>'
-                    )
-                    // $('#myData').append('<tr><td>' + response[0][i]['id'] + '</td><td>' + response[0][i]['first_name'] + " " + response[0][i]['last_name'] + '</td><td>' + response[0][i]['table'] + '</td><td>' + response[0][i]['items_won'] + '</td><td>' + response[0][i]['pledges_made'] +'</td><td>' + response[0][i]['amount_owed'] + '</td><td><button class="btn btn-primary">CLICK HERE</button></td></tr>');
-                    // $('#myData').append('<tr><td>' + dataResult.data.sales_product[i].+ '</td><td>' + + " " +  + '</td><td>' +  + '</td><td>' +  + '</td><td>' +  +'</td><td>' +  + '</td><td><button class="btn btn-primary">CLICK HERE</button></td></tr>');
-                }
+                // console.log(dataResult);
+                $("#purchaseText").text(dataResult);
             }
         });
-    });
-</script>
+    </script>
+
+    <script>
+        // var id = $(this).val();
+        var url = "{{ route('totalSales', ':month') }}";
+        url = url.replace(':month', '4');
+        $("#ProvinceId").empty();
+        $.ajax({
+            url: url,
+            type: "GET",
+            data: {
+                _token: '{{ csrf_token() }}'
+            },
+            cache: false,
+            dataType: 'json',
+            success: function(dataResult) {
+                // console.log(dataResult);
+                $("#salesText").text(dataResult);
+            }
+        });
+    </script>
 </body>
 
 </html>

@@ -26,21 +26,38 @@
 
 @extends('layouts.app')
 @section('content')
-
+    @php
+        $totalPurchaseDue = 0;
+        $totalSalesDue = 0;
+        $org_id = orgId();
+        $fiscal_year = App\Models\FiscalYear::select('id')
+            ->where('status', 1)
+            ->where('organization_id', $org_id)
+            ->first();
+    @endphp
     <div class="main-container">
         <div class="xs-pd-20-10 pd-ltr-20">
-            <div class="title pb-20">
-                <h2 class="h3 mb-0">Hospital Overview</h2>
-            </div>
-
             <div class="row pb-10">
-                <div class="col-xl-3 col-lg-3 col-md-6 mb-20">
+                <div class="col-xl-3 col-lg-3 col-md-6">
                     <div class="card-box height-100-p widget-style3">
                         <div class="d-flex flex-wrap">
                             <div class="widget-data">
-                                <div class="weight-700 font-24 text-dark">75</div>
+                                <div class="weight-700 font-24 text-dark">
+                                    @if ($fiscal_year)
+                                        @foreach (App\Models\Purchase::select('due')->where('fiscal_year_id', $fiscal_year->id)->where('organization_id', $org_id)->get() as $item)
+                                            @php
+                                                $totalPurchaseDue = $totalPurchaseDue + $item->due;
+                                            @endphp
+                                        @endforeach
+                                    @else
+                                        @php
+                                            $totalPurchaseDue = 0;
+                                        @endphp
+                                    @endif
+                                    RS. {{ $totalPurchaseDue }} /-
+                                </div>
                                 <div class="font-14 text-secondary weight-500">
-                                    Appointment
+                                    Purchase Due
                                 </div>
                             </div>
                             <div class="widget-icon">
@@ -51,13 +68,26 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-3 col-lg-3 col-md-6 mb-20">
+                <div class="col-xl-3 col-lg-3 col-md-6">
                     <div class="card-box height-100-p widget-style3">
                         <div class="d-flex flex-wrap">
                             <div class="widget-data">
-                                <div class="weight-700 font-24 text-dark">124,551</div>
+                                <div class="weight-700 font-24 text-dark">
+                                    @if ($fiscal_year)
+                                        @foreach (App\Models\Sales::select('due')->where('fiscal_year_id', $fiscal_year->id)->where('organization_id', $org_id)->get() as $item)
+                                            @php
+                                                $totalSalesDue = $totalSalesDue + $item->due;
+                                            @endphp
+                                        @endforeach
+                                    @else
+                                        @php
+                                            $totalSalesDue = 0;
+                                        @endphp
+                                    @endif
+                                    RS. {{ $totalSalesDue }} /-
+                                </div>
                                 <div class="font-14 text-secondary weight-500">
-                                    Total Patient
+                                    Sales Due
                                 </div>
                             </div>
                             <div class="widget-icon">
@@ -68,13 +98,15 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-3 col-lg-3 col-md-6 mb-20">
+                <div class="col-xl-3 col-lg-3 col-md-6">
                     <div class="card-box height-100-p widget-style3">
                         <div class="d-flex flex-wrap">
                             <div class="widget-data">
-                                <div class="weight-700 font-24 text-dark">400+</div>
+                                <div class="weight-700 font-24 text-dark">
+                                    RS. <span id="purchaseText">0</span> /-
+                                </div>
                                 <div class="font-14 text-secondary weight-500">
-                                    Total Doctor
+                                    Purchase in this month
                                 </div>
                             </div>
                             <div class="widget-icon">
@@ -85,12 +117,13 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-3 col-lg-3 col-md-6 mb-20">
+                <div class="col-xl-3 col-lg-3 col-md-6">
                     <div class="card-box height-100-p widget-style3">
                         <div class="d-flex flex-wrap">
                             <div class="widget-data">
-                                <div class="weight-700 font-24 text-dark">$50,000</div>
-                                <div class="font-14 text-secondary weight-500">Earning</div>
+                                <div class="weight-700 font-24 text-dark"> RS. <span id="salesText">0</span> /-
+                                </div>
+                                <div class="font-14 text-secondary weight-500">Sales in this month</div>
                             </div>
                             <div class="widget-icon">
                                 <div class="icon" data-color="#09cc06">
@@ -101,8 +134,70 @@
                     </div>
                 </div>
             </div>
-
             <div class="row pb-10">
+                <div class="col-xl-3 col-lg-3 col-md-6 mb-20">
+                    <a href="#" class="card-box height-100-p widget-style3">
+                        <div class="d-flex bg-white flex-wrap">
+                            <div class="widget-data">
+                                <div class="weight-700 font-24 text-dark">75</div>
+                                <div class="font-14 text-secondary weight-500">
+                                    Employee
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <i class="fa-solid fa-users fa-2x"></i>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-xl-3 col-lg-3 col-md-6 mb-20">
+                    <a href="#" class="bg-white card-box height-100-p widget-style3">
+                        <div class="d-flex bg-white rounded flex-wrap">
+                            <div class="widget-data">
+                                <div class="weight-700 font-24 text-dark">
+                                    {{App\Models\Supplier::where('organization_id',$org_id)->get()->count()}}
+                                </div>
+                                <div class="font-14 text-secondary weight-500">
+                                    Supplier
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <i class="fa-solid fa-user-tie fa-2x"></i>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-xl-3 col-lg-3 col-md-6 mb-20">
+                    <a href="#" class="card-box height-100-p widget-style3">
+                        <div class="bg-white d-flex flex-wrap">
+                            <div class="widget-data">
+                                <div class="weight-700 font-24 text-dark">{{App\Models\Customer::where('organization_id',$org_id)->get()->count()}}</div>
+                                <div class="font-14 text-secondary weight-500">
+                                    Customer
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <i class="fa-solid fa-user fa-2x"></i>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-xl-3 col-lg-3 col-md-6 mb-20">
+                    <a href="#" class="card-box height-100-p widget-style3">
+                        <div class="bg-white d-flex flex-wrap">
+                            <div class="widget-data">
+                                <div class="weight-700 font-24 text-dark">{{App\Models\Product::where('organization_id',$org_id)->get()->count()}}</div>
+                                <div class="font-14 text-secondary weight-500">Total Product</div>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <i class="fa-solid fa-user-tie fa-2x"></i>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            {{-- <div class="row pb-10">
                 <div class="col-md-8 mb-20">
                     <div class="card-box height-100-p pd-20">
                         <div class="d-flex flex-wrap justify-content-between align-items-center pb-0 pb-md-3">
@@ -528,58 +623,9 @@
                         </tr>
                     </tbody>
                 </table>
-            </div>
+            </div> --}}
 
-            <div class="title pb-20 pt-20">
-                <h2 class="h3 mb-0">Quick Start</h2>
-            </div>
 
-            <div class="row">
-                <div class="col-md-4 mb-20">
-                    <a href="#" class="card-box d-block mx-auto pd-20 text-secondary">
-                        <div class="img pb-30">
-                            <img src="vendors/images/medicine-bro.svg" alt="" />
-                        </div>
-                        <div class="content">
-                            <h3 class="h4">Services</h3>
-                            <p class="max-width-200">
-                                We provide superior health care in a compassionate maner
-                            </p>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-4 mb-20">
-                    <a href="#" class="card-box d-block mx-auto pd-20 text-secondary">
-                        <div class="img pb-30">
-                            <img src="vendors/images/remedy-amico.svg" alt="" />
-                        </div>
-                        <div class="content">
-                            <h3 class="h4">Medications</h3>
-                            <p class="max-width-200">
-                                Look for prescription and over-the-counter drug information.
-                            </p>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-4 mb-20">
-                    <a href="#" class="card-box d-block mx-auto pd-20 text-secondary">
-                        <div class="img pb-30">
-                            <img src="vendors/images/paper-map-cuate.svg" alt="" />
-                        </div>
-                        <div class="content">
-                            <h3 class="h4">Locations</h3>
-                            <p class="max-width-200">
-                                Convenient locations when and where you need them.
-                            </p>
-                        </div>
-                    </a>
-                </div>
-            </div>
-
-            <div class="footer-wrap pd-20 mb-20 card-box">
-                DeskApp - Bootstrap 4 Admin Template By
-                <a href="https://github.com/dropways" target="_blank">Ankit Hingarajiya</a>
-            </div>
         </div>
     </div>
 @endsection
