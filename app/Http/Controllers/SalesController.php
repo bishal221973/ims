@@ -131,7 +131,7 @@ class SalesController extends Controller
         $taxableAmount = $subTotal - $request->discount;
 
         $totalTaxAmount = $taxableAmount * ($totalTaxRate / 100);
-        $grandTotal = $taxableAmount - $totalTaxAmount;
+        $grandTotal = $taxableAmount + $totalTaxAmount;
 
         SalesAmount::create([
             'organization_id' => $orgId,

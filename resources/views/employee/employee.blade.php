@@ -74,7 +74,8 @@
                     @endpush
                 @endif
 
-                <form action="{{ $employee->id ? route('employee.update',$employee) : route('employee.store') }}" method="POST">
+                <form action="{{ $employee->id ? route('employee.update', $employee) : route('employee.store') }}"
+                    method="POST">
                     @csrf
                     @isset($employee->id)
                         @method('PUT')
@@ -91,9 +92,14 @@
                                         <div class="form-group">
                                             <label>Full Name *:</label>
 
-                                            <input type="text" name="name"
-                                                value="{{ old('name', $employee->user->name) }}" class="form-control"
-                                                required />
+                                            @if ($employee->id)
+                                                <input type="text" name="name"
+                                                    value="{{ old('name', $employee->user->name) }}" class="form-control"
+                                                    required />
+                                            @else
+                                                <input type="text" name="name" value="{{ old('name') }}"
+                                                    class="form-control" required />
+                                            @endif
                                             @error('name')
                                                 <div class="text-danger">
                                                     {{ $message }}
@@ -105,9 +111,14 @@
                                         <div class="form-group">
                                             <label>Email *:</label>
 
-                                            <input type="text" name="email"
-                                                value="{{ old('email', $employee->user->email) }}" class="form-control"
-                                                required />
+                                            @if ($employee->id)
+                                                <input type="email" name="email"
+                                                    value="{{ old('email', $employee->user->email) }}" class="form-control"
+                                                    required />
+                                            @else
+                                                <input type="email" name="email" value="{{ old('email') }}"
+                                                    class="form-control" required />
+                                            @endif
                                             @error('email')
                                                 <div class="text-danger">
                                                     {{ $message }}
@@ -123,7 +134,8 @@
                                                     style="width: 100%; height: 38px">
                                                     <option value="Male" {{ old('gender') == 'Male' ? 'selected' : '' }}
                                                         {{ $employee->gender == 'Male' ? 'selected' : '' }}>Male</option>
-                                                    <option value="Female" {{ old('gender') == 'Female' ? 'selected' : '' }}
+                                                    <option value="Female"
+                                                        {{ old('gender') == 'Female' ? 'selected' : '' }}
                                                         {{ $employee->gender == 'Female' ? 'selected' : '' }}>Female
                                                     </option>
                                                     <option value="Other" {{ old('gender') == 'Other' ? 'selected' : '' }}
@@ -155,9 +167,14 @@
                                         <div class="form-group">
                                             <label>DOB *:</label>
 
-                                            <input type="text" name="dob"
-                                                value="{{ old('dob', $employee->user->dob) }}" class="form-control"
-                                                required />
+                                            @if ($employee->id)
+                                                <input type="text" name="dob"
+                                                    value="{{ old('dob', $employee->user->dob) }}" id="nepali-datepicker"
+                                                    class="form-control" required />
+                                            @else
+                                                <input type="text" name="dob" value="{{ old('dob') }}"
+                                                    id="nepali-datepicker" class="form-control" required />
+                                            @endif
                                             @error('dob')
                                                 <div class="text-danger">
                                                     {{ $message }}
@@ -214,9 +231,14 @@
                                         <div class="form-group">
                                             <label>Address *:</label>
 
-                                            <input type="text" name="address"
-                                                value="{{ old('address', $employee->user->address) }}" class="form-control"
-                                                required />
+                                            @if ($employee->id)
+                                                <input type="text" name="address"
+                                                    value="{{ old('address', $employee->user->address) }}"
+                                                    class="form-control" required />
+                                            @else
+                                                <input type="text" name="address" value="{{ old('address') }}"
+                                                    class="form-control" required />
+                                            @endif
                                             @error('address')
                                                 <div class="text-danger">
                                                     {{ $message }}
@@ -228,9 +250,14 @@
                                         <div class="form-group">
                                             <label>Phone *:</label>
 
-                                            <input type="text" name="phone"
-                                                value="{{ old('phone', $employee->user->phone) }}" class="form-control"
-                                                required />
+                                            @if ($employee->id)
+                                                <input type="text" name="phone"
+                                                    value="{{ old('phone', $employee->user->phone) }}"
+                                                    class="form-control" required />
+                                            @else
+                                                <input type="text" name="phone" value="{{ old('phone') }}"
+                                                    class="form-control" required />
+                                            @endif
                                             @error('phone')
                                                 <div class="text-danger">
                                                     {{ $message }}
@@ -330,41 +357,52 @@
                                         <div class="form-group">
                                             <label>Role *:</label>
 
-                                            <select name="role[]" class="custom-select2 form-control"
-                                                style="width: 100%; height: 38px" multiple>
-                                                <option value="" disabled>Please select</option>
-                                                @php
-                                                    $i = 0;
-                                                    $j = $employee->user->roles->count();
+                                            @if ($employee->id)
+                                                <select name="role[]" class="custom-select2 form-control"
+                                                    style="width: 100%; height: 38px" multiple>
+                                                    <option value="" disabled>Please select</option>
+                                                    @php
+                                                        $i = 0;
+                                                        $j = $employee->user->roles->count();
 
-                                                @endphp
-                                                @foreach ($roles as $role)
-                                                    @if ($employee->id || $i < $j - 1)
-                                                        @if ($j > 0)
-                                                            <option value="{{ $role->id }}"
-                                                                {{ $role->id == $employee->user->roles[$i]->id ? 'selected' : '' }}>
-                                                                {{ $role->name }}
-                                                            </option>
+                                                    @endphp
+                                                    @foreach ($roles as $role)
+                                                        @if ($employee->id || $i < $j - 1)
+                                                            @if ($j > 0)
+                                                                <option value="{{ $role->id }}"
+                                                                    {{ $role->id == $employee->user->roles[$i]->id ? 'selected' : '' }}>
+                                                                    {{ $role->name }}
+                                                                </option>
 
-                                                            @php
-                                                                if ($role->id == $employee->user->roles[$i]->id && $i < $j - 1) {
-                                                                    $i++;
-                                                                }
-                                                            @endphp
+                                                                @php
+                                                                    if ($role->id == $employee->user->roles[$i]->id && $i < $j - 1) {
+                                                                        $i++;
+                                                                    }
+                                                                @endphp
+                                                            @else
+                                                                <option value="{{ $role->id }}">
+                                                                    {{ $role->name }}
+                                                                </option>
+                                                            @endif
                                                         @else
                                                             <option value="{{ $role->id }}">
-                                                                {{ $role->name }}
-                                                            </option>
+                                                                {{ $role->name }}                                                            </option>
                                                         @endif
-                                                    @else
+                                                        @php
+                                                        @endphp
+                                                    @endforeach
+                                                </select>
+                                            @else
+                                                <select name="role[]" class="custom-select2 form-control"
+                                                    style="width: 100%; height: 38px" multiple>
+                                                    <option value="" disabled>Please select</option>
+                                                    @foreach ($roles as $role)
                                                         <option value="{{ $role->id }}">
-                                                            {{ $role->name }} ({{ $role->rate }}%)
+                                                            {{ $role->name }}
                                                         </option>
-                                                    @endif
-                                                    @php
-                                                    @endphp
-                                                @endforeach
-                                            </select>
+                                                    @endforeach
+                                                </select>
+                                            @endif
                                             @error('role')
                                                 <div class="text-danger">
                                                     {{ $message }}
@@ -389,7 +427,7 @@
                                             <label>Password *:</label>
 
                                             <input type="text" name="password" value="{{ old('password') }}"
-                                                class="form-control" required {{$employee->id ? 'readonly' : ''}}/>
+                                                class="form-control" required {{ $employee->id ? 'readonly' : '' }} />
                                             @error('password')
                                                 <div class="text-danger">
                                                     {{ $message }}
@@ -401,8 +439,8 @@
                                         <div class="form-group">
                                             <label>Confirm Password *:</label>
 
-                                            <input type="text" name="" {{$employee->id ? 'readonly' : ''}} value="{{ old('email') }}"
-                                                class="form-control" required />
+                                            <input type="text" name="" {{ $employee->id ? 'readonly' : '' }}
+                                                value="{{ old('email') }}" class="form-control" required />
 
                                         </div>
                                     </div>
@@ -412,7 +450,7 @@
                     </div>
                     <div class="col-12">
                         <div class="pd-20 card-box mb-2 d-flex justify-content-end">
-                            <input type="submit" value="{{$employee->id ? "Update" : "Save"}}" class="btn btn-info">
+                            <input type="submit" value="{{ $employee->id ? 'Update' : 'Save' }}" class="btn btn-info">
                         </div>
                     </div>
                 </form>

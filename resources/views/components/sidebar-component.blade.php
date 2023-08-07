@@ -1,8 +1,19 @@
 <div class="left-side-bar">
     <div class="brand-logo">
-        <a href="{{ route('home') }}">
-            <img src="vendors/images/deskapp-logo.svg" alt="" class="dark-logo" />
-            <img src="vendors/images/deskapp-logo-white.svg" alt="" class="light-logo" />
+        @php
+            $org = App\Models\Organization::where('id', orgId())->first();
+        @endphp
+        <a href="{{ route('home') }}" class="py-2">
+            @if ($org)
+                @if ($org->logo)
+                    <img src="{{ asset('storage') }}{{ '/' }}{{ $org->logo }}" alt="">
+                @else
+                    <img src="{{ asset('vendors/images/deskapp-logo-white.svg') }}" alt="" class="light-logo" />
+                @endif
+            @else
+                <img src="{{ asset('vendors/images/deskapp-logo-white.svg') }}" alt="" class="light-logo" />
+
+            @endif
         </a>
         <div class="close-sidebar" data-toggle="left-sidebar-close">
             <i class="ion-close-round"></i>
@@ -56,9 +67,9 @@
                         <span class="micon bi bi-command"></span><span class="mtext">Report</span>
                     </a>
                     <ul class="submenu">
-                        <li><a href="{{route('purchaseReport')}}">Purchase Report</a></li>
-                        <li><a href="{{route('inventoryReport')}}">Inventory Report</a></li>
-                        <li><a href="{{route('salesReport')}}">Sales Report</a></li>
+                        <li><a href="{{ route('purchaseReport') }}">Purchase Report</a></li>
+                        <li><a href="{{ route('inventoryReport') }}">Inventory Report</a></li>
+                        <li><a href="{{ route('salesReport') }}">Sales Report</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
@@ -75,8 +86,8 @@
                         <span class="micon bi bi-file-earmark-text"></span><span class="mtext">Role</span>
                     </a>
                     <ul class="submenu">
-                        <li><a href="{{route('role.index')}}">Role List</a></li>
-                        <li><a href="{{route('role.create')}}">New Role</a></li>
+                        <li><a href="{{ route('role.index') }}">Role List</a></li>
+                        <li><a href="{{ route('role.create') }}">New Role</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
@@ -84,8 +95,8 @@
                         <span class="micon bi bi-bug"></span><span class="mtext">Project</span>
                     </a>
                     <ul class="submenu">
-                        <li><a href="{{route('project.index')}}">New Project</a></li>
-                        <li><a href="403.html">Assign Project</a></li>
+                        <li><a href="{{ route('project.index') }}">New Project</a></li>
+                        <li><a href="{{ route('assign-project.index') }}">Assign Project</a></li>
                     </ul>
                 </li>
 
@@ -94,8 +105,8 @@
                         <span class="micon bi bi-back"></span><span class="mtext">Employee</span>
                     </a>
                     <ul class="submenu">
-                        <li><a href="{{route('employee.index')}}">Employee List</a></li>
-                        <li><a href="{{route('employee.create')}}">New Employee</a></li>
+                        <li><a href="{{ route('employee.index') }}">Employee List</a></li>
+                        <li><a href="{{ route('employee.create') }}">New Employee</a></li>
                         <li><a href="blog.html">Time Schedule</a></li>
                     </ul>
                 </li>

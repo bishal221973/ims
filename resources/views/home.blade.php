@@ -136,7 +136,7 @@
             </div>
             <div class="row pb-10">
                 <div class="col-xl-3 col-lg-3 col-md-6 mb-20">
-                    <a href="#" class="card-box height-100-p widget-style3">
+                    <a href="{{route('employee.index')}}" class="card-box height-100-p widget-style3">
                         <div class="d-flex bg-white flex-wrap">
                             <div class="widget-data">
                                 <div class="weight-700 font-24 text-dark">75</div>
@@ -151,7 +151,7 @@
                     </a>
                 </div>
                 <div class="col-xl-3 col-lg-3 col-md-6 mb-20">
-                    <a href="#" class="bg-white card-box height-100-p widget-style3">
+                    <a href="{{route('supplier.index')}}" class="bg-white card-box height-100-p widget-style3">
                         <div class="d-flex bg-white rounded flex-wrap">
                             <div class="widget-data">
                                 <div class="weight-700 font-24 text-dark">
@@ -168,7 +168,7 @@
                     </a>
                 </div>
                 <div class="col-xl-3 col-lg-3 col-md-6 mb-20">
-                    <a href="#" class="card-box height-100-p widget-style3">
+                    <a href="{{route('customer.index')}}" class="card-box height-100-p widget-style3">
                         <div class="bg-white d-flex flex-wrap">
                             <div class="widget-data">
                                 <div class="weight-700 font-24 text-dark">{{App\Models\Customer::where('organization_id',$org_id)->get()->count()}}</div>
@@ -183,7 +183,7 @@
                     </a>
                 </div>
                 <div class="col-xl-3 col-lg-3 col-md-6 mb-20">
-                    <a href="#" class="card-box height-100-p widget-style3">
+                    <a href="{{route('product.index')}}" class="card-box height-100-p widget-style3">
                         <div class="bg-white d-flex flex-wrap">
                             <div class="widget-data">
                                 <div class="weight-700 font-24 text-dark">{{App\Models\Product::where('organization_id',$org_id)->get()->count()}}</div>

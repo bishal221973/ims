@@ -101,7 +101,7 @@ class PurchaseController extends Controller
         $taxableAmount = $subTotal - $request->discount;
 
         $totalTaxAmount = $taxableAmount * ($totalTaxRate / 100);
-        $grandTotal = $taxableAmount - $totalTaxAmount;
+        $grandTotal = $taxableAmount + $totalTaxAmount;
 
         PurchaseAmount::create([
             'organization_id' => $orgId,
