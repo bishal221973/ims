@@ -8,10 +8,10 @@
                 @if ($org->logo)
                     <img src="{{ asset('storage') }}{{ '/' }}{{ $org->logo }}" alt="">
                 @else
-                    <img src="{{ asset('vendors/images/deskapp-logo-white.svg') }}" alt="" class="light-logo" />
+                    <img src="{{ asset('logo.png') }}" alt="" class="light-logo" />
                 @endif
             @else
-                <img src="{{ asset('vendors/images/deskapp-logo-white.svg') }}" alt="" class="light-logo" />
+                <img src="{{ asset('logo.png') }}" alt="" class="light-logo" />
 
             @endif
         </a>

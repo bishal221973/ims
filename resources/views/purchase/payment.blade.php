@@ -10,10 +10,10 @@
                             <nav aria-label="breadcrumb" role="navigation">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item">
-                                        <a href="index.html">Home</a>
+                                        <a href="{{route('home')}}">Home</a>
                                     </li>
                                     <li class="breadcrumb-item">
-                                        <a href="index.html">Purchase</a>
+                                        <a href="{{route('purchase.index')}}">Purchase</a>
                                     </li>
                                     <li class="breadcrumb-item active" aria-current="page">
                                         Payment
