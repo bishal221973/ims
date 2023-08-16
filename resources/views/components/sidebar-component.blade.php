@@ -152,7 +152,7 @@
                     </a>
                     <ul class="submenu">
                         <li><a href="{{ route('tax.index') }}">Attendance List</a></li>
-                        <li><a href="{{ route('fiscalyear.index') }}">Attendance</a></li>
+                        <li><a href="{{ route('attendance.index') }}">Attendance</a></li>
                         @hasanyrole('super-admin|admin')
                             <li><a href="{{ route('leave.list') }}">Leave List</a></li>
                         @endhasanyrole

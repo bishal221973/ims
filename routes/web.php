@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AssignProjectController;
+use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
@@ -217,5 +218,7 @@ Route::delete('leave/{leave}/delete',[LeaveController::class,'delete'])->name('l
 Route::get('leave-list',[LeaveController::class,'list'])->name('leave.list');
 Route::get('leave-status/{id}/accept',[LeaveController::class,'statusAccept'])->name('leave.status.accept');
 Route::get('leave-status/{id}/reject',[LeaveController::class,'statusReject'])->name('leave.status.reject');
+
+Route::get('attendance',[AttendanceController::class,'index'])->name('attendance.index');
 // Route::get('sales-return/{id}/edit',[SalesReturnController::class,'edit'])->name('salesreturn.edit');
 // Route::put('sales-return/{sales-return}/update',[SalesReturnController::class,'update'])->name('salesreturn.update');
