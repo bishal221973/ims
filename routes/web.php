@@ -10,6 +10,8 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\FiscalYearController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LeaveController;
+use App\Http\Controllers\LeaveTypeController;
 use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProjectController;
@@ -20,6 +22,7 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SalesController;
 use App\Http\Controllers\SalesReturnController;
+use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\TaxController;
 use App\Http\Controllers\UnitController;
@@ -191,5 +194,28 @@ Route::get('assign-project/{id}/edit', [AssignProjectController::class, 'edit'])
 Route::put('assign-project/{id}/update', [AssignProjectController::class, 'update'])->name('assign-project.update');
 Route::delete('assign-project/{id}/delete', [AssignProjectController::class, 'delete'])->name('assign-project.delete');
 
+Route::get('time-schedule',[ScheduleController::class,'index'])->name('schedule.index');
+Route::get('time-schedule/{id}',[ScheduleController::class,'getEmployee'])->name('getEmployee');
+Route::post('time-schedule',[ScheduleController::class,'store'])->name('schedule.store');
+Route::get('time-schedule/{id}/edit',[ScheduleController::class,'edit'])->name('schedule.edit');
+Route::put('time-schedule/{id}/update',[ScheduleController::class,'update'])->name('schedule.update');
+Route::delete('time-schedule/{id}/delete',[ScheduleController::class,'delete'])->name('schedule.delete');
+
+
+Route::get('leave-type',[LeaveTypeController::class,'index'])->name('leaveType.index');
+Route::post('leave-type',[LeaveTypeController::class,'store'])->name('leaveType.store');
+Route::get('leave-type/{id}/edit',[LeaveTypeController::class,'edit'])->name('leaveType.edit');
+Route::put('leave-type/{id}/update',[LeaveTypeController::class,'update'])->name('leaveType.update');
+Route::delete('leave-type/{id}/delete',[LeaveTypeController::class,'delete'])->name('leaveType.delete');
+
+
+Route::get('leave',[LeaveController::class,'index'])->name('leave.index');
+Route::post('leave',[LeaveController::class,'store'])->name('leave.store');
+Route::get('leave/{leave}/edit',[LeaveController::class,'edit'])->name('leave.edit');
+Route::put('leave/{leave}/update',[LeaveController::class,'update'])->name('leave.update');
+Route::delete('leave/{leave}/delete',[LeaveController::class,'delete'])->name('leave.delete');
+Route::get('leave-list',[LeaveController::class,'list'])->name('leave.list');
+Route::get('leave-status/{id}/accept',[LeaveController::class,'statusAccept'])->name('leave.status.accept');
+Route::get('leave-status/{id}/reject',[LeaveController::class,'statusReject'])->name('leave.status.reject');
 // Route::get('sales-return/{id}/edit',[SalesReturnController::class,'edit'])->name('salesreturn.edit');
 // Route::put('sales-return/{sales-return}/update',[SalesReturnController::class,'update'])->name('salesreturn.update');

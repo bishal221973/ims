@@ -30,6 +30,8 @@ function orgId()
             return Auth()->user()->organization->id;
         }else if(Auth()->user()->roles[0]->name=="branch-admin"){
             return Auth()->user()->branch->organization->id;
+        }else{
+            return Auth()->user()->employee->organization_id;
         }
     }
 

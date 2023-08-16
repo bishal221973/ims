@@ -373,6 +373,37 @@
             }
         });
     </script>
+    <script>
+        $('#schedule_branch_id').on('change', function() {
+            var id = $(this).val();
+            var url = "{{ route('getEmployee', ':id') }}";
+            // alert(id);
+            url = url.replace(':id', id);
+            $("#scheduleEmployeeId").empty();
+            $.ajax({
+                url: url,
+                type: "GET",
+                data: {
+                    _token: '{{ csrf_token() }}'
+                },
+                cache: false,
+                dataType: 'json',
+                success: function(dataResult) {
+                    console.log(dataResult.data);
+                    var resultData = dataResult.data;
+                    var bodyData = '';
+                    var i = 0;
+                    for (var i = 0; i < dataResult.data.length; i++) {
+                        $('#scheduleEmployeeId').append($('<option>', {
+                            value: dataResult.data[i].id,
+                            text: dataResult.data[i].user.name
+                        }));
+                        // appendImageCategorySelect(resultData[i].id, resultData[i].category);
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

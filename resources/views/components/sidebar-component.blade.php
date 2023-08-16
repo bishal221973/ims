@@ -106,8 +106,9 @@
                     </a>
                     <ul class="submenu">
                         <li><a href="{{ route('employee.index') }}">Employee List</a></li>
+
                         <li><a href="{{ route('employee.create') }}">New Employee</a></li>
-                        <li><a href="blog.html">Time Schedule</a></li>
+                        <li><a href="{{ route('schedule.index') }}">Time Schedule</a></li>
                     </ul>
                 </li>
                 @role('super-admin')
@@ -142,8 +143,23 @@
                         <li><a href="{{ route('tax.index') }}">Tax</a></li>
                         <li><a href="{{ route('fiscalyear.index') }}">Fiscal Year</a></li>
                         <li><a href="{{ route('unit.index') }}">Unit</a></li>
+                        <li><a href="{{ route('leaveType.index') }}">Leave Type</a></li>
                     </ul>
                 </li>
+                <li>
+                    <a href="javascript:;" class="dropdown-toggle">
+                        <span class="micon bi bi-file-pdf"></span><span class="mtext">Attendance</span>
+                    </a>
+                    <ul class="submenu">
+                        <li><a href="{{ route('tax.index') }}">Attendance List</a></li>
+                        <li><a href="{{ route('fiscalyear.index') }}">Attendance</a></li>
+                        @hasanyrole('super-admin|admin')
+                            <li><a href="{{ route('leave.list') }}">Leave List</a></li>
+                        @endhasanyrole
+                        <li><a href="{{ route('leave.index') }}">Leave</a></li>
+                    </ul>
+                </li>
+
 
             </ul>
         </div>
