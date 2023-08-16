@@ -22,7 +22,7 @@ class ReportController extends Controller
     }
 
     public function inventoryReport(){
-        $products=Product::where('organization_id',orgId())->with('unit','brand','category')->orderBy('stock','descx`')->get();
+        $products=Product::where('organization_id',orgId())->with('unit','brand','category')->orderBy('stock','desc')->get();
         return view('report.inventory',compact('products'));
     }
 }

@@ -172,6 +172,7 @@
         @yield('content')
     @else
         <x-header-component />
+        <div style="height: 42px"></div>
 
         <x-sidebar-component />
         <div class="mobile-menu-overlay"></div>

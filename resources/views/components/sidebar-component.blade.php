@@ -123,6 +123,17 @@
                         </ul>
                     </li>
                 @endrole
+                @role('admin')
+                    <li class="dropdown">
+                        <a href="javascript:;" class="dropdown-toggle">
+                            <span class="micon bi bi-hdd-stack"></span><span class="mtext">Branch</span>
+                        </a>
+                        <ul class="submenu">
+                            <li><a href="{{ route('branch.create') }}">New Branch</a></li>
+                            <li><a href="{{ route('branch.index') }}">List Branch</a></li>
+                        </ul>
+                    </li>
+                @endrole
                 <li>
                     <a href="javascript:;" class="dropdown-toggle">
                         <span class="micon bi bi-file-pdf"></span><span class="mtext">Configurations</span>

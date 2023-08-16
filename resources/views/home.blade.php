@@ -62,7 +62,8 @@
                             </div>
                             <div class="widget-icon">
                                 <div class="icon" data-color="#00eccf">
-                                    <i class="icon-copy dw dw-calendar1"></i>
+                                    <i class="fa-solid fa-money-check-dollar"></i>
+                                    {{-- <i class="icon-copy dw dw-calendar1"></i> --}}
                                 </div>
                             </div>
                         </div>
@@ -92,7 +93,8 @@
                             </div>
                             <div class="widget-icon">
                                 <div class="icon" data-color="#ff5b5b">
-                                    <span class="icon-copy ti-heart"></span>
+                                    <i class="fa-solid fa-circle-dollar-to-slot"></i>
+                                    {{-- <span class="icon-copy ti-heart"></span> --}}
                                 </div>
                             </div>
                         </div>
@@ -111,7 +113,8 @@
                             </div>
                             <div class="widget-icon">
                                 <div class="icon">
-                                    <i class="icon-copy fa fa-stethoscope" aria-hidden="true"></i>
+                                    <i class="fa-solid fa-cubes-stacked"></i>
+                                    {{-- <i class="icon-copy fa fa-stethoscope" aria-hidden="true"></i> --}}
                                 </div>
                             </div>
                         </div>
@@ -162,7 +165,8 @@
                                 </div>
                             </div>
                             <div class="d-flex align-items-center">
-                                <i class="fa-solid fa-user-tie fa-2x"></i>
+                                <i class="fa-solid fa-shop fa-2x"></i>
+                                {{-- <i class="fa-solid fa-user-tie fa-2x"></i> --}}
                             </div>
                         </div>
                     </a>
@@ -190,7 +194,8 @@
                                 <div class="font-14 text-secondary weight-500">Total Product</div>
                             </div>
                             <div class="d-flex align-items-center">
-                                <i class="fa-solid fa-user-tie fa-2x"></i>
+                                <i class="fa-solid fa-laptop fa-2x"></i>
+                                {{-- <i class="fa-solid fa-user-tie fa-2x"></i> --}}
                             </div>
                         </div>
                     </a>

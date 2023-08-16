@@ -9,10 +9,11 @@
 @endphp
 <div class="header">
     <div class="header-left">
+
         <div class="menu-icon bi bi-list"></div>
         <div class="search-toggle-icon bi bi-search" data-toggle="header_search"></div>
         <div class="header-search">
-            <form>
+            {{-- <form>
                 <div class="form-group mb-0">
                     <i class="dw dw-search2 search-icon"></i>
                     <input type="text" class="form-control search-input" placeholder="Search Here" />
@@ -23,19 +24,19 @@
                         <div class="dropdown-menu dropdown-menu-right">
                             <div class="form-group row">
                                 <label class="col-sm-12 col-md-2 col-form-label">From</label>
-                                <div class="col-sm-12 col-md-10">
+                                <div class="col-sm-12 col-xl-10">
                                     <input class="form-control form-control-sm form-control-line" type="text" />
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-12 col-md-2 col-form-label">To</label>
-                                <div class="col-sm-12 col-md-10">
+                                <div class="col-sm-12 col-xl-10">
                                     <input class="form-control form-control-sm form-control-line" type="text" />
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-12 col-md-2 col-form-label">Subject</label>
-                                <div class="col-sm-12 col-md-10">
+                                <div class="col-sm-12 col-xl-10">
                                     <input class="form-control form-control-sm form-control-line" type="text" />
                                 </div>
                             </div>
@@ -45,7 +46,7 @@
                         </div>
                     </div>
                 </div>
-            </form>
+            </form> --}}
         </div>
     </div>
     <div class="header-right    ">
@@ -87,7 +88,7 @@
             <div class="dropdown">
                 <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
                     <span class="user-icon">
-                        <img src="{{ asset('vendors/images/photo1.jpg') }}" alt="" />
+                        {{-- <img src="{{ asset('vendors/images/photo1.jpg') }}" alt="" /> --}}
                     </span>
                     <span class="font-weight-bold user-name">{{ Auth::user()->name }}</span>
                 </a>
@@ -107,5 +108,83 @@
             </div>
         </div>
 
+    </div>
+    <div class="card col-12 p-0">
+        {{-- <div class="card-body"> --}}
+            <div class="row p-0">
+                <div class="col p-0 text-center">
+                    <a href="{{route('sales.create')}}" class="card h-100 border-0">
+                        <div class="card-body responsive-text1 responsive-text1">
+                            Sales
+                        </div>
+                    </a>
+                </div>
+                <div class="col p-0 text-center">
+                    <a href="{{route('purchase.create')}}" class="card h-100 border-0">
+                        <div class="card-body responsive-text1">
+                            Purchase
+                        </div>
+                    </a>
+                </div>
+                <div class="col p-0 text-center">
+                    <a href="{{route('employee.create')}}" class="card h-100 border-0">
+                        <div class="card-body responsive-text1">
+                            Employee
+                        </div>
+                    </a>
+                </div>
+                <div class="col p-0 text-center">
+                    <a href="{{route('project.index')}}" class="card h-100 border-0">
+                        <div class="card-body responsive-text1">
+                            Project
+                        </div>
+                    </a>
+                </div>
+                <div class="col p-0 text-center">
+                    <a href="{{route('inventoryReport')}}" class="card h-100 border-0">
+                        <div class="card-body responsive-text1">
+                            Inventory
+                        </div>
+                    </a>
+                </div>
+                <div class="col p-0 text-center">
+                    <a href="{{route('supplier.index')}}" class="card h-100 border-0">
+                        <div class="card-body responsive-text1">
+                            Supplier
+                        </div>
+                    </a>
+                </div>
+                <div class="col p-0 text-center">
+                    <a href="{{route('customer.index')}}" class="card h-100 border-0">
+                        <div class="card-body responsive-text1">
+                            Customer
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col p-0 text-center">
+                    <a href="{{route('product.index')}}" class="card h-100 border-0">
+                        <div class="card-body responsive-text1">
+                            Product
+                        </div>
+                    </a>
+                </div>
+                <div class="col p-0 text-center">
+                    <a href="{{route('brand.index')}}" class="card h-100 border-0">
+                        <div class="card-body responsive-text1">
+                            Brand
+                        </div>
+                    </a>
+                </div>
+                <div class="col p-0 text-center">
+                    <a href="{{route('category.index')}}" class="card h-100 border-0">
+                        <div class="card-body responsive-text1">
+                            Category
+                        </div>
+                    </a>
+                </div>
+
+            </div>
+        {{-- </div> --}}
     </div>
 </div>
