@@ -83,7 +83,7 @@
                                     @method('PUT')
                                 @endisset
                                 <div class="row">
-                                    <div class="col-xl-3">
+                                    <div class="col-xl-4">
                                         <div class="form-group">
                                             <label>Date From:</label>
 
@@ -96,7 +96,7 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="col-xl-3">
+                                    <div class="col-xl-4">
                                         <div class="form-group">
                                             <label>Date To:</label>
 
@@ -122,25 +122,8 @@
                                             @enderror
                                         </div>
                                     </div> --}}
-                                    <div class="col-xl-3">
-                                        <div class="form-group">
-                                            <label>Leave Type :</label>
 
-                                            <select class="custom-select2 form-control" name="leaveType" id="">
-                                                <option value="">Please select leave type</option>
-
-                                                @foreach ($leaveTypes as $leaveType)
-                                                <option value="{{$leaveType->type}}">{{$leaveType->type}}</option>
-                                                @endforeach
-                                            </select>
-                                            @error('out_time')
-                                                <div class="text-danger">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-3">
+                                    <div class="col-xl-4">
                                         <div class="form-group">
                                             <label>Reason :</label>
 
@@ -174,7 +157,6 @@
                                             <th>From</th>
                                             <th>To</th>
                                             <th>Day</th>
-                                            <th>Leave Type</th>
                                             <th>Reason</th>
                                             <th>Status</th>
                                             <th>Action</th>
@@ -187,7 +169,6 @@
                                                 <td>{{$leave->from}}</td>
                                                 <td>{{$leave->to}}</td>
                                                 <td>{{$leave->day}}</td>
-                                                <td>{{$leave->leaveType}}</td>
                                                 <td>{{$leave->reason}}</td>
                                                 <td>{{$leave->status}}</td>
                                                 <td>

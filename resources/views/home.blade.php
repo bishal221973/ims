@@ -142,7 +142,7 @@
                     <a href="{{route('employee.index')}}" class="card-box height-100-p widget-style3">
                         <div class="d-flex bg-white flex-wrap">
                             <div class="widget-data">
-                                <div class="weight-700 font-24 text-dark">75</div>
+                                <div class="weight-700 font-24 text-dark">{{App\Models\Employee::where('organization_id',$org_id)->get()->count()}}</div>
                                 <div class="font-14 text-secondary weight-500">
                                     Employee
                                 </div>

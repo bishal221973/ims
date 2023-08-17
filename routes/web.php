@@ -42,7 +42,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login');
 });
 
 Auth::routes();
@@ -216,8 +216,8 @@ Route::get('leave/{leave}/edit',[LeaveController::class,'edit'])->name('leave.ed
 Route::put('leave/{leave}/update',[LeaveController::class,'update'])->name('leave.update');
 Route::delete('leave/{leave}/delete',[LeaveController::class,'delete'])->name('leave.delete');
 Route::get('leave-list',[LeaveController::class,'list'])->name('leave.list');
-Route::get('leave-status/{id}/accept',[LeaveController::class,'statusAccept'])->name('leave.status.accept');
-Route::get('leave-status/{id}/reject',[LeaveController::class,'statusReject'])->name('leave.status.reject');
+Route::post('leave-status/{id}/accept',[LeaveController::class,'statusAccept'])->name('leave.status.accept');
+Route::post('leave-status/{id}/reject',[LeaveController::class,'statusReject'])->name('leave.status.reject');
 
 Route::get('attendance',[AttendanceController::class,'index'])->name('attendance.index');
 // Route::post('take-attendance',[AttendanceController::class,'in'])->name('attendance.in');
@@ -225,3 +225,24 @@ Route::post('take-attendance',[AttendanceController::class,'store'])->name('atte
 Route::get('take-attendance/{id}',[AttendanceController::class,'update'])->name('attendance.update');
 // Route::get('sales-return/{id}/edit',[SalesReturnController::class,'edit'])->name('salesreturn.edit');
 // Route::put('sales-return/{sales-return}/update',[SalesReturnController::class,'update'])->name('salesreturn.update');
+
+
+
+Route::get('/foo', function () {
+    Artisan::call('storage:link');
+});
+
+
+
+Route::get('/migrate',function(){
+    $exitCode=Artisan::call('migrate');
+});
+
+Route::get('/migrate-refresh',function(){
+    $exitCode=Artisan::call('migrate:refresh');
+});
+
+Route::get('/seed',function(){
+    $exitCode=Artisan::call('db:seed');
+    return $exitCode;
+});

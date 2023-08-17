@@ -335,17 +335,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label>Opening Stock :</label>
-                                        <input type="number" name="opening_stock" class="form-control" readonly />
-                                        @error('opening_stock')
-                                            <div class="text-danger">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-                                    </div>
-                                </div>
+
                             </div>
                         </section>
                         <!-- Step 3 -->

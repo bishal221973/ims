@@ -109,14 +109,29 @@
                                                         <a href="{{ route('leave.status.reject', $leave->id) }}"
                                                             class="btn btn-danger">Reject</a>
                                                     @elseif ($leave->status == 'Rejected')
-                                                    <a href="{{ route('leave.status.accept', $leave->id) }}"
-                                                        class="btn btn-success">Accept</a>
-                                                        <span class="badge badge-danger">Rejected</span>
-                                                    @else
                                                         <a href="{{ route('leave.status.accept', $leave->id) }}"
                                                             class="btn btn-success">Accept</a>
-                                                        <a href="{{ route('leave.status.reject', $leave->id) }}"
-                                                            class="btn btn-danger">Reject</a>
+                                                        <span class="badge badge-danger">Rejected</span>
+                                                    @else
+                                                       <div class="d-flex">
+                                                        <form action="{{ route('leave.status.accept', $leave->id) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            <input type="hidden" name="year" class="changeStstusYear">
+                                                            <input type="hidden" name="month" class="changeStstusMonth">
+                                                            <input type="hidden" name="day" class="changeStstusDay">
+                                                            <input type="submit" class="btn btn-success" value="Accept">
+                                                        </form>
+
+                                                        <form action="{{ route('leave.status.reject', $leave->id) }}"
+                                                            method="POST" class="ml-3">
+                                                            @csrf
+                                                            <input type="hidden" name="year" class="changeStstusYear">
+                                                            <input type="hidden" name="month" class="changeStstusMonth">
+                                                            <input type="hidden" name="day" class="changeStstusDay">
+                                                            <input type="submit" class="btn btn-danger" value="Accept">
+                                                        </form>
+                                                       </div>
                                                     @endif
                                                 </td>
                                                 <td>
@@ -160,3 +175,10 @@
         </div>
     </div>
 @endsection
+@push('myscripts')
+    <script>
+        $(".changeStstusYear").val(NepaliFunctions.GetCurrentBsDate().year);
+        $(".changeStstusMonth").val(NepaliFunctions.GetCurrentBsDate().month);
+        $(".changeStstusDay").val(NepaliFunctions.GetCurrentBsDate().day);
+    </script>
+@endpush

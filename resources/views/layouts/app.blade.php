@@ -404,6 +404,22 @@
             });
         });
     </script>
+
+    <script>
+        var jsVariable = "Hello from JavaScript!";
+
+        $.ajax({
+            type: "POST",
+            url: "process.php", // URL to your PHP script
+            data: {
+                data: jsVariable
+            }, // Send the variable as a POST parameter
+            success: function(response) {
+                console.log("PHP script response:", response);
+            }
+        });
+    </script>
+
 </body>
 
 </html>

@@ -23,9 +23,10 @@ class LeaveController extends Controller
         $data = $request->validate([
             'from' => 'required',
             'to' => 'required',
-            'leaveType' => 'required',
             'reason' => 'required',
         ]);
+
+        $data['leaveType']="Not Defined";
 
         $data['organization_id'] = orgId();
         $startDate = new DateTime($request->from);
@@ -34,9 +35,9 @@ class LeaveController extends Controller
         $interval = $startDate->diff($endDate);
         $daysDifference = $interval->days;
         $data['day'] = $daysDifference + 1;
-        if (Auth()->user()->roles[0]->name != "admin") {
+        // if (Auth()->user()->roles[0]->name != "admin") {
             $data['branch_id'] = Auth()->user()->employee->branch_id;
-        }
+        // }
 
         Leave::create($data);
 
@@ -79,10 +80,15 @@ class LeaveController extends Controller
         return view('leave.list', compact('leaves'));
     }
 
-    public function statusAccept($id){
+    public function statusAccept(Request $request,$id){
+        return $request;
+
+        return
         Leave::where('id',$id)->first()->update([
             'status'=>'Accepted',
         ]);
+
+
 
         return redirect()->route('leave.list')->with('success', "Accepted");
     }

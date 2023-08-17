@@ -93,7 +93,6 @@
                                     <th>Vat Number</th>
                                     <th>DOB</th>
                                     <th>Branch</th>
-                                    <th>Opening Stock</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -115,7 +114,6 @@
                                         <td>{{ $organization->vat_number ? $organization->vat_number : '' }}</td>
                                         <td>{{ $organization->user->dob ? $organization->user->dob : '' }}</td>
                                         <td>{{ $organization->branch->count() }} Branch</td>
-                                        <td>Not Defined</td>
                                         <td>
                                             <div class="dropdown">
                                                 <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle text-decoration-none"
