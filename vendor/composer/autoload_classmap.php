@@ -3014,6 +3014,8 @@ return array(
     'Nette\\Utils\\Type' => $vendorDir . '/nette/utils/src/Utils/Type.php',
     'Nette\\Utils\\UnknownImageFileException' => $vendorDir . '/nette/utils/src/Utils/exceptions.php',
     'Nette\\Utils\\Validators' => $vendorDir . '/nette/utils/src/Utils/Validators.php',
+    'Nilambar\\NepaliDate\\NepaliCalendar' => $vendorDir . '/ernilambar/nepali-date/src/NepaliCalendar.php',
+    'Nilambar\\NepaliDate\\NepaliDate' => $vendorDir . '/ernilambar/nepali-date/src/NepaliDate.php',
     'Normalizer' => $vendorDir . '/symfony/polyfill-intl-normalizer/Resources/stubs/Normalizer.php',
     'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider' => $vendorDir . '/nunomaduro/collision/src/Adapters/Laravel/CollisionServiceProvider.php',
     'NunoMaduro\\Collision\\Adapters\\Laravel\\Commands\\TestCommand' => $vendorDir . '/nunomaduro/collision/src/Adapters/Laravel/Commands/TestCommand.php',

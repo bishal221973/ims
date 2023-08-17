@@ -16,9 +16,9 @@ class AttendanceController extends Controller
 {
     public function index()
     {
-        if (Auth()->user()->roles[0]->name=="super-admin") {
-            return redirect()->back()->with('error',"You are not authorised.");
-        } else{
+        if (Auth()->user()->roles[0]->name == "super-admin") {
+            return redirect()->back()->with('error', "You are not authorised.");
+        } else {
             $attendance = Attendance::where('employee_id', Auth()->user()->employee->id)->first();
             $attendances = Attendance::where('employee_id', Auth()->user()->employee->id)->latest()->get();
         }
@@ -52,14 +52,14 @@ class AttendanceController extends Controller
 
     public function update($id)
     {
-        $atendance=Attendance::where('id', $id)->first();
+        $atendance = Attendance::where('id', $id)->first();
 
         $timezone = new DateTimeZone('Asia/Kathmandu'); // Set the Nepali time zone
         $current_time = new DateTime('now', $timezone); // Get the current time in the specified time zone
 
         $time = $current_time->format('H:i:s'); // Display the current time
 
-        $data['outTime']=$time;
+        $data['outTime'] = $time;
 
         $startTime = new DateTime($atendance->inTime);
         $endTime = new DateTime($time);
@@ -70,20 +70,28 @@ class AttendanceController extends Controller
         $seconds = $interval->s; // Seconds
 
         $totalHours = $hours + ($minutes / 60) + ($seconds / 3600);
-        $totalHours=number_format($totalHours,2);
+        $totalHours = number_format($totalHours, 2);
 
-        $data['workHour']=$totalHours;
+        $data['workHour'] = $totalHours;
 
-        $employee= Employee::where('id',Auth()->user()->employee->id)->first();
+        $employee = Employee::where('id', Auth()->user()->employee->id)->first();
 
-        $data['salary']=$totalHours*$employee->per_hour_salary;
+        $data['salary'] = $totalHours * $employee->per_hour_salary;
 
         $atendance->update($data);
 
-        return redirect()->back()->with('success',"Out");
-
-
+        return redirect()->back()->with('success', "Out");
     }
 
+    public function saturday()
+    {
+        $carbonInstance = Carbon::now();
 
+        $year = $carbonInstance->year;    // Get the year as an integer
+        $month = $carbonInstance->month;  // Get the month as an integer
+        $day = $carbonInstance->day;
+        $data= ad_to_bs($year, $month, $day);
+
+        return $data;
+    }
 }

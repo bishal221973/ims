@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Brand;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class BrandController extends Controller
 {
     public function index(Brand $brand)
     {
-        return ad_to_bs(today());
+
         $orgId = orgId();
         $brands = Brand::where('organization_id', $orgId)->latest()->get();
         return view('product.brand', compact('brands', 'brand'));
