@@ -39,6 +39,7 @@ class ComposerStaticInit011a54ded5c5ae8485ecefb1e459a267
         '320163ac6b93aebe3dc25b60a0533d56' => __DIR__ . '/..' . '/spatie/laravel-ignition/src/helpers.php',
         '377b22b161c09ed6e5152de788ca020a' => __DIR__ . '/..' . '/spatie/laravel-permission/src/helpers.php',
         'a7eb9a36daaa56e84f67b718d50424b9' => __DIR__ . '/../..' . '/app/helpers/orgId.php',
+        'a7f6adcccfc0f5c5180eab992eb3f4aa' => __DIR__ . '/../..' . '/app/helpers/Helpers.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -540,6 +541,7 @@ class ComposerStaticInit011a54ded5c5ae8485ecefb1e459a267
     );
 
     public static $classMap = array (
+        'App\\Console\\Commands\\SaturdayCron' => __DIR__ . '/../..' . '/app/Console/Commands/SaturdayCron.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\AssignProjectController' => __DIR__ . '/../..' . '/app/Http/Controllers/AssignProjectController.php',

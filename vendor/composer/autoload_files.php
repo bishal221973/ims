@@ -38,4 +38,5 @@ return array(
     '320163ac6b93aebe3dc25b60a0533d56' => $vendorDir . '/spatie/laravel-ignition/src/helpers.php',
     '377b22b161c09ed6e5152de788ca020a' => $vendorDir . '/spatie/laravel-permission/src/helpers.php',
     'a7eb9a36daaa56e84f67b718d50424b9' => $baseDir . '/app/helpers/orgId.php',
+    'a7f6adcccfc0f5c5180eab992eb3f4aa' => $baseDir . '/app/helpers/Helpers.php',
 );

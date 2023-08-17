@@ -9,6 +9,7 @@ class BrandController extends Controller
 {
     public function index(Brand $brand)
     {
+        return ad_to_bs(today());
         $orgId = orgId();
         $brands = Brand::where('organization_id', $orgId)->latest()->get();
         return view('product.brand', compact('brands', 'brand'));
@@ -58,10 +59,10 @@ class BrandController extends Controller
     {
         $data = Brand::where('id', $id)->where('organization_id', orgId())->first();
 
-        if(!$data){
+        if (!$data) {
             return redirect()->back()->with('error', "No data found");
         }
         $data->delete();
-        return redirect()->back()->with('success',"Brand removed");
+        return redirect()->back()->with('success', "Brand removed");
     }
 }
