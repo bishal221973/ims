@@ -18,4 +18,8 @@ class Employee extends Model
     public function branch(){
         return $this->belongsTo(Branch::class);
     }
+
+    public function schedule(){
+        return $this->hasOne(Schedule::class);
+    }
 }

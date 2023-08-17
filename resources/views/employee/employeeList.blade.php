@@ -88,6 +88,7 @@
                             <thead>
                                 <tr>
                                     <th>SN</th>
+                                    <th>Branch</th>
                                     <th>Employee name</th>
                                     <th>Email</th>
                                     <th>Role</th>
@@ -102,6 +103,7 @@
                                 @foreach ($employees as $employee)
                                     <tr>
                                         <td>{{$loop->iteration}}</td>
+                                        <td>{{$employee->branch->branch_name}}</td>
                                         <td>{{$employee->user->name}}</td>
                                         <td>{{$employee->user->email}}</td>
                                         <td>

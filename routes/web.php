@@ -220,5 +220,8 @@ Route::get('leave-status/{id}/accept',[LeaveController::class,'statusAccept'])->
 Route::get('leave-status/{id}/reject',[LeaveController::class,'statusReject'])->name('leave.status.reject');
 
 Route::get('attendance',[AttendanceController::class,'index'])->name('attendance.index');
+// Route::post('take-attendance',[AttendanceController::class,'in'])->name('attendance.in');
+Route::post('take-attendance',[AttendanceController::class,'store'])->name('attendance.store');
+Route::get('take-attendance/{id}',[AttendanceController::class,'update'])->name('attendance.update');
 // Route::get('sales-return/{id}/edit',[SalesReturnController::class,'edit'])->name('salesreturn.edit');
 // Route::put('sales-return/{sales-return}/update',[SalesReturnController::class,'update'])->name('salesreturn.update');

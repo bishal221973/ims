@@ -220,7 +220,7 @@
             ndpYearCount: 100
         });
     </script>
-
+    @stack('myscripts')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script></script>

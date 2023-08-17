@@ -13,6 +13,18 @@ return new class extends Migration
     {
         Schema::create('attendances', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('organization_id');
+            $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('cascade');
+            $table->unsignedBigInteger('branch_id');
+            $table->foreign('branch_id')->references('id')->on('branches')->onDelete('cascade');
+            $table->unsignedBigInteger('employee_id');
+            $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
+            $table->string('attendance');
+            $table->string('date');
+            $table->string('inTime')->nullable();
+            $table->string('outTime')->nullable();
+            $table->string('workHour')->nullable();
+            $table->string('salary')->nullable();
             $table->timestamps();
         });
     }

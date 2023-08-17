@@ -15,12 +15,12 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
-        $superAdminEmail =  'bishal@gmail.com';
+        $superAdminEmail =  'abs@gmail.com';
 
         // create super admin and assign existing permissions
         $superAdmin = Role::firstOrCreate(['name' => 'super-admin']);
         $superadminUser = \App\Models\User::whereEmail($superAdminEmail)->first() ?? \App\Models\User::factory()->create([
-            'name' => 'Bishal Chaudhary',
+            'name' => 'ABS Infosys',
             'email' => $superAdminEmail,
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password

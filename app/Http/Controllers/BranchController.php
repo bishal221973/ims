@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Branch;
+use App\Models\Employee;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -69,10 +70,15 @@ class BranchController extends Controller
         $user = User::create($userData);
         $branchData['user_id'] = $user->id;
 
-        Branch::create($branchData);
+        $branch=Branch::create($branchData);
 
         $user->assignRole("branch-admin");
 
+        Employee::create([
+            'user_id'=>$user->id,
+            'organization_id'=>$org_id,
+            'branch_id'=>$branch->id,
+        ]);
 
         return redirect()->back()->with('success', "New branch saved.");
     }

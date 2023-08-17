@@ -23,135 +23,74 @@
 
                     <div class="col-xl-12 col-lg-8 col-md-8 col-sm-12 mb-30">
                         <div class="card-box height-100-p p-3" style="height: 60vh;overflow:scroll">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h4 class="text-uppercase">Attendance History</h4>
+                                </div>
+                                <div>
+                                    @php
+                                        $employee = App\Models\Employee::where('id', Auth()->user()->employee->id)->first();
+                                    @endphp
+                                    <b class="text-uppercase">Shift</b> : From
+                                    {{ $employee->schedule ? $employee->schedule->in_time : 'NULL' }} -To
+                                    {{ $employee->schedule ? $employee->schedule->out_time : 'NULL' }}
+                                </div>
+                            </div>
                             <div class="profile-timeline">
-                                <div class="timeline-month">
-                                    <h5>August, 2020</h5>
-                                </div>
                                 <div class="profile-timeline-list">
                                     <ul>
-                                        <li>
-                                            <div class="date">12 Aug</div>
-                                            <div class="task-name">
-                                                <i class="ion-android-alarm-clock"></i> Task
-                                                Added
-                                            </div>
-                                            <p>
-                                                Lorem ipsum dolor sit amet, consectetur
-                                                adipisicing elit.
-                                            </p>
-                                            <div class="task-time">09:30 am</div>
-                                        </li>
-                                        <li>
-                                            <div class="date">10 Aug</div>
-                                            <div class="task-name">
-                                                <i class="ion-ios-chatboxes"></i> Task Added
-                                            </div>
-                                            <p>
-                                                Lorem ipsum dolor sit amet, consectetur
-                                                adipisicing elit.
-                                            </p>
-                                            <div class="task-time">09:30 am</div>
-                                        </li>
-                                        <li>
-                                            <div class="date">10 Aug</div>
-                                            <div class="task-name">
-                                                <i class="ion-ios-clock"></i> Event Added
-                                            </div>
-                                            <p>
-                                                Lorem ipsum dolor sit amet, consectetur
-                                                adipisicing elit.
-                                            </p>
-                                            <div class="task-time">09:30 am</div>
-                                        </li>
-                                        <li>
-                                            <div class="date">10 Aug</div>
-                                            <div class="task-name">
-                                                <i class="ion-ios-clock"></i> Event Added
-                                            </div>
-                                            <p>
-                                                Lorem ipsum dolor sit amet, consectetur
-                                                adipisicing elit.
-                                            </p>
-                                            <div class="task-time">09:30 am</div>
-                                        </li>
+                                        @foreach ($attendances as $attendance)
+                                            <li>
+                                                <div class="date">{{ $attendance->date }}</div>
+                                                <div class="task-name">
+                                                    @if ($attendance->attendance == 'P')
+                                                        Present
+                                                    @endif
+                                                </div>
+                                                <p>
+                                                    In Time
+                                                    <span class="task-time">{{ $attendance->inTime }}</span>
+                                                    <span class="border-right ml-3 border-secondary mr-3"></span>
+
+                                                    @if ($attendance->outTime)
+                                                        Out Time
+                                                        <span class="task-time">{{ $attendance->outTime }}</span>
+                                                        <span class="border-right ml-3 border-secondary mr-3"></span>
+
+                                                        Worked Hour
+                                                        <span class="task-time">{{ $attendance->workHour }} Hour</span>
+                                                    @endif
+                                                </p>
+                                            </li>
+                                        @endforeach
+
                                     </ul>
                                 </div>
-                                <div class="timeline-month">
-                                    <h5>July, 2020</h5>
-                                </div>
-                                <div class="profile-timeline-list">
-                                    <ul>
-                                        <li>
-                                            <div class="date">12 July</div>
-                                            <div class="task-name">
-                                                <i class="ion-android-alarm-clock"></i> Task
-                                                Added
-                                            </div>
-                                            <p>
-                                                Lorem ipsum dolor sit amet, consectetur
-                                                adipisicing elit.
-                                            </p>
-                                            <div class="task-time">09:30 am</div>
-                                        </li>
-                                        <li>
-                                            <div class="date">10 July</div>
-                                            <div class="task-name">
-                                                <i class="ion-ios-chatboxes"></i> Task Added
-                                            </div>
-                                            <p>
-                                                Lorem ipsum dolor sit amet, consectetur
-                                                adipisicing elit.
-                                            </p>
-                                            <div class="task-time">09:30 am</div>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="timeline-month">
-                                    <h5>June, 2020</h5>
-                                </div>
-                                <div class="profile-timeline-list">
-                                    <ul>
-                                        <li>
-                                            <div class="date">12 June</div>
-                                            <div class="task-name">
-                                                <i class="ion-android-alarm-clock"></i> Task
-                                                Added
-                                            </div>
-                                            <p>
-                                                Lorem ipsum dolor sit amet, consectetur
-                                                adipisicing elit.
-                                            </p>
-                                            <div class="task-time">09:30 am</div>
-                                        </li>
-                                        <li>
-                                            <div class="date">10 June</div>
-                                            <div class="task-name">
-                                                <i class="ion-ios-chatboxes"></i> Task Added
-                                            </div>
-                                            <p>
-                                                Lorem ipsum dolor sit amet, consectetur
-                                                adipisicing elit.
-                                            </p>
-                                            <div class="task-time">09:30 am</div>
-                                        </li>
-                                        <li>
-                                            <div class="date">10 June</div>
-                                            <div class="task-name">
-                                                <i class="ion-ios-clock"></i> Event Added
-                                            </div>
-                                            <p>
-                                                Lorem ipsum dolor sit amet, consectetur
-                                                adipisicing elit.
-                                            </p>
-                                            <div class="task-time">09:30 am</div>
-                                        </li>
-                                    </ul>
-                                </div>
+
                             </div>
                         </div>
                     </div>
-                    <div class="card-box height-100-p col-12 p-3">
+                    <div class="col-12">
+                        <div class="card-box height-100-p col-12 p-3">
+                            <div class="d-flex">
+                                {{-- {{$attendance}} --}}
+                                <form action="{{ route('attendance.store') }}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="year" id="year">
+                                    <input type="hidden" name="month" id="month">
+                                    <input type="hidden" name="day" id="day">
+                                    <input type="submit" class="btn btn-success " value="In" />
+                                </form>
+                                @if ($attendance)
+                                    <a href="{{ route('attendance.update', $attendance->id) }}"
+                                        class="btn btn-warning ml-3">Out</a>
+                                @else
+                                    <a href="#"
+                                        class="btn btn-warning ml-3">Out</a>
+                                @endif
+                            </div>
 
+                        </div>
                     </div>
                 </div>
             </div>
@@ -159,3 +98,11 @@
         </div>
     </div>
 @endsection
+
+@push('myscripts')
+    <script>
+        $("#year").val(NepaliFunctions.GetCurrentBsDate().year);
+        $("#month").val(NepaliFunctions.GetCurrentBsDate().month);
+        $("#day").val(NepaliFunctions.GetCurrentBsDate().day);
+    </script>
+@endpush

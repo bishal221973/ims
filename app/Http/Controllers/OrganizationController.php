@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Branch;
+use App\Models\Employee;
 use App\Models\Organization;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -79,11 +80,17 @@ class OrganizationController extends Controller
         $org=Organization::create($orgData);
         $user->assignRole("admin");
 
-        Branch::create([
+        $branch=Branch::create([
             'organization_id'=>$org->id,
             'user_id'=>$user->id,
             'branch_name'=>"Main Branch",
             'address'=>$request->organization_address,
+        ]);
+
+        Employee::create([
+            'user_id'=>$user->id,
+            'organization_id'=>$org->id,
+            'branch_id'=>$branch->id,
         ]);
 
         return redirect()->back()->with('success', "New Organization Registered.");

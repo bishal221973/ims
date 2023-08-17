@@ -20,6 +20,9 @@ class LeaveTypeController extends Controller
             'type' => 'required',
         ]);
         $org_id=orgId();
+        if(!$org_id){
+            return redirect()->back()->with('error',"Please Select an Organization");
+        }
         $type = LeaveType::where('type', $request->type)->where('organization_id', $org_id)->first();
         if ($type) {
             return redirect()->back()->with('success', "Leave type already exist");
