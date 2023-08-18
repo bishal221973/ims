@@ -93,7 +93,7 @@ class OrganizationController extends Controller
             'branch_id'=>$branch->id,
         ]);
 
-        return redirect()->back()->with('success', "New Organization Registered.");
+        return redirect()->back()->with('success', "New Organization Registered successfully.");
     }
 
     public function edit(Organization $organization)

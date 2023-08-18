@@ -213,7 +213,7 @@
                                         value="{{ $edit ? $sales->due : $sales->salesAmount->grand_total }}">
                                 </div>
                                 <div class="rotm-group mt-3">
-                                    <label>Paying Amount</label>
+                                    <label>Paying Amount :*</label>
                                     <input type="text" name="paying" class="form-control" required>
                                 </div>
 

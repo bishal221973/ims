@@ -10,7 +10,7 @@
                             <nav aria-label="breadcrumb" role="navigation">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item">
-                                        <a href="{{route('home')}}">Home</a>
+                                        <a href="{{ route('home') }}">Home</a>
                                     </li>
                                     <li class="breadcrumb-item active" aria-current="page">
                                         Sales
@@ -87,7 +87,7 @@
                                             <option value="" selected disabled>Please select a product</option>
 
                                             @foreach ($products as $product)
-                                                <option value="{{ $product->id }}">
+                                                <option value="{{ $product->id }}" {{$product->stock <= 0 ? 'disabled' : ''}}>
                                                     {{ $product->name }} ({{ $product->stock }} {{ $product->unit->name }}
                                                     Available)</option>
                                             @endforeach
@@ -137,7 +137,7 @@
                                         <div class="form-group">
                                             <label>Customer Phone *:</label>
                                             <input type="text" required class="form-control" name="customer_phone"
-                                                id="txtPhoneNumber">
+                                                id="txtPhoneNumber" value="{{ old('customer_phone') }}">
                                             @error('customer_phone')
                                                 <div class="text-danger">
                                                     {{ $message }}
@@ -149,7 +149,7 @@
                                         <div class="form-group">
                                             <label>Customer Name *:</label>
                                             <input type="text" required name="customer_name" class="form-control"
-                                                id="txtCustomerName">
+                                                id="txtCustomerName" value="{{ old('customer_name') }}">
                                             {{-- <select class="custom-select2 form-control" name="supplier_id"
                                                 style="width: 100%; height: 38px" required>
 
@@ -169,7 +169,7 @@
                                         <div class="form-group">
                                             <label>Customer Email :</label>
                                             <input type="text" class="form-control" name="customer_email"
-                                                id="txtCustomerEmail">
+                                                id="txtCustomerEmail" value="{{ old('customer_email') }}">
                                             @error('customer_email')
                                                 <div class="text-danger">
                                                     {{ $message }}
@@ -181,7 +181,7 @@
                                         <div class="form-group">
                                             <label>Customer Vat No. :</label>
                                             <input type="text" class="form-control" name="customer_vat_number"
-                                                id="vat_number">
+                                                id="vat_number" value="{{ old('customer_vat_number') }}">
                                             @error('customer_vat_number')
                                                 <div class="text-danger">
                                                     {{ $message }}
@@ -193,7 +193,7 @@
                                         <div class="form-group">
                                             <label>Customer Address :</label>
                                             <input type="text" class="form-control" name="customer_address"
-                                                id="txtCustomerAddress">
+                                                id="txtCustomerAddress" value="{{ old('customer_address') }}">
                                             @error('customer_address')
                                                 <div class="text-danger">
                                                     {{ $message }}
@@ -211,7 +211,7 @@
                                         <div class="form-group">
                                             <label>Transaction Date *:</label>
                                             <input type="text" required id="nepali-datepicker" class="form-control"
-                                                name="transaction_date" required>
+                                                name="transaction_date" value="{{ old('transaction_date') }}" required>
                                             @error('transaction_date')
                                                 <div class="text-danger">
                                                     {{ $message }}
@@ -222,15 +222,26 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Branch Name *:</label>
-                                            <select class="custom-select2 form-control" required name="branch_id"
+                                            <select class="custom-select2 select2 form-control" required name="branch_id"
                                                 style="width: 100%; height: 38px">
                                                 <option value="" selected disabled>Please select a branch</option>
 
-                                                @foreach ($branches as $branch)
-                                                    <option value="{{ $branch->id }}"
-                                                        {{ $branch->branch_name == 'Main Branch' ? 'selected' : '' }}>
-                                                        {{ $branch->branch_name }}</option>
-                                                @endforeach
+                                                @if (old('branch_id'))
+                                                    @foreach ($branches as $branch)
+                                                        <option value="{{ $branch->id }}"
+                                                            {{ old('branch_id') == $branch->id ? 'selected' : '' }}>
+                                                            {{ $branch->branch_name }}</option>
+                                                    @endforeach
+                                                @else
+                                                    @foreach ($branches as $branch)
+                                                        <option value="{{ $branch->id }}"
+                                                            {{ $branch->branch_name == 'Main Branch' ? 'selected' : '' }}
+                                                            {{ old('branch_id') == $branch->id ? 'selected' : '' }}>
+                                                            {{ $branch->branch_name }}</option>
+                                                    @endforeach
+                                                @endif
+
+
                                             </select>
                                             @error('supplier_id')
                                                 <div class="text-danger">
@@ -254,7 +265,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Discount :</label>
-                                            <input type="number" class="form-control" name="discount">
+                                            <input type="number" class="form-control" name="discount" value="{{old('discount')}}">
                                             @error('discount')
                                                 <div class="text-danger">
                                                     {{ $message }}
@@ -271,7 +282,7 @@
                                         <div class="form-group">
                                             <label>Tax :</label>
                                             <select class="custom-select2 form-control" name="tax[]"
-                                                style="width: 100%; height: 38px" multiple>
+                                                style="width: 100%; height: 38px" multiple {{old('tax') ? 'required' : ''}}>
 
                                                 @foreach ($taxs as $tax)
                                                     <option value="{{ $tax->id }}">

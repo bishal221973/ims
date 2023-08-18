@@ -10,13 +10,17 @@ use Illuminate\Http\Request;
 
 class SupplierController extends Controller
 {
-    public function index(Supplier $supplier){
-        $org_id=orgId();
-        $countries=Country::where('organization_id',$org_id)->latest()->get();
-        $provinces=Province::where('organization_id',$org_id)->latest()->get();
-        $branches=Branch::where('organization_id',$org_id)->latest()->get();
-        $suppliers=Supplier::where('organization_id',$org_id)->with(['country','province','branch'])->latest()->get();
-        return view('purchase.supplier',compact('supplier','suppliers','countries','provinces','branches'));
+    public function index(Supplier $supplier)
+    {
+        $org_id = orgId();
+        if (!$org_id) {
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
+        }
+        $countries = Country::where('organization_id', $org_id)->latest()->get();
+        $provinces = Province::where('organization_id', $org_id)->latest()->get();
+        $branches = Branch::where('organization_id', $org_id)->latest()->get();
+        $suppliers = Supplier::where('organization_id', $org_id)->with(['country', 'province', 'branch'])->latest()->get();
+        return view('purchase.supplier', compact('supplier', 'suppliers', 'countries', 'provinces', 'branches'));
     }
 
 
@@ -24,7 +28,7 @@ class SupplierController extends Controller
     {
         $org_id = orgId();
         if (!$org_id) {
-            return redirect()->back()->with('error', 'Please select an organization.');
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
         }
 
         $data = $request->validate([
@@ -53,17 +57,16 @@ class SupplierController extends Controller
     {
         $orgId = orgId();
         if (!$orgId) {
-            return redirect()->back()->with('error', "Please select an organization.");
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
         }
         $supplier = Supplier::where('id', $id)->where('organization_id', $orgId)->first();
 
         if ($supplier) {
-            $countries=Country::where('organization_id',$orgId)->latest()->get();
-            $provinces=Province::where('organization_id',$orgId)->latest()->get();
-            $branches=Branch::where('organization_id',$orgId)->latest()->get();
-            $suppliers=Supplier::where('organization_id',$orgId)->with(['country','province','branch'])->latest()->get();
-            return view('purchase.supplier',compact('supplier','suppliers','countries','provinces','branches'));
-
+            $countries = Country::where('organization_id', $orgId)->latest()->get();
+            $provinces = Province::where('organization_id', $orgId)->latest()->get();
+            $branches = Branch::where('organization_id', $orgId)->latest()->get();
+            $suppliers = Supplier::where('organization_id', $orgId)->with(['country', 'province', 'branch'])->latest()->get();
+            return view('purchase.supplier', compact('supplier', 'suppliers', 'countries', 'provinces', 'branches'));
         }
         return redirect()->back()->with('error', "No data found");
     }
@@ -86,12 +89,16 @@ class SupplierController extends Controller
 
     public function delete($id)
     {
-        $data = Supplier::where('id', $id)->where('organization_id', orgId())->first();
+        $org_id = orgId();
+        if (!$org_id) {
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
+        }
+        $data = Supplier::where('id', $id)->where('organization_id', $org_id)->first();
 
-        if(!$data){
+        if (!$data) {
             return redirect()->back()->with('error', "No data found");
         }
         $data->delete();
-        return redirect()->route('supplier.index')->with('success',"Supplier removed");
+        return redirect()->route('supplier.index')->with('success', "Supplier removed");
     }
 }

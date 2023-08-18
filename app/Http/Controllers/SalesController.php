@@ -20,6 +20,9 @@ class SalesController extends Controller
     public function index()
     {
         $org_id = orgId();
+        if (!$org_id) {
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
+        }
         $sales = Sales::where('organization_id', $org_id)->with(['product', 'customer', 'tax', 'salesProduct.product', 'salesAmount'])->latest()->get();
         return view('sales.salesList', compact('sales'));
     }
@@ -27,6 +30,9 @@ class SalesController extends Controller
     {
 
         $org_id = orgId();
+        if (!$org_id) {
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
+        }
         if (Auth()->user()->roles[0]->name == "super-admin") {
             $org = Organization::where('status', 1)->first();
             $branch = Branch::where('organization_id', $org_id)->first();
@@ -52,6 +58,19 @@ class SalesController extends Controller
     public function store(Request $request)
     {
 
+
+        foreach ($request->product_id as $key => $item) {
+            $product= Product::where('id',$request->product_id[$key])->first();
+
+            $stock= $product->stock;
+            if($request->quantity[$key] > $stock){
+                $message="You have only ".$product->stock . " " . $product->unit->name. " on stock of ".$product->name;
+                // $message=$product->name . " is only " .$product->stock . " " . $product->unit->name. " available.";
+                return redirect()->back()->with('error',$message)->withInput();
+            }
+        }
+
+
         $subTotal = 0;
         $discount = 0;
         $taxableAmount = 0;
@@ -62,6 +81,9 @@ class SalesController extends Controller
         $invoiceType = "Normal";
 
         $orgId = orgId();
+        if (!$orgId) {
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
+        }
 
         $fiscalYearId = FiscalYear::select('id')->where('organization_id', $orgId)->where('status', 1)->first();
         if (!$orgId) {
@@ -157,6 +179,9 @@ class SalesController extends Controller
     public function payment($id)
     {
         $org_id = orgId();
+        if (!$org_id) {
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
+        }
         $edit = false;
         $organization = Organization::where('id', $org_id)->first();
         $sales = Sales::where('organization_id', $org_id)->where('id', $id)->with(['product', 'customer', 'tax', 'salesProduct.product', 'salesAmount'])->first();
@@ -165,6 +190,10 @@ class SalesController extends Controller
 
     public function paySales(Request $request)
     {
+        $org_id = orgId();
+        if (!$org_id) {
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
+        }
         $paythrough = "other";
         if ($request->pay_through) {
             $paythrough = $request->pay_through;
@@ -187,6 +216,9 @@ class SalesController extends Controller
     public function repayment($id)
     {
         $org_id = orgId();
+        if (!$org_id) {
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
+        }
         $edit = true;
         $sales = Sales::where('organization_id', $org_id)->where('id', $id)->with(['product', 'customer', 'tax', 'salesProduct.product', 'salesAmount'])->first();
 
@@ -201,7 +233,11 @@ class SalesController extends Controller
 
     public function delete($id)
     {
-        $data = Sales::where('id', $id)->where('organization_id', orgId())->first();
+        $org_id = orgId();
+        if (!$org_id) {
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
+        }
+        $data = Sales::where('id', $id)->where('organization_id', $org_id)->first();
 
         if (!$data) {
             return redirect()->back()->with('error', "No data found");

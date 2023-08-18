@@ -149,6 +149,7 @@ Route::get('purchase/{id}/active', [PurchaseController::class, 'active'])->name(
 Route::get('purchase-payment/{id}', [PurchasePaymentController::class, 'payment'])->name('payment');
 Route::get('purchase/{id}/payment', [PurchasePaymentController::class, 'repayment'])->name('repayment');
 Route::post('purchase/pay', [PurchasePaymentController::class, 'pay'])->name('pay');
+Route::get('purchase/{id}/supplier', [PurchasePaymentController::class, 'supplier'])->name('purchase.supplier');
 
 Route::get('sales', [SalesController::class, 'create'])->name('sales.create');
 Route::post('sales', [SalesController::class, 'store'])->name('sales.store');

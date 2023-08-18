@@ -13,12 +13,19 @@ class BranchController extends Controller
     public function index()
     {
         $org_id = orgId();
+        if (!$org_id) {
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
+        }
         $branchs = Branch::where('organization_id', $org_id)->with('user', 'organization')->latest()->get();
         return view('organization.branchList', compact(['branchs']));
     }
 
     public function create(Branch $branch)
     {
+        $org_id=orgId();
+        if (!$org_id) {
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
+        }
         return view('organization.branch', compact('branch'));
     }
 
@@ -26,7 +33,7 @@ class BranchController extends Controller
     {
         $org_id = orgId();
         if ($org_id == 0) {
-            return redirect()->back()->with('error', "Please select an organization.");
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
         }
         $request->validate([
             'name' => 'required',
@@ -86,6 +93,9 @@ class BranchController extends Controller
     public function edit($id)
     {
         $org_id = orgId();
+        if (!$org_id) {
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
+        }
         $branch = Branch::where('id', $id)->where('organization_id', $org_id)->first();
         return view('organization.branch', compact('branch'));
     }
@@ -94,7 +104,10 @@ class BranchController extends Controller
     {
         $org_id = orgId();
         if ($org_id == 0) {
-            return redirect()->back()->with('error', "Please select an organization.");
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
+        }
+        if (!$org_id) {
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
         }
         $request->validate([
             'name' => 'required',

@@ -26,12 +26,19 @@ class PurchaseController extends Controller
 
     public function index()
     {
-        $purchases=Purchase::where('organization_id',orgId())->with('product', 'supplier', 'purchaseProduct.product.unit', 'tax','purchaseAmount','branch')->latest()->get();
+        $org_id=orgId();
+        if (!$org_id) {
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
+        }
+        $purchases=Purchase::where('organization_id',$org_id)->with('product', 'supplier', 'purchaseProduct.product.unit', 'tax','purchaseAmount','branch')->latest()->get();
         return view('purchase.purchaseList',compact('purchases'));
     }
     public function create()
     {
-        $org_id = orgId();
+        $org_id=orgId();
+        if (!$org_id) {
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
+        }
         $products = Product::where('organization_id', $org_id)->latest()->get();
         $taxs = Tax::where('organization_id', $org_id)->latest()->get();
         $suppliers = Supplier::where('organization_id', $org_id)->latest()->get();
@@ -48,13 +55,16 @@ class PurchaseController extends Controller
         $totalTaxAmount = 0;
         $grandTotal = 0;
         $orgId = orgId();
+        if (!$orgId) {
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
+        }
 
         $fiscalYearId = FiscalYear::select('id')->where('organization_id', $orgId)->where('status', 1)->first();
         if (!$orgId) {
             return redirect()->back()->with('error', "Please select an organization.");
         }
         if (!$fiscalYearId) {
-            return redirect()->back()->with('error', "Please select fiscal year.");
+            return redirect()->back()->with('error', "Please select fiscal year.")->withInput();
         }
 
         $purchaseData = $request->validate([
@@ -123,7 +133,11 @@ class PurchaseController extends Controller
 
     public function delete($id)
     {
-        $data = Purchase::where('id', $id)->where('organization_id', orgId())->first();
+        $org_id=orgId();
+        if (!$org_id) {
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
+        }
+        $data = Purchase::where('id', $id)->where('organization_id', $org_id)->first();
 
         if(!$data){
             return redirect()->back()->with('error', "No data found");

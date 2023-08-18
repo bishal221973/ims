@@ -10,12 +10,19 @@ class LeaveTypeController extends Controller
     public function index(LeaveType $leaveType)
     {
         $org_id=orgId();
+        if (!$org_id) {
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
+        }
         $leaveTypes=LeaveType::where('organization_id',$org_id)->latest()->get();
         return view('leave.type', compact('leaveType','leaveTypes'));
     }
 
     public function store(Request $request)
     {
+        $org_id=orgId();
+        if (!$org_id) {
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
+        }
         $data = $request->validate([
             'type' => 'required',
         ]);
@@ -34,6 +41,9 @@ class LeaveTypeController extends Controller
 
     public function edit($id){
         $org_id=orgId();
+        if (!$org_id) {
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
+        }
         $leaveType=LeaveType::where('id',$id)->first();
         $leaveTypes=LeaveType::where('id',$org_id)->latest()->get();
         return view('leave.type', compact('leaveType','leaveTypes'));
@@ -49,7 +59,11 @@ class LeaveTypeController extends Controller
     }
 
     public function delete($id){
-        $data = LeaveType::where('id', $id)->where('organization_id', orgId())->first();
+        $org_id=orgId();
+        if (!$org_id) {
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
+        }
+        $data = LeaveType::where('id', $id)->where('organization_id', $org_id)->first();
 
         if (!$data) {
             return redirect()->back()->with('error', "No data found");

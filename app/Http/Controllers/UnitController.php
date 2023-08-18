@@ -9,17 +9,21 @@ class UnitController extends Controller
 {
     public function index(Unit $unit)
     {
-        $orgId = orgId();
+        $org_id=orgId();
+        if (!$org_id) {
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
+        }
+
         // return $orgId;
-        $units = Unit::where('organization_id', $orgId)->latest()->get();
+        $units = Unit::where('organization_id', $org_id)->latest()->get();
         return view('configuration.unit', compact('units', 'unit'));
     }
 
     public function store(Request $request)
     {
-        $org_id = orgId();
+        $org_id=orgId();
         if (!$org_id) {
-            return redirect()->back()->with('error', "Please select an organization.");
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
         }
         $data = $request->validate([
             'name' => 'required',
@@ -32,9 +36,9 @@ class UnitController extends Controller
 
     public function edit($id)
     {
-        $orgId = orgId();
+        $orgId=orgId();
         if (!$orgId) {
-            return redirect()->back()->with('error', "Please select an organization.");
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
         }
         $unit = Unit::where('id', $id)->where('organization_id', $orgId)->first();
 
@@ -57,7 +61,11 @@ class UnitController extends Controller
 
     public function delete($id)
     {
-        $data = Unit::where('id', $id)->where('organization_id', orgId())->first();
+        $org_id=orgId();
+        if (!$org_id) {
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
+        }
+        $data = Unit::where('id', $id)->where('organization_id', $org_id)->first();
 
         if (!$data) {
             return redirect()->back()->with('error', "No data found");

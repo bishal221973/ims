@@ -13,6 +13,9 @@ class LeaveController extends Controller
     public function index(Leave $leave)
     {
         $org_id = orgId();
+        if (!$org_id) {
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
+        }
         $leaveTypes = LeaveType::where('organization_id', $org_id)->latest()->get();
         $leaves=Leave::where('organization_id',$org_id)->latest()->get();
         return view('leave.index', compact('leave', 'leaveTypes','leaves'));
@@ -20,6 +23,10 @@ class LeaveController extends Controller
 
     public function store(Request $request)
     {
+        $org_id=orgId();
+        if (!$org_id) {
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
+        }
         $data = $request->validate([
             'from' => 'required',
             'to' => 'required',
@@ -46,6 +53,9 @@ class LeaveController extends Controller
 
     public function edit(Leave $leave){
         $org_id = orgId();
+        if (!$org_id) {
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
+        }
         $leaveTypes = LeaveType::where('organization_id', $org_id)->latest()->get();
         $leaves=Leave::where('organization_id',$org_id)->latest()->get();
         return view('leave.index', compact('leave', 'leaveTypes','leaves'));
@@ -64,7 +74,11 @@ class LeaveController extends Controller
     }
 
     public function delete(Leave $leave){
-        $data = Leave::where('id', $leave->id)->where('organization_id', orgId())->first();
+        $org_id=orgId();
+        if (!$org_id) {
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
+        }
+        $data = Leave::where('id', $leave->id)->where('organization_id', $org_id)->first();
 
         if (!$data) {
             return redirect()->back()->with('error', "No data found");
@@ -75,6 +89,9 @@ class LeaveController extends Controller
     public function list()
     {
         $org_id = orgId();
+        if (!$org_id) {
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
+        }
         $branch= Branch::where('organization_id',$org_id)->where('branch_name','Main Branch')->first();
         $leaves=Leave::where('organization_id',$org_id)->where('branch_id',$branch->id)->latest()->get();
         return view('leave.list', compact('leaves'));

@@ -12,7 +12,10 @@ class ScheduleController extends Controller
 {
     public function index()
     {
-        $org_id = orgId();
+        $org_id=orgId();
+        if (!$org_id) {
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
+        }
         $schedule = new Schedule;
         $branches = Branch::where('organization_id', $org_id)->latest()->get();
         $schedules = Schedule::with('branch', 'employee.user')->where('organization_id', $org_id)->latest()->get();
@@ -30,13 +33,17 @@ class ScheduleController extends Controller
 
     public function store(Request $request)
     {
+        $org_id=orgId();
+        if (!$org_id) {
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
+        }
         $data = $request->validate([
             'branch_id' => 'required',
             'employee_id' => 'required',
             'in_time' => 'required',
             'out_time' => 'required',
         ]);
-        $data['organization_id'] = orgId();
+        $data['organization_id'] =$org_id;
 
 
         $startTime = new DateTime($request->in_time);
@@ -72,7 +79,10 @@ class ScheduleController extends Controller
 
     public function edit($id)
     {
-        $org_id = orgId();
+        $org_id=orgId();
+        if (!$org_id) {
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
+        }
         $schedule = Schedule::where('id', $id)->first();
         $branches = Branch::where('organization_id', $org_id)->latest()->get();
         $schedules = Schedule::with('branch', 'employee.user')->where('organization_id', $org_id)->latest()->get();
@@ -93,7 +103,11 @@ class ScheduleController extends Controller
 
     public function delete($id)
     {
-        $data = Schedule::where('id', $id)->where('organization_id', orgId())->first();
+        $org_id=orgId();
+        if (!$org_id) {
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
+        }
+        $data = Schedule::where('id', $id)->where('organization_id', $org_id)->first();
 
         if (!$data) {
             return redirect()->back()->with('error', "No data found");

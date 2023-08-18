@@ -83,7 +83,7 @@
                                     @method('PUT')
                                 @endisset
                                 <div class="form-group">
-                                    <label>Brand Name *:</label>
+                                    <label>Brand Name :*</label>
 
                                     <input type="text" name="name" value="{{ old('name',$brand->name) }}" class="form-control" required/>
                                     @error('name')

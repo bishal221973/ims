@@ -10,7 +10,10 @@ class ProvinceController extends Controller
 {
     public function index(Province $province)
     {
-        $org_id = orgId();
+        $org_id=orgId();
+        if (!$org_id) {
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
+        }
         $countries = Country::where('organization_id', $org_id)->latest()->get();
         $provinces = Province::where('organization_id', $org_id)->with(['country'])->latest()->get();
         return view('place.province', compact('province', 'provinces', 'countries'));
@@ -18,9 +21,9 @@ class ProvinceController extends Controller
 
     public function store(Request $request)
     {
-        $org_id = orgId();
+        $org_id=orgId();
         if (!$org_id) {
-            return redirect()->back()->with('error', "Please select an organization.");
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
         }
         $data = $request->validate([
             'country_id' => 'required',
@@ -36,7 +39,7 @@ class ProvinceController extends Controller
     {
         $orgId = orgId();
         if (!$orgId) {
-            return redirect()->back()->with('error', "Please select an organization.");
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
         }
         $province = Province::where('id', $id)->where('organization_id', $orgId)->first();
 
@@ -60,7 +63,11 @@ class ProvinceController extends Controller
 
     public function delete($id)
     {
-        $data = Province::where('id', $id)->where('organization_id', orgId())->first();
+        $org_id=orgId();
+        if (!$org_id) {
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
+        }
+        $data = Province::where('id', $id)->where('organization_id', $org_id)->first();
 
         if(!$data){
             return redirect()->back()->with('error', "No data found");

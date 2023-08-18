@@ -83,7 +83,7 @@
                                     @method('PUT')
                                 @endisset
                                 <div class="form-group">
-                                    <label>Tax Name *:</label>
+                                    <label>Tax Name :*</label>
 
                                     <input type="text" name="name" value="{{ old('name',$tax->name) }}" class="form-control" required/>
                                     @error('name')
@@ -94,7 +94,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Tax Rate *:</label>
+                                    <label>Tax Rate (%) :*</label>
 
                                     <input type="number" name="value" value="{{ old('value',$tax->value) }}" class="form-control" required/>
                                     @error('value')

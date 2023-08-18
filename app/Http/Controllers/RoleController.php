@@ -8,18 +8,26 @@ use Spatie\Permission\Models\Role;
 class RoleController extends Controller
 {
     public function index(){
-        $roles= Role::where('organization_id',orgId())->orderBy('name')->latest()->get();
+        $org_id=orgId();
+        if (!$org_id) {
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
+        }
+        $roles= Role::where('organization_id',$org_id)->orderBy('name')->latest()->get();
         return view('role.roleList',compact('roles'));
     }
 
     public function create(Role $role){
+        $org_id=orgId();
+        if (!$org_id) {
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
+        }
         return view('role.role',compact('role'));
     }
 
     public function store(Request $request){
         $org_id=orgId();
-        if(!$org_id){
-            return redirect()->back()->with('error',"Please select an organization");
+        if (!$org_id) {
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
         }
         $request->validate([
             'role'=>'required'
@@ -36,6 +44,10 @@ class RoleController extends Controller
     }
 
     public function edit(Role $role){
+        $org_id=orgId();
+        if (!$org_id) {
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
+        }
         return view('role.role',compact('role'));
     }
 
@@ -49,7 +61,11 @@ class RoleController extends Controller
     }
 
     public function delete(Role $role){
-        $role=Role::where('id',$role->id)->where('organization_id',orgId())->first();
+        $org_id=orgId();
+        if (!$org_id) {
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
+        }
+        $role=Role::where('id',$role->id)->where('organization_id',$org_id)->first();
 
         if($role){
             $role->delete();

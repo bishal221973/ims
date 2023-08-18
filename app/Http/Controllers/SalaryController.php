@@ -11,7 +11,10 @@ class SalaryController extends Controller
 {
     public function index()
     {
-        $org_id = orgId();
+        $org_id=orgId();
+        if (!$org_id) {
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
+        }
         $branch_id = Auth()->user()->branch->id;
         $employees = Employee::with('schedule', 'attendance')->where('organization_id', $org_id)->where('branch_id', $branch_id)->latest()->get();
         return view('employee.salary', compact('employees'));
@@ -20,7 +23,10 @@ class SalaryController extends Controller
     public function payment($id)
     {
         $employee = Employee::with('user')->where('id', $id)->first();
-        $org_id = orgId();
+        $org_id=orgId();
+        if (!$org_id) {
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
+        }
         $branch_id = Auth()->user()->branch->id;
         $payments = Salary::where('organization_id', $org_id)->where('branch_id', $branch_id)->latest()->get();
         return view('employee.payment', compact('employee', 'payments'));
@@ -30,7 +36,10 @@ class SalaryController extends Controller
     {
         // return $request;
 
-
+        $org_id=orgId();
+        if (!$org_id) {
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
+        }
         $request->validate([
             'salary' => 'required',
         ]);

@@ -85,7 +85,7 @@
                                     @method('PUT')
                                 @endisset
                                 <div class="form-group">
-                                    <label>Name *:</label>
+                                    <label>Name :*</label>
 
                                     <input type="text" name="name" value="{{ old('name', $fiscalYear->name) }}"
                                         class="form-control" required />
@@ -96,7 +96,7 @@
                                     @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label>Opening Date *:</label>
+                                    <label>Opening Date :*</label>
 
                                     <input type="text" name="opening_date" id="nepali-datepicker"
                                         value="{{ old('opening_date', $fiscalYear->opening_date) }}" class="form-control"
@@ -109,7 +109,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Closing Date *:</label>
+                                    <label>Closing Date :*</label>
 
                                     <input type="text" name="closeing_date" id="nepali-datepicker1"
                                         value="{{ old('closeing_date', $fiscalYear->closeing_date) }}"

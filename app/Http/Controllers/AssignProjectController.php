@@ -13,7 +13,10 @@ class AssignProjectController extends Controller
     public function index(AssignProject $assignProject)
     {
         $org_id = orgId();
-
+        $org_id = orgId();
+        if (!$org_id) {
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
+        }
         $projects = Project::where('organization_id', $org_id)->latest()->get();
         $employees = Employee::where('organization_id', $org_id)->latest()->get();
         $assignProjects = AssignProject::where('organization_id', $org_id)->with('project', 'employee.employee.user')->latest()->get();
@@ -24,7 +27,7 @@ class AssignProjectController extends Controller
     {
         $org_id = orgId();
         if (!$org_id) {
-            return redirect()->back()->with('error', "Please select an organization.");
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
         }
         $assign = AssignProject::where('organization_id', $org_id)->where('project_id', $request->project_id)->with('employee')->first();
 
@@ -45,7 +48,7 @@ class AssignProjectController extends Controller
                 }
                 return redirect()->back()->with('success', "11Project assigned.");
             }
-            return redirect()->back()->with('error', "Please select employee.");
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
         }
         return redirect()->back()->with('error', "Project already assigned.");
         // return redirect()->back()->with('error', "Project assigned.");

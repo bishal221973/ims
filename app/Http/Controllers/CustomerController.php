@@ -13,6 +13,9 @@ class CustomerController extends Controller
 {
     public function index(Customer $customer){
         $org_id=orgId();
+        if (!$org_id) {
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
+        }
         $countries=Country::where('organization_id',$org_id)->latest()->get();
         $provinces=Province::where('organization_id',$org_id)->latest()->get();
         $branches=Branch::where('organization_id',$org_id)->latest()->get();
@@ -24,7 +27,7 @@ class CustomerController extends Controller
     {
         $org_id = orgId();
         if (!$org_id) {
-            return redirect()->back()->with('error', 'Please select an organization.');
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
         }
 
         $data = $request->validate([
@@ -53,7 +56,7 @@ class CustomerController extends Controller
     {
         $orgId = orgId();
         if (!$orgId) {
-            return redirect()->back()->with('error', "Please select an organization.");
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
         }
         $customer = Customer::where('id', $id)->where('organization_id', $orgId)->first();
 
@@ -87,7 +90,11 @@ class CustomerController extends Controller
 
     public function delete($id)
     {
-        $data = Customer::where('id', $id)->where('organization_id', orgId())->first();
+        $org_id=orgId();
+        if (!$org_id) {
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
+        }
+        $data = Customer::where('id', $id)->where('organization_id', $org_id)->first();
 
         if(!$data){
             return redirect()->back()->with('error', "No data found");

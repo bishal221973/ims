@@ -35,6 +35,58 @@
             ->where('organization_id', $org_id)
             ->first();
     @endphp
+    @if (Session::has('success'))
+        @php
+            $msg = Session::get('success');
+        @endphp
+
+        @push('message')
+            <script>
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'bottom-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                })
+                Toast.fire({
+                    icon: 'success',
+                    title: '{{ $msg }}'
+                })
+            </script>
+        @endpush
+    @endif
+
+    @if (Session::has('error'))
+        @php
+            $msg = Session::get('error');
+        @endphp
+
+        @push('message')
+            <script>
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'bottom-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                })
+
+                Toast.fire({
+                    icon: 'error',
+                    title: '{{ $msg }}'
+                })
+            </script>
+        @endpush
+    @endif
     <div class="main-container">
         <div class="xs-pd-20-10 pd-ltr-20">
             <div class="row pb-10">
@@ -139,10 +191,11 @@
             </div>
             <div class="row pb-10">
                 <div class="col-xl-3 col-lg-3 col-md-6 mb-20">
-                    <a href="{{route('employee.index')}}" class="card-box height-100-p widget-style3">
+                    <a href="{{ route('employee.index') }}" class="card-box height-100-p widget-style3">
                         <div class="d-flex bg-white flex-wrap">
                             <div class="widget-data">
-                                <div class="weight-700 font-24 text-dark">{{App\Models\Employee::where('organization_id',$org_id)->get()->count()}}</div>
+                                <div class="weight-700 font-24 text-dark">
+                                    {{ App\Models\Employee::where('organization_id', $org_id)->get()->count() }}</div>
                                 <div class="font-14 text-secondary weight-500">
                                     Employee
                                 </div>
@@ -154,11 +207,11 @@
                     </a>
                 </div>
                 <div class="col-xl-3 col-lg-3 col-md-6 mb-20">
-                    <a href="{{route('supplier.index')}}" class="bg-white card-box height-100-p widget-style3">
+                    <a href="{{ route('supplier.index') }}" class="bg-white card-box height-100-p widget-style3">
                         <div class="d-flex bg-white rounded flex-wrap">
                             <div class="widget-data">
                                 <div class="weight-700 font-24 text-dark">
-                                    {{App\Models\Supplier::where('organization_id',$org_id)->get()->count()}}
+                                    {{ App\Models\Supplier::where('organization_id', $org_id)->get()->count() }}
                                 </div>
                                 <div class="font-14 text-secondary weight-500">
                                     Supplier
@@ -172,10 +225,11 @@
                     </a>
                 </div>
                 <div class="col-xl-3 col-lg-3 col-md-6 mb-20">
-                    <a href="{{route('customer.index')}}" class="card-box height-100-p widget-style3">
+                    <a href="{{ route('customer.index') }}" class="card-box height-100-p widget-style3">
                         <div class="bg-white d-flex flex-wrap">
                             <div class="widget-data">
-                                <div class="weight-700 font-24 text-dark">{{App\Models\Customer::where('organization_id',$org_id)->get()->count()}}</div>
+                                <div class="weight-700 font-24 text-dark">
+                                    {{ App\Models\Customer::where('organization_id', $org_id)->get()->count() }}</div>
                                 <div class="font-14 text-secondary weight-500">
                                     Customer
                                 </div>
@@ -187,10 +241,11 @@
                     </a>
                 </div>
                 <div class="col-xl-3 col-lg-3 col-md-6 mb-20">
-                    <a href="{{route('product.index')}}" class="card-box height-100-p widget-style3">
+                    <a href="{{ route('product.index') }}" class="card-box height-100-p widget-style3">
                         <div class="bg-white d-flex flex-wrap">
                             <div class="widget-data">
-                                <div class="weight-700 font-24 text-dark">{{App\Models\Product::where('organization_id',$org_id)->get()->count()}}</div>
+                                <div class="weight-700 font-24 text-dark">
+                                    {{ App\Models\Product::where('organization_id', $org_id)->get()->count() }}</div>
                                 <div class="font-14 text-secondary weight-500">Total Product</div>
                             </div>
                             <div class="d-flex align-items-center">

@@ -85,10 +85,10 @@
                                 <div class="row">
                                     <div class="col-xl-12">
                                         <div class="form-group">
-                                            <label>Leave Type:</label>
+                                            <label>Leave Type:*</label>
 
                                             <input class="form-control" value="{{old('in_time',$leaveType->type)}}" name="type"
-                                                type="text"/>
+                                                type="text" required/>
                                             @error('type')
                                                 <div class="text-danger">
                                                     {{ $message }}

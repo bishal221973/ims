@@ -10,7 +10,7 @@
                             <nav aria-label="breadcrumb" role="navigation">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item">
-                                        <a href="{{route('home')}}">Home</a>
+                                        <a href="{{ route('home') }}">Home</a>
                                     </li>
                                     <li class="breadcrumb-item active" aria-current="page">
                                         Purchase
@@ -131,15 +131,16 @@
                         <div class="col-xl-7">
                             <div class="pd-20 card-box mb-2">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="form-group">
-                                            <label>Supplier Name :</label>
-                                            <select class="custom-select2 select2 form-control" name="supplier_id"
-                                                style="width: 100%; height: 38px" required>
 
+                                            <label>Supplier Name :*</label>
+                                            <select class="custom-select2 select2 form-control" id="supplier_id" name="supplier_id"
+                                                style="width: 100%; height: 38px" required>
+                                                <option value="">Please select a supplier</option>
                                                 @foreach ($suppliers as $supplier)
                                                     <option value="{{ $supplier->id }}">
-                                                        {{ $supplier->name }} ({{ $supplier->phone }})</option>
+                                                        {{ $supplier->name }}</option>
                                                 @endforeach
                                             </select>
                                             @error('supplier_id')
@@ -149,9 +150,16 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="form-group">
-                                            <label>Transaction Date :</label>
+
+                                            <label>Phone Number :*</label>
+                                           <input type="text" readonly id="supplierPhone" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Transaction Date :*</label>
                                             <input type="text" class="form-control" id="nepali-datepicker"
                                                 name="transaction_date" required>
                                             @error('transaction_date')
@@ -163,9 +171,9 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label>Branch Name :</label>
-                                            <select class="custom-select2 form-control" name="branch_id"
-                                                style="width: 100%; height: 38px">
+                                            <label>Branch Name :*</label>
+                                            <select class="custom-select2 select2 form-control" name="branch_id"
+                                                style="width: 100%; height: 38px" id="purchase_branch_id">
                                                 <option value="" selected disabled>Please select a branch</option>
 
                                                 @foreach ($branches as $branch)
@@ -183,7 +191,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label>Invoice Number :</label>
+                                            <label>Invoice Number :*</label>
                                             <input type="number" class="form-control" name="invoice_number" required>
                                             @error('invoice_number')
                                                 <div class="text-danger">
@@ -195,7 +203,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label>Discount :</label>
-                                            <input type="number" class="form-control" name="discount" required>
+                                            <input type="number" class="form-control" name="discount">
                                             @error('discount')
                                                 <div class="text-danger">
                                                     {{ $message }}
@@ -210,7 +218,7 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="form-group">
-                                            <label>Tax :</label>
+                                            <label>Tax :*</label>
                                             <select class="custom-select2 select2 form-control" name="tax[]"
                                                 style="width: 100%; height: 38px" required multiple>
 

@@ -15,12 +15,19 @@ class EmployeeController extends Controller
 {
     public function index()
     {
-        $employees = Employee::where('organization_id', orgId())->with(['user', 'branch'])->latest()->get();
+        $org_id=orgId();
+        if (!$org_id) {
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
+        }
+        $employees = Employee::where('organization_id', $org_id)->with(['user', 'branch'])->latest()->get();
         return view('employee.employeeList', compact('employees'));
     }
     public function create(Employee $employee)
     {
         $org_id = orgId();
+        if (!$org_id) {
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
+        }
         $branches = Branch::where('organization_id', $org_id)->latest()->get();
         $countries = Country::where('organization_id', $org_id)->latest()->get();
         $provinces = Province::where('organization_id', $org_id)->latest()->get();
@@ -33,7 +40,7 @@ class EmployeeController extends Controller
         // return $request->role;
         $org_id = orgId();
         if (!$org_id) {
-            return redirect()->back()->with('error', "Please select an organization.");
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
         }
         // $org = Organization::select('id')->where('admin_id', $admin_id)->first();
         $userData = $request->validate([
@@ -81,7 +88,7 @@ class EmployeeController extends Controller
     {
         $org_id = orgId();
         if (!$org_id) {
-            return redirect()->back()->with('error', "Please select an organization");
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
         }
 
         $employee = Employee::where('organization_id', $org_id)->where('id', $employee->id)->first();
@@ -127,7 +134,11 @@ class EmployeeController extends Controller
 
     public function delete(Employee $employee)
     {
-        $data = Employee::where('id', $employee->id)->where('organization_id', orgId())->first();
+        $org_id=orgId();
+        if (!$org_id) {
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
+        }
+        $data = Employee::where('id', $employee->id)->where('organization_id', $org_id)->first();
 
         if ($data) {
             $data->delete();

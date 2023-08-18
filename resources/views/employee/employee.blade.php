@@ -345,7 +345,7 @@
 
                                             <input type="text" name="joining_date"
                                                 value="{{ old('joining_date', $employee->joining_date) }}"
-                                                class="form-control" required />
+                                                class="form-control" required id="nepali-datepicker1"/>
                                             @error('joining_date')
                                                 <div class="text-danger">
                                                     {{ $message }}
@@ -448,11 +448,11 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-12">
+                    {{-- <div class="col-12"> --}}
                         <div class="pd-20 card-box mb-2 d-flex justify-content-end">
                             <input type="submit" value="{{ $employee->id ? 'Update' : 'Save' }}" class="btn btn-info">
                         </div>
-                    </div>
+                    {{-- </div> --}}
                 </form>
 
 

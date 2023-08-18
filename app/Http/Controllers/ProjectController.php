@@ -10,16 +10,20 @@ class ProjectController extends Controller
 {
     public function index(Project $project)
     {
-        $projects = Project::where('organization_id', orgId())->with('branch')->latest()->get();
-        $branches = Branch::where('organization_id', orgId())->latest()->get();
+        $org_id=orgId();
+        if (!$org_id) {
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
+        }
+        $projects = Project::where('organization_id', $org_id)->with('branch')->latest()->get();
+        $branches = Branch::where('organization_id', $org_id)->latest()->get();
         return view('project.project', compact('project', 'projects', 'branches'));
     }
 
     public function store(Request $request)
     {
-        $org_id = orgId();
+        $org_id=orgId();
         if (!$org_id) {
-            return redirect()->back()->with('error', "Please select an organization.");
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
         }
 
         $data = $request->validate([
@@ -39,15 +43,15 @@ class ProjectController extends Controller
 
     public function edit(Project $project)
     {
-        $orgId = orgId();
-        if (!$orgId) {
-            return redirect()->back()->with('error', "Please select an organization.");
+        $org_id=orgId();
+        if (!$org_id) {
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
         }
-        $project = Project::where('id', $project->id)->where('organization_id', $orgId)->first();
+        $project = Project::where('id', $project->id)->where('organization_id', $$org_id)->first();
 
         if ($project) {
-            $projects = Project::where('organization_id', orgId())->with('branch')->latest()->get();
-            $branches = Branch::where('organization_id', orgId())->latest()->get();
+            $projects = Project::where('organization_id', $org_id)->with('branch')->latest()->get();
+            $branches = Branch::where('organization_id', $org_id)->latest()->get();
             return view('project.project', compact('project', 'projects', 'branches'));
         }
         return redirect()->back()->with('error', "No data found");
@@ -71,7 +75,11 @@ class ProjectController extends Controller
 
     public function delete($id)
     {
-        $data = Project::where('id', $id)->where('organization_id', orgId())->first();
+        $org_id=orgId();
+        if (!$org_id) {
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
+        }
+        $data = Project::where('id', $id)->where('organization_id', $org_id)->first();
 
         if(!$data){
             return redirect()->back()->with('error', "No data found");

@@ -10,7 +10,7 @@
                             <nav aria-label="breadcrumb" role="navigation">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item">
-                                        <a href="{{route('home')}}">Home</a>
+                                        <a href="{{ route('home') }}">Home</a>
                                     </li>
                                     <li class="breadcrumb-item active" aria-current="page">
                                         Product
@@ -22,57 +22,57 @@
                 </div>
 
                 @if (Session::has('success'))
-                @php
-                    $msg = Session::get('success');
-                @endphp
+                    @php
+                        $msg = Session::get('success');
+                    @endphp
 
-                @push('message')
-                    <script>
-                        const Toast = Swal.mixin({
-                            toast: true,
-                            position: 'bottom-end',
-                            showConfirmButton: false,
-                            timer: 3000,
-                            timerProgressBar: true,
-                            didOpen: (toast) => {
-                                toast.addEventListener('mouseenter', Swal.stopTimer)
-                                toast.addEventListener('mouseleave', Swal.resumeTimer)
-                            }
-                        })
-                        Toast.fire({
-                            icon: 'success',
-                            title: '{{ $msg }}'
-                        })
-                    </script>
-                @endpush
-            @endif
+                    @push('message')
+                        <script>
+                            const Toast = Swal.mixin({
+                                toast: true,
+                                position: 'bottom-end',
+                                showConfirmButton: false,
+                                timer: 3000,
+                                timerProgressBar: true,
+                                didOpen: (toast) => {
+                                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                }
+                            })
+                            Toast.fire({
+                                icon: 'success',
+                                title: '{{ $msg }}'
+                            })
+                        </script>
+                    @endpush
+                @endif
 
-            @if (Session::has('error'))
-                @php
-                    $msg = Session::get('error');
-                @endphp
+                @if (Session::has('error'))
+                    @php
+                        $msg = Session::get('error');
+                    @endphp
 
-                @push('message')
-                    <script>
-                        const Toast = Swal.mixin({
-                            toast: true,
-                            position: 'bottom-end',
-                            showConfirmButton: false,
-                            timer: 3000,
-                            timerProgressBar: true,
-                            didOpen: (toast) => {
-                                toast.addEventListener('mouseenter', Swal.stopTimer)
-                                toast.addEventListener('mouseleave', Swal.resumeTimer)
-                            }
-                        })
+                    @push('message')
+                        <script>
+                            const Toast = Swal.mixin({
+                                toast: true,
+                                position: 'bottom-end',
+                                showConfirmButton: false,
+                                timer: 3000,
+                                timerProgressBar: true,
+                                didOpen: (toast) => {
+                                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                }
+                            })
 
-                        Toast.fire({
-                            icon: 'error',
-                            title: '{{ $msg }}'
-                        })
-                    </script>
-                @endpush
-            @endif
+                            Toast.fire({
+                                icon: 'error',
+                                title: '{{ $msg }}'
+                            })
+                        </script>
+                    @endpush
+                @endif
 
                 <div class="row">
                     <div class="col-xl-12">
@@ -89,7 +89,7 @@
                                             <label>Product Name *:</label>
 
                                             <input type="text" name="name" value="{{ old('name', $product->name) }}"
-                                                class="form-control" required/>
+                                                class="form-control" required />
                                             @error('name')
                                                 <div class="text-danger">
                                                     {{ $message }}
@@ -189,10 +189,10 @@
                                         @foreach ($products as $product)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td>{{$product->name  }}</td>
-                                                <td>{{$product->category->name  }}</td>
-                                                <td>{{$product->brand->name  }}</td>
-                                                <td>{{$product->unit->name  }}</td>
+                                                <td>{{ $product->name }}</td>
+                                                <td>{{ $product->category->name }}</td>
+                                                <td>{{ $product->brand->name }}</td>
+                                                <td>{{ $product->unit->name }}</td>
 
                                                 <td>
                                                     <div class="dropdown">
@@ -212,8 +212,7 @@
                                                                 class="form-inline d-inline">
                                                                 @csrf
                                                                 @method('delete')
-                                                                <button type="submit"
-                                                                    class="dropdown-item"><i
+                                                                <button type="submit" class="dropdown-item"><i
                                                                         class="dw dw-delete-3"></i>
                                                                     Delete</button>
                                                             </form>

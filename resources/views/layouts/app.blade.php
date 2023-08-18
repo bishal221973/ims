@@ -269,6 +269,27 @@
         });
     </script>
     <script>
+        $("#supplier_id").on('change',function(){
+            var id=$(this).val();
+
+            var url="{{route('purchase.supplier',':id')}}"
+            url=url.replace(':id',id);
+            $.ajax({
+                url: url,
+                type: "GET",
+                data: {
+                    _token: '{{ csrf_token() }}'
+                },
+                cache: false,
+                dataType: 'json',
+                success: function(dataResult) {
+                    $("#supplierPhone").val(dataResult.data.phone);
+                    // console.log();
+                }
+            });
+        });
+    </script>
+    <script>
         $("#txtPhoneNumber").on("input", function() {
             var phoneNumber = $(this).val();
 
@@ -329,7 +350,7 @@
                             ' /-</td><td><input type="hidden" name="product_id[]" value="' +
                             dataResult
                             .data.sales_product[i].product_id +
-                            '"/><input type="text" name="quantity[]" class="form-control"></td></tr>'
+                            '"/><input type="number" name="quantity[]" required class="form-control"></td><td><input type="text" name="reason[]"  class="form-control"></td></tr>'
                         )
                         // $('#myData').append('<tr><td>' + response[0][i]['id'] + '</td><td>' + response[0][i]['first_name'] + " " + response[0][i]['last_name'] + '</td><td>' + response[0][i]['table'] + '</td><td>' + response[0][i]['items_won'] + '</td><td>' + response[0][i]['pledges_made'] +'</td><td>' + response[0][i]['amount_owed'] + '</td><td><button class="btn btn-primary">CLICK HERE</button></td></tr>');
                         // $('#myData').append('<tr><td>' + dataResult.data.sales_product[i].+ '</td><td>' + + " " +  + '</td><td>' +  + '</td><td>' +  + '</td><td>' +  +'</td><td>' +  + '</td><td><button class="btn btn-primary">CLICK HERE</button></td></tr>');

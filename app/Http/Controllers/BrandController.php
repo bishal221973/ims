@@ -12,6 +12,9 @@ class BrandController extends Controller
     {
 
         $orgId = orgId();
+        if (!$orgId) {
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
+        }
         $brands = Brand::where('organization_id', $orgId)->latest()->get();
         return view('product.brand', compact('brands', 'brand'));
     }
@@ -20,7 +23,7 @@ class BrandController extends Controller
     {
         $org_id = orgId();
         if (!$org_id) {
-            return redirect()->back()->with('error', "Please select an organization.");
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
         }
         $data = $request->validate([
             'name' => 'required',
@@ -35,7 +38,7 @@ class BrandController extends Controller
     {
         $orgId = orgId();
         if (!$orgId) {
-            return redirect()->back()->with('error', "Please select an organization.");
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
         }
         $brand = Brand::where('id', $id)->where('organization_id', $orgId)->first();
 
@@ -58,7 +61,11 @@ class BrandController extends Controller
 
     public function delete($id)
     {
-        $data = Brand::where('id', $id)->where('organization_id', orgId())->first();
+        $org_id=orgId();
+        if (!$org_id) {
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
+        }
+        $data = Brand::where('id', $id)->where('organization_id', $org_id)->first();
 
         if (!$data) {
             return redirect()->back()->with('error', "No data found");

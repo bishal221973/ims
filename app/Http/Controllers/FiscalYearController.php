@@ -9,7 +9,11 @@ class FiscalYearController extends Controller
 {
     public function index(FiscalYear $fiscalYear)
     {
-        $fiscalYears = FiscalYear::where('organization_id', orgId())->latest()->get();
+        $org_id=orgId();
+        if (!$org_id) {
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
+        }
+        $fiscalYears = FiscalYear::where('organization_id', $org_id)->latest()->get();
         return view('configuration.fiscalYear', compact('fiscalYear', 'fiscalYears'));
     }
 
@@ -17,7 +21,7 @@ class FiscalYearController extends Controller
     {
         $orgId = orgId();
         if (!$orgId) {
-            return redirect()->back()->with('error', "Please select an organization.");
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
         }
         $data = $request->validate([
             'name' => 'required',
@@ -32,7 +36,11 @@ class FiscalYearController extends Controller
 
     public function active($id)
     {
-        foreach (FiscalYear::where('organization_id', orgId())->get() as $fiscalYear) {
+        $org_id=orgId();
+        if (!$org_id) {
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
+        }
+        foreach (FiscalYear::where('organization_id', $org_id)->get() as $fiscalYear) {
             $fiscalYear->update([
                 'status' => 0,
             ]);

@@ -12,6 +12,9 @@ class ProductController extends Controller
 {
     public function index(Product $product){
         $org_id=orgId();
+        if (!$org_id) {
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
+        }
         $categories=Category::where('organization_id',$org_id)->latest()->get();
         $brands=Brand::where('organization_id',$org_id)->latest()->get();
         $units=Unit::where('organization_id',$org_id)->latest()->get();
@@ -23,7 +26,7 @@ class ProductController extends Controller
     {
         $org_id = orgId();
         if (!$org_id) {
-            return redirect()->back()->with('error', "Please select an organization.");
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
         }
         $data = $request->validate([
             'name' => 'required',
@@ -41,7 +44,7 @@ class ProductController extends Controller
     {
         $orgId = orgId();
         if (!$orgId) {
-            return redirect()->back()->with('error', "Please select an organization.");
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
         }
         $product = Product::where('id', $id)->where('organization_id', $orgId)->first();
 

@@ -9,6 +9,9 @@ class CategoryController extends Controller
 {
     public function index(Category $category){
         $org_id=orgId();
+        if (!$org_id) {
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
+        }
         $categories=Category::where('organization_id',$org_id)->latest()->get();
         return view('product.category',compact('category','categories'));
     }
@@ -17,7 +20,7 @@ class CategoryController extends Controller
     {
         $org_id = orgId();
         if (!$org_id) {
-            return redirect()->back()->with('error', "Please select an organization.");
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
         }
         $data = $request->validate([
             'name' => 'required',
@@ -25,14 +28,14 @@ class CategoryController extends Controller
         $data['organization_id'] = $org_id;
         Category::create($data);
 
-        return redirect()->back()->with('success', "New brand saved.");
+        return redirect()->back()->with('success', "New category saved.");
     }
 
     public function edit($id)
     {
         $orgId = orgId();
         if (!$orgId) {
-            return redirect()->back()->with('error', "Please select an organization.");
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
         }
         $category = Category::where('id', $id)->where('organization_id', $orgId)->first();
 
@@ -55,12 +58,16 @@ class CategoryController extends Controller
 
     public function delete($id)
     {
-        $data = Category::where('id', $id)->where('organization_id', orgId())->first();
+        $org_id=orgId();
+        if (!$org_id) {
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
+        }
+        $data = Category::where('id', $id)->where('organization_id', $org_id)->first();
 
         if(!$data){
             return redirect()->back()->with('error', "No data found");
         }
         $data->delete();
-        return redirect()->back()->with('success',"Brand removed");
+        return redirect()->back()->with('success',"Category removed");
     }
 }
