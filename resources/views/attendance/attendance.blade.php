@@ -497,6 +497,18 @@
                                     </tbody>
                                 </table>
                             </div>
+
+                            <div class="pd-20">
+                                <label class="font-weight-bold text-uppercase">Where</label>
+
+                                <ul>
+                                    <li><span class="font-weight-bold">P</span> = Present</li>
+                                    <li><span class="font-weight-bold">A</span> = Absent</li>
+                                    <li><span class="font-weight-bold">L</span> = Leave</li>
+                                    <li><span class="font-weight-bold">S</span> = Saturday</li>
+                                    <li><span class="font-weight-bold">H</span> = Holyday</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
