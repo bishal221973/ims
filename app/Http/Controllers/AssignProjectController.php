@@ -46,7 +46,8 @@ class AssignProjectController extends Controller
                         'organization_id' => $org_id,
                     ]);
                 }
-                return redirect()->back()->with('success', "11Project assigned.");
+
+                return redirect()->back()->with('success', "Project assigned.");
             }
             return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
         }
