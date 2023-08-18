@@ -152,7 +152,7 @@
                         <span class="micon bi bi-file-pdf"></span><span class="mtext">Attendance</span>
                     </a>
                     <ul class="submenu">
-                        <li><a href="{{ route('tax.index') }}">Attendance List</a></li>
+                        <li><a href="{{ route('attendance.list') }}">Attendance List</a></li>
                         <li><a href="{{ route('attendance.index') }}">Attendance</a></li>
                         @hasanyrole('super-admin|admin')
                             <li><a href="{{ route('leave.list') }}">Leave List</a></li>

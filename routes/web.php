@@ -227,6 +227,7 @@ Route::get('attendance',[AttendanceController::class,'index'])->name('attendance
 Route::post('take-attendance',[AttendanceController::class,'store'])->name('attendance.store');
 Route::get('take-attendance/{id}',[AttendanceController::class,'update'])->name('attendance.update');
 Route::get('take-attendance',[AttendanceController::class,'saturday'])->name('attendance.saturday');
+Route::get('attendance-list',[AttendanceController::class,'list'])->name('attendance.list');
 // Route::get('sales-return/{id}/edit',[SalesReturnController::class,'edit'])->name('salesreturn.edit');
 // Route::put('sales-return/{sales-return}/update',[SalesReturnController::class,'update'])->name('salesreturn.update');
 

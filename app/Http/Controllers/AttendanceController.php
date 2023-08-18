@@ -11,6 +11,7 @@ use Bsdate;
 use DateTime;
 use DateTimeZone;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class AttendanceController extends Controller
 {
@@ -95,5 +96,31 @@ class AttendanceController extends Controller
         $data= ad_to_bs($year, $month, $day);
 
         return $data;
+    }
+
+    public function list(){
+        $carbonInstance = Carbon::now();
+
+        $year = $carbonInstance->year;    // Get the year as an integer
+        $month = $carbonInstance->month;  // Get the month as an integer
+        $day = $carbonInstance->day;
+        $date = ad_to_bs($year, $month, $day);
+
+        $MyDate =$date['month'];
+
+
+        $org_id = orgId();
+        if (!$org_id) {
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
+        }
+
+
+        $employees = Employee::with(['attendance' => function ($query) use ($MyDate) {
+            $query->whereMonth('date',  $MyDate);
+        }])
+        ->get();
+
+        // $employees=Employee::where('organization_id',$org_id)->whereMonth('date',$date['month'])->latest()->get();
+        return view('attendance.attendance',compact('employees'));
     }
 }

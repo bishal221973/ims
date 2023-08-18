@@ -15,6 +15,10 @@ class Employee extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function user1(){
+        return $this->belongsTo(User::class,'user_id');
+    }
+
     public function branch(){
         return $this->belongsTo(Branch::class);
     }
