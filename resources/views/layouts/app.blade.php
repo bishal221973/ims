@@ -375,16 +375,17 @@
             dataType: 'json',
             success: function(dataResult) {
                 // alert(dataResult);
-                // console.log(dataResult);
+                console.log(dataResult);
                 $("#purchaseText").text(dataResult);
             }
         });
     </script>
 
     <script>
+        var month = NepaliFunctions.GetCurrentBsMonth();
         // var id = $(this).val();
         var url = "{{ route('totalSales', ':month') }}";
-        url = url.replace(':month', '4');
+        url = url.replace(':month', month);
         $("#ProvinceId").empty();
         $.ajax({
             url: url,
@@ -395,7 +396,7 @@
             cache: false,
             dataType: 'json',
             success: function(dataResult) {
-                // console.log(dataResult);
+                console.log(dataResult);
                 $("#salesText").text(dataResult);
             }
         });

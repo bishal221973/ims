@@ -135,7 +135,7 @@
 
                                             <input type="text" name="start_date"
                                                 value="{{ old('start_date', $project->start_date) }}"
-                                                class="form-control" />
+                                                class="form-control" id="nepali-datepicker" placeholder="Nepali YYYY-MM-DD"/>
                                             @error('start_date')
                                                 <div class="text-danger">
                                                     {{ $message }}

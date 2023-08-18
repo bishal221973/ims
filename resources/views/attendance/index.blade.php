@@ -26,6 +26,7 @@
                             <div class="d-flex justify-content-between">
                                 <div>
                                     <h4 class="text-uppercase">Attendance History</h4>
+                                    <label class="text-warning"><span class="font-weight-bold">Warning :</span> Your salary will not count until you are not scheduled.</label>
                                 </div>
                                 <div>
                                     @php
@@ -81,7 +82,7 @@
                                     <input type="hidden" name="day" id="day">
                                     <input type="submit" class="btn btn-success " value="In" />
                                 </form>
-                                @if ($attendance)
+                                @if ($myAttendance)
                                     <a href="{{ route('attendance.update', $myAttendance->id) }}"
                                         class="btn btn-warning ml-3">Out</a>
                                 @else

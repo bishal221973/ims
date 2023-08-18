@@ -47,10 +47,11 @@ class HomeController extends Controller
     {
         $org_id=orgId();
         $fiscalYear=FiscalYear::where('organization_id',$org_id)->where('status',1)->first();
+
         return DB::table('sales_amounts')
             ->join('sales', 'sales.id', 'sales_amounts.sales_id')
             ->where('sales.organization_id', $org_id)
-            ->where('purchases.fiscal_year_id', $fiscalYear->id)
+            ->where('sales.fiscal_year_id', $fiscalYear->id)
             ->whereMonth('sales.transaction_date',$month)
             ->sum('sales_amounts.grand_total');
             // ->get();
