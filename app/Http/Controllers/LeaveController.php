@@ -81,9 +81,7 @@ class LeaveController extends Controller
     }
 
     public function statusAccept(Request $request,$id){
-        return $request;
 
-        return
         Leave::where('id',$id)->first()->update([
             'status'=>'Accepted',
         ]);

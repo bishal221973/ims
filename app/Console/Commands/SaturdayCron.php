@@ -4,6 +4,8 @@ namespace App\Console\Commands;
 
 use App\Models\Attendance;
 use App\Models\Employee;
+use App\Models\Holeyday;
+use App\Models\Leave;
 use App\Models\User;
 use Carbon\Carbon;
 use DateTime;
@@ -47,27 +49,92 @@ class SaturdayCron extends Command
 
         $this->info('success');
 
-        if ($date['weekday'] == 5) {
+        foreach (Employee::get() as $employee) {
+            $MyDate = $date['year'] . "-" . $date['month'] . "-" . $date['day'];
 
-            foreach (Employee::get() as $employee) {
+            $leave = Leave::where('branch_id', $employee->branch_id)->whereDate('from', '<=', $MyDate)->whereDate('to', '>=', $MyDate)->where('status', 'Accepted')->first();
+            if ($leave) {
                 $timezone = new DateTimeZone('Asia/Kathmandu'); // Set the Nepali time zone
                 $current_time = new DateTime('now', $timezone); // Get the current time in the specified time zone
 
                 $time = $current_time->format('H:i:s'); // Display the current time
-                $MyDate=$date['year']."-".$date['month']."-".$date['day'];
-                    $data['organization_id'] = $employee->organization_id;
-                    $data['branch_id'] = $employee->branch_id;
-                    $data['employee_id'] = $employee->id;
-                    $data['attendance'] = "S";
-                    $data['date'] = $MyDate;
-                    $data['inTime'] = "20";
-                    $data['outTime'] = "20";
-                    $data['workHour'] = "1";
-                    $data['salary'] = "1";
+                $data['organization_id'] = $employee->organization_id;
+                $data['branch_id'] = $employee->branch_id;
+                $data['employee_id'] = $employee->id;
+                $data['attendance'] = "L";
+                $data['date'] = $MyDate;
+                $data['inTime'] = "0";
+                $data['outTime'] = "0";
+                $data['workHour'] = "0";
 
-                    // if(!Attendance::where('employee_id',$employee->id)->whereDate('date',$MyDate)->first){
-                        Attendance::create($data);
-                    // }
+                $data['salary'] = "0";
+                // if(!Attendance::where('employee_id',$employee->id)->whereDate('date',$MyDate)->first){
+                Attendance::create($data);
+            }
+        }
+
+
+        foreach (Employee::get() as $employee) {
+            $MyDate = $date['year'] . "-" . $date['month'] . "-" . $date['day'];
+
+            $holeyday = Holeyday::where('branch_id', $employee->branch_id)->whereDate('from', '<=', $MyDate)->whereDate('to', '>=', $MyDate)->first();
+
+            if ($holeyday) {
+
+                $attendance=Attendance::where('employee_id',$employee->id)->whereDate('date',$MyDate)->first();
+
+                if($attendance){
+                    $attendance->delete();
+                }
+                $timezone = new DateTimeZone('Asia/Kathmandu'); // Set the Nepali time zone
+                $current_time = new DateTime('now', $timezone); // Get the current time in the specified time zone
+
+                $time = $current_time->format('H:i:s'); // Display the current time
+                $data['organization_id'] = $employee->organization_id;
+                $data['branch_id'] = $employee->branch_id;
+                $data['employee_id'] = $employee->id;
+                $data['attendance'] = "H";
+                $data['date'] = $MyDate;
+                $data['inTime'] = "0";
+                $data['outTime'] = "0";
+                $data['workHour'] = "0";
+                if ($holeyday->type == "Paid") {
+
+                    $data['salary'] = $employee->salary / 30;
+                } else {
+                    $data['salary'] = "0";
+                }
+                // if(!Attendance::where('employee_id',$employee->id)->whereDate('date',$MyDate)->first){
+                Attendance::create($data);
+            }
+        }
+
+        if ($date['weekday'] == 5) {
+
+            foreach (Employee::get() as $employee) {
+                $MyDate = $date['year'] . "-" . $date['month'] . "-" . $date['day'];
+                $attendance=Attendance::where('employee_id',$employee->id)->whereDate('date',$MyDate)->first();
+
+                if($attendance){
+                    $attendance->delete();
+                }
+                $timezone = new DateTimeZone('Asia/Kathmandu'); // Set the Nepali time zone
+                $current_time = new DateTime('now', $timezone); // Get the current time in the specified time zone
+
+                $time = $current_time->format('H:i:s'); // Display the current time
+                $data['organization_id'] = $employee->organization_id;
+                $data['branch_id'] = $employee->branch_id;
+                $data['employee_id'] = $employee->id;
+                $data['attendance'] = "S";
+                $data['date'] = $MyDate;
+                $data['inTime'] = "0";
+                $data['outTime'] = "0";
+                $data['workHour'] = "0";
+                $data['salary'] = $employee->salary;
+
+                // if(!Attendance::where('employee_id',$employee->id)->whereDate('date',$MyDate)->first){
+                Attendance::create($data);
+                // }
 
 
                 $this->info('success');

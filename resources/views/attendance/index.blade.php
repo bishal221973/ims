@@ -82,7 +82,7 @@
                                     <input type="submit" class="btn btn-success " value="In" />
                                 </form>
                                 @if ($attendance)
-                                    <a href="{{ route('attendance.update', $attendance->id) }}"
+                                    <a href="{{ route('attendance.update', $myAttendance->id) }}"
                                         class="btn btn-warning ml-3">Out</a>
                                 @else
                                     <a href="#"

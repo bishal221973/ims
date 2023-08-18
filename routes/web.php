@@ -10,6 +10,7 @@ use App\Http\Controllers\CountryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\FiscalYearController;
+use App\Http\Controllers\HoleydayController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LeaveController;
 use App\Http\Controllers\LeaveTypeController;
@@ -21,6 +22,7 @@ use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\PurchasePaymentController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SalaryController;
 use App\Http\Controllers\SalesController;
 use App\Http\Controllers\SalesReturnController;
 use App\Http\Controllers\ScheduleController;
@@ -227,6 +229,16 @@ Route::get('take-attendance',[AttendanceController::class,'saturday'])->name('at
 // Route::get('sales-return/{id}/edit',[SalesReturnController::class,'edit'])->name('salesreturn.edit');
 // Route::put('sales-return/{sales-return}/update',[SalesReturnController::class,'update'])->name('salesreturn.update');
 
+
+Route::post('holey-day', [HoleydayController::class, 'store'])->name('holey-day.store');
+Route::get('holey-day', [HoleydayController::class, 'index'])->name('holey-day.index');
+Route::get('holey-day/{holeyday}/edit', [HoleydayController::class, 'edit'])->name('holey-day.edit');
+Route::put('holey-day/{holeyday}/update', [HoleydayController::class, 'update'])->name('holey-day.update');
+Route::delete('holey-day/{holeyday}/delete', [HoleydayController::class, 'delete'])->name('holey-day.delete');
+
+Route::get('salary', [SalaryController::class, 'index'])->name('salary.index');
+Route::get('salary/{id}/payment', [SalaryController::class, 'payment'])->name('salary.payment');
+Route::post('salary/payment', [SalaryController::class, 'pay'])->name('salary.pay');
 
 
 Route::get('/foo', function () {

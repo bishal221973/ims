@@ -109,6 +109,7 @@
 
                         <li><a href="{{ route('employee.create') }}">New Employee</a></li>
                         <li><a href="{{ route('schedule.index') }}">Time Schedule</a></li>
+                        <li><a href="{{ route('salary.index') }}">Salary</a></li>
                     </ul>
                 </li>
                 @role('super-admin')
@@ -157,6 +158,7 @@
                             <li><a href="{{ route('leave.list') }}">Leave List</a></li>
                         @endhasanyrole
                         <li><a href="{{ route('leave.index') }}">Leave</a></li>
+                        <li><a href="{{ route('holey-day.index') }}">HoleyDay</a></li>
                     </ul>
                 </li>
 

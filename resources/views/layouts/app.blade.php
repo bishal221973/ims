@@ -219,6 +219,12 @@
             ndpMonth: true,
             ndpYearCount: 100
         });
+        var mainInput = document.getElementById("nepali-datepicker2");
+        mainInput.nepaliDatePicker({
+            ndpYear: true,
+            ndpMonth: true,
+            ndpYearCount: 100
+        });
     </script>
     @stack('myscripts')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

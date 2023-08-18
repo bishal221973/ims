@@ -19,12 +19,13 @@ class AttendanceController extends Controller
         if (Auth()->user()->roles[0]->name == "super-admin") {
             return redirect()->back()->with('error', "You are not authorised.");
         } else {
-            $attendance = Attendance::where('employee_id', Auth()->user()->employee->id)->first();
+            $myAttendance = Attendance::where('employee_id', Auth()->user()->employee->id)->latest()->first();
+            // return $attendance;
             $attendances = Attendance::where('employee_id', Auth()->user()->employee->id)->latest()->get();
         }
 
 
-        return view('attendance.index', compact('attendance', 'attendances'));
+        return view('attendance.index', compact('myAttendance', 'attendances'));
     }
 
     public function store(Request $request)
@@ -61,6 +62,7 @@ class AttendanceController extends Controller
 
         $data['outTime'] = $time;
 
+        // return $atendance->inTime;
         $startTime = new DateTime($atendance->inTime);
         $endTime = new DateTime($time);
 
