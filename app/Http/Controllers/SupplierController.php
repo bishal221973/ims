@@ -10,6 +10,10 @@ use Illuminate\Http\Request;
 
 class SupplierController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'mailVerify']);
+    }
     public function index(Supplier $supplier)
     {
         $org_id = orgId();

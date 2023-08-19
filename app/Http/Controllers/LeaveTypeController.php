@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class LeaveTypeController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'mailVerify']);
+    }
     public function index(LeaveType $leaveType)
     {
         $org_id=orgId();

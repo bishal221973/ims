@@ -11,6 +11,10 @@ use Illuminate\Http\Request;
 
 class PurchasePaymentController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'mailVerify']);
+    }
     public function payment($id)
     {
         $org_id=orgId();

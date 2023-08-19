@@ -10,8 +10,13 @@ use Illuminate\Support\Facades\Hash;
 
 class BranchController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'mailVerify']);
+    }
     public function index()
     {
+
         $org_id = orgId();
         if (!$org_id) {
             return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
@@ -22,7 +27,7 @@ class BranchController extends Controller
 
     public function create(Branch $branch)
     {
-        $org_id=orgId();
+        $org_id = orgId();
         if (!$org_id) {
             return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
         }
@@ -77,14 +82,14 @@ class BranchController extends Controller
         $user = User::create($userData);
         $branchData['user_id'] = $user->id;
 
-        $branch=Branch::create($branchData);
+        $branch = Branch::create($branchData);
 
         $user->assignRole("branch-admin");
 
         Employee::create([
-            'user_id'=>$user->id,
-            'organization_id'=>$org_id,
-            'branch_id'=>$branch->id,
+            'user_id' => $user->id,
+            'organization_id' => $org_id,
+            'branch_id' => $branch->id,
         ]);
 
         return redirect()->back()->with('success', "New branch saved.");
@@ -111,7 +116,7 @@ class BranchController extends Controller
         }
         $request->validate([
             'name' => 'required',
-            'email' => 'required|email|unique:users,email,'.$branch->user_id,
+            'email' => 'required|email|unique:users,email,' . $branch->user_id,
             'gender' => 'nullable',
             'dob' => 'nullable',
             'address' => 'nullable',
@@ -125,7 +130,7 @@ class BranchController extends Controller
 
         $userData = $request->validate([
             'name' => 'required',
-            'email' => 'required|email|unique:users,email,'.$branch->user_id,
+            'email' => 'required|email|unique:users,email,' . $branch->user_id,
             'gender' => 'nullable',
             'dob' => 'nullable',
             'address' => 'nullable',
@@ -143,7 +148,7 @@ class BranchController extends Controller
         if ($request->file('image')) {
             $userData['image'] = $request->file('image')->store();
         }
-        User::where('id',$branch->user_id)->first()->update($userData);
+        User::where('id', $branch->user_id)->first()->update($userData);
 
         $branch->update($branchData);
 

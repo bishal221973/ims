@@ -10,6 +10,10 @@ use Illuminate\Http\Request;
 
 class LeaveController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'mailVerify']);
+    }
     public function index(Leave $leave)
     {
         $org_id = orgId();

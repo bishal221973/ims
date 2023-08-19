@@ -7,6 +7,10 @@ use Spatie\Permission\Models\Role;
 
 class RoleController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'mailVerify']);
+    }
     public function index(){
         $org_id=orgId();
         if (!$org_id) {

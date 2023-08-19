@@ -10,6 +10,10 @@ use Illuminate\Http\Request;
 
 class ReportController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'mailVerify']);
+    }
     public function purchaseReport(){
         $org_id=orgId();
         if (!$org_id) {

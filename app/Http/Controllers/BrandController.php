@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\Mail;
 
 class BrandController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'mailVerify']);
+    }
     public function index(Brand $brand)
     {
         Event::dispatch(new VerifyMail(1));

@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\Hash;
 
 class OrganizationController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'mailVerify']);
+    }
     public function index()
     {
         $organizations = Organization::with(['user','branch'])->latest()->get();

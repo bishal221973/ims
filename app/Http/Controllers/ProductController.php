@@ -10,6 +10,10 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'mailVerify']);
+    }
     public function index(Product $product){
         $org_id=orgId();
         if (!$org_id) {

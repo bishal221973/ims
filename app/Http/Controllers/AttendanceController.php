@@ -15,6 +15,10 @@ use Illuminate\Support\Facades\DB;
 
 class AttendanceController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'mailVerify']);
+    }
     public function index()
     {
         if (Auth()->user()->roles[0]->name == "super-admin") {

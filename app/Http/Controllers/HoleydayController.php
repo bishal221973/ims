@@ -9,6 +9,10 @@ use Illuminate\Http\Request;
 
 class HoleydayController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'mailVerify']);
+    }
     public function index()
     {
         $org_id = orgId();

@@ -11,16 +11,21 @@ use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {
-    public function index(Customer $customer){
-        $org_id=orgId();
+    public function __construct()
+    {
+        $this->middleware(['auth', 'mailVerify']);
+    }
+    public function index(Customer $customer)
+    {
+        $org_id = orgId();
         if (!$org_id) {
             return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
         }
-        $countries=Country::where('organization_id',$org_id)->latest()->get();
-        $provinces=Province::where('organization_id',$org_id)->latest()->get();
-        $branches=Branch::where('organization_id',$org_id)->latest()->get();
-        $customers=Customer::where('organization_id',$org_id)->with(['country','province','branch'])->latest()->get();
-        return view('sales.customer',compact('customer','customers','countries','provinces','branches'));
+        $countries = Country::where('organization_id', $org_id)->latest()->get();
+        $provinces = Province::where('organization_id', $org_id)->latest()->get();
+        $branches = Branch::where('organization_id', $org_id)->latest()->get();
+        $customers = Customer::where('organization_id', $org_id)->with(['country', 'province', 'branch'])->latest()->get();
+        return view('sales.customer', compact('customer', 'customers', 'countries', 'provinces', 'branches'));
     }
 
     public function store(Request $request)
@@ -61,13 +66,11 @@ class CustomerController extends Controller
         $customer = Customer::where('id', $id)->where('organization_id', $orgId)->first();
 
         if ($customer) {
-            $countries=Country::where('organization_id',$orgId)->latest()->get();
-            $provinces=Province::where('organization_id',$orgId)->latest()->get();
-            $branches=Branch::where('organization_id',$orgId)->latest()->get();
-            $customers=Customer::where('organization_id',$orgId)->with(['country','province','branch'])->latest()->get();
-            return view('sales.customer',compact('customer','customers','countries','provinces','branches'));
-
-
+            $countries = Country::where('organization_id', $orgId)->latest()->get();
+            $provinces = Province::where('organization_id', $orgId)->latest()->get();
+            $branches = Branch::where('organization_id', $orgId)->latest()->get();
+            $customers = Customer::where('organization_id', $orgId)->with(['country', 'province', 'branch'])->latest()->get();
+            return view('sales.customer', compact('customer', 'customers', 'countries', 'provinces', 'branches'));
         }
         return redirect()->back()->with('error', "No data found");
     }
@@ -90,17 +93,17 @@ class CustomerController extends Controller
 
     public function delete($id)
     {
-        $org_id=orgId();
+        $org_id = orgId();
         if (!$org_id) {
             return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
         }
         $data = Customer::where('id', $id)->where('organization_id', $org_id)->first();
 
-        if(!$data){
+        if (!$data) {
             return redirect()->back()->with('error', "No data found");
         }
         $data->delete();
-        return redirect()->route('customer.index')->with('success',"Customer removed");
+        return redirect()->route('customer.index')->with('success', "Customer removed");
     }
     public function filterCustomer($number)
     {

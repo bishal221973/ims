@@ -9,6 +9,10 @@ use Illuminate\Support\Facades\Mail;
 
 class EmailVerifyController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth']);
+    }
     public function index(){
         return view('email.verifyMail');
     }

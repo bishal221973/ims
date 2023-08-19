@@ -18,6 +18,10 @@ use Illuminate\Http\Request;
 
 class PurchaseController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'mailVerify']);
+    }
     public function openingBalance(Cogs $cogs)
     {
         $cogss = Cogs::where('organization_id', orgId())->get();

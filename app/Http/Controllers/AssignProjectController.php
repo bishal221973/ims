@@ -10,6 +10,10 @@ use Illuminate\Http\Request;
 
 class AssignProjectController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'mailVerify']);
+    }
     public function index(AssignProject $assignProject)
     {
         $org_id = orgId();

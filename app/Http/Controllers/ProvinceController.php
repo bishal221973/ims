@@ -8,6 +8,10 @@ use Illuminate\Http\Request;
 
 class ProvinceController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'mailVerify']);
+    }
     public function index(Province $province)
     {
         $org_id=orgId();

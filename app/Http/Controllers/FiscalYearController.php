@@ -7,9 +7,13 @@ use Illuminate\Http\Request;
 
 class FiscalYearController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'mailVerify']);
+    }
     public function index(FiscalYear $fiscalYear)
     {
-        $org_id=orgId();
+        $org_id = orgId();
         if (!$org_id) {
             return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
         }
@@ -36,7 +40,7 @@ class FiscalYearController extends Controller
 
     public function active($id)
     {
-        $org_id=orgId();
+        $org_id = orgId();
         if (!$org_id) {
             return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
         }
