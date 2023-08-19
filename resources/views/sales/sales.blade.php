@@ -1,14 +1,14 @@
 @extends('layouts.app')
+@section('title','Sales')
 @section('content')
     <div class="main-container">
         <div class="pd-ltr-20 xs-pd-20-10">
             <div class="min-height-200px">
-                <div class="page-header" style="margin-bottom: 7px">
+                <div class="card p-0 px-3 mb-2">
                     <div class="row">
-                        <div class="col-md-6 col-sm-12">
-
+                        <div class="col-md-6 pt-3 col-sm-12">
                             <nav aria-label="breadcrumb" role="navigation">
-                                <ol class="breadcrumb">
+                                <ol class="breadcrumb p-0">
                                     <li class="breadcrumb-item">
                                         <a href="{{ route('home') }}">Home</a>
                                     </li>
@@ -19,6 +19,7 @@
                             </nav>
                         </div>
                     </div>
+
                 </div>
 
                 @if (Session::has('success'))
@@ -79,7 +80,7 @@
                     <div class="row">
                         <div class="col-xl-5">
                             <div class="col-12 p-0 productWrapper">
-                                <div class="pd-20 card-box mb-2">
+                                <div class="pd-20 card mb-2">
                                     <div class="form-group">
                                         <label>Product *:</label>
                                         <select class="custom-select2 select2 form-control" name="product_id[]"
@@ -125,12 +126,12 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="pd-20 card-box mb-2 d-flex justify-content-end">
+                            <div class="pd-20 card mb-2 d-flex justify-content-end">
                                 <button class="btn btn-info" type="button" id="btnAddProduct">Add</button>
                             </div>
                         </div>
                         <div class="col-xl-7">
-                            <div class="pd-20 card-box mb-2">
+                            <div class="pd-20 card mb-2">
                                 <div class="row">
                                     <div class="col-md-4">
                                         <input type="hidden" id="customer_id" name="customer_id">
@@ -205,7 +206,7 @@
                                 </div>
                             </div>
 
-                            <div class="pd-20 card-box mb-2">
+                            <div class="pd-20 card mb-2">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
@@ -276,7 +277,7 @@
                                 </div>
                             </div>
 
-                            <div class="pd-20 card-box mb-2">
+                            <div class="pd-20 card mb-2">
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="form-group">
@@ -300,8 +301,10 @@
                                 </div>
                             </div>
 
-                            <div class="pd-20 card-box mb-2 d-flex justify-content-end">
-                                <input type="submit" value="Save Purchase" class="btn btn-info">
+                            <div class="pd-20 card mb-2">
+                                <div class="d-flex justify-content-end">
+                                    <input type="submit" value="Save Purchase" class="btn btn-info">
+                                </div>
                             </div>
                         </div>
 

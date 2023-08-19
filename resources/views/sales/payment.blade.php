@@ -1,24 +1,25 @@
 @extends('layouts.app')
+@section('title','Sales-Payment')
 @section('content')
     <div class="main-container">
         <div class="pd-ltr-20 xs-pd-20-10">
             <div class="min-height-200px">
-                <div class="page-header" style="margin-bottom: 7px">
+                <div class="card p-0 px-3 mb-2">
                     <div class="row">
-                        <div class="col-md-6 col-sm-12">
-
+                        <div class="col-md-6 pt-3 col-sm-12">
                             <nav aria-label="breadcrumb" role="navigation">
-                                <ol class="breadcrumb">
+                                <ol class="breadcrumb p-0">
                                     <li class="breadcrumb-item">
-                                        <a href="{{route('home')}}">Home</a>
+                                        <a href="{{ route('home') }}">Home</a>
                                     </li>
                                     <li class="breadcrumb-item active" aria-current="page">
-                                        Payment
+                                        Sales Payment
                                     </li>
                                 </ol>
                             </nav>
                         </div>
                     </div>
+
                 </div>
 
                 @if (Session::has('success'))
@@ -76,7 +77,7 @@
 
                 <div class="row">
                     <div class="col-xl-7">
-                        <div class="pd-20 card-box mb-2">
+                        <div class="pd-20 card mb-2">
                             <h5 class="text-center">{{ $organization->organization_name }}</h5>
                             <p class="col-12 text-center">{{ $organization->organization_address }}</p>
 
@@ -206,7 +207,7 @@
                         <form action="{{ route('paySales') }}" method="POST">
                             @csrf
                             <input type="hidden" name="sales_id" value="{{ $sales->id }}">
-                            <div class="pd-20 card-box mb-2">
+                            <div class="pd-20 card mb-2">
                                 <div class="rotm-group">
                                     <label>{{ $edit ? 'Remaining Amount' : 'Total Price (including all taxs)' }}</label>
                                     <input type="text" name="total" class="form-control" readonly

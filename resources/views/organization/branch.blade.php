@@ -1,23 +1,21 @@
 @extends('layouts.app')
+@section('title',"Branch")
 @section('content')
     <div class="main-container">
         <div class="pd-ltr-20 xs-pd-20-10">
             <div class="min-height-200px">
-                <div class="page-header" style="margin-bottom: 7px">
-                    <div class="row">
-                        <div class="col-md-6 col-sm-12">
-
-                            <nav aria-label="breadcrumb" role="navigation">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item">
-                                        <a href="{{route('home')}}">Home</a>
-                                    </li>
-                                    <li class="breadcrumb-item active" aria-current="page">
-                                        Branch
-                                    </li>
-                                </ol>
-                            </nav>
-                        </div>
+                <div class="card p-0 mb-2">
+                    <div class="col-md-6 pt-3 col-sm-12">
+                        <nav aria-label="breadcrumb" role="navigation">
+                            <ol class="breadcrumb p-0">
+                                <li class="breadcrumb-item">
+                                    <a href="{{ route('home') }}">Home</a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    Branch
+                                </li>
+                            </ol>
+                        </nav>
                     </div>
                 </div>
 
@@ -81,7 +79,7 @@
                     @isset($branch->id)
                         @method('PUT')
                     @endisset
-                    <div class="pd-20 card-box mb-2">
+                    <div class="pd-20 card mb-2">
                         <h5>Branch admin info</h5>
                         <section>
                             <div class="row">
@@ -159,10 +157,10 @@
                                         @if ($branch->id)
                                             <input type="text" name="dob"
                                                 value="{{ old('dob', $branch->user->dob) }}" id="nepali-datepicker"
-                                                class="form-control" />
+                                                class="form-control" placeholder="Nepali YYYY-MM-DD"/>
                                         @else
                                             <input type="text" name="dob" value="{{ old('dob') }}"
-                                                id="nepali-datepicker" class="form-control" />
+                                                id="nepali-datepicker" class="form-control" placeholder="Nepali YYYY-MM-DD"/>
                                         @endif
                                         @error('dob')
                                             <div class="text-danger">
@@ -243,14 +241,14 @@
                             </div>
                         </section>
                     </div>
-                    <div class="pd-20 card-box mb-2">
+                    <div class="pd-20 card mb-2">
                         <!-- Step 2 -->
                         <h5>Branch Info</h5>
                         <section>
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label>Name *:</label>
+                                        <label>Branch Name *:</label>
                                         <input type="text" name="branch_name" {{$branch->id ? 'readonly' : ''}}
                                             value="{{ old('branch_name', $branch->branch_name) }}"
                                             class="form-control" />
@@ -307,10 +305,10 @@
                         <!-- Step 4 -->
 
                     </div>
-                    <div class="pd-20 card-box mb-3">
+                    <div class="pd-20 card mb-3">
                         <div class="col-12 d-flex justify-content-end">
                             <input type="submit" value="{{ $branch->id ? 'Update' : 'Register' }}"
-                                class="btn btn-warning text-white">
+                                class="btn btn-info text-white">
                         </div>
                     </div>
                 </form>

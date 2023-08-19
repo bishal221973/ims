@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title','Verify-Mail')
 @section('content')
     <div class="main-container">
         <div class="pd-ltr-20 xs-pd-20-10">
@@ -60,7 +61,7 @@
                     @endphp
 
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <strong>SUCCESS : </strong> {{ $msg }}
+                        <strong>SUCCESS : </strong>We sent a verification mail to your email. Please <a href="https://mail.google.com/" target="_blank" class="font-weight-bold"><u>open gmail</u></a> to verify your email.
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>

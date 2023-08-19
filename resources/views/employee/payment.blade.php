@@ -1,15 +1,14 @@
 @extends('layouts.app')
+@section('title','Salary-Payment')
 @section('content')
     <div class="main-container">
         <div class="pd-ltr-20 xs-pd-20-10">
             <div class="min-height-200px">
-                <div class="page-header">
+                <div class="card p-0 px-3 mb-2">
                     <div class="row">
-                        <div class="col-md-6 col-sm-12">
-                            <div class="title">
-                            </div>
+                        <div class="col-md-6 pt-3 col-sm-12">
                             <nav aria-label="breadcrumb" role="navigation">
-                                <ol class="breadcrumb">
+                                <ol class="breadcrumb p-0">
                                     <li class="breadcrumb-item">
                                         <a href="{{ route('home') }}">Home</a>
                                     </li>
@@ -20,6 +19,7 @@
                             </nav>
                         </div>
                     </div>
+
                 </div>
 
                 @if (Session::has('success'))
@@ -77,7 +77,7 @@
 
                 <div class="row">
                     <div class="col-xl-12">
-                        <div class="card-box mb-30">
+                        <div class="card mb-30">
 
                             <div class="p-3">
                                 {{-- multiple-select-row --}}
@@ -172,7 +172,7 @@
                     </div>
 
                     <div class="col-xl-12">
-                        <div class="card-box mb-30">
+                        <div class="card mb-30">
                             <table class="table hover ">
                                 <thead>
                                     <tr>

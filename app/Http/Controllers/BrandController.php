@@ -17,7 +17,7 @@ class BrandController extends Controller
     }
     public function index(Brand $brand)
     {
-        Event::dispatch(new VerifyMail(1));
+        // Event::dispatch(new VerifyMail(1));
         $orgId = orgId();
         if (!$orgId) {
             return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");

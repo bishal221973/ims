@@ -3,21 +3,18 @@
     <div class="main-container">
         <div class="pd-ltr-20 xs-pd-20-10">
             <div class="min-height-200px">
-                <div class="page-header" style="margin-bottom: 7px">
-                    <div class="row">
-                        <div class="col-md-6 col-sm-12">
-
-                            <nav aria-label="breadcrumb" role="navigation">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item">
-                                        <a href="{{route('home')}}">Home</a>
-                                    </li>
-                                    <li class="breadcrumb-item active" aria-current="page">
-                                        Organization
-                                    </li>
-                                </ol>
-                            </nav>
-                        </div>
+                <div class="card p-0 mb-2">
+                    <div class="col-md-6 pt-3 col-sm-12">
+                        <nav aria-label="breadcrumb" role="navigation">
+                            <ol class="breadcrumb p-0">
+                                <li class="breadcrumb-item">
+                                    <a href="{{ route('home') }}">Home</a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    Organization
+                                </li>
+                            </ol>
+                        </nav>
                     </div>
                 </div>
 
@@ -81,7 +78,7 @@
                     @isset($organization->id)
                         @method('PUT')
                     @endisset
-                    <div class="pd-20 card-box mb-2">
+                    <div class="pd-20 card mb-2">
                         <h5>Admin Info</h5>
                         <section>
                             <div class="row">
@@ -159,10 +156,10 @@
                                         @if ($organization->id)
                                             <input type="text" name="dob"
                                                 value="{{ old('dob', $organization->user->dob) }}" id="nepali-datepicker"
-                                                class="form-control" />
+                                                class="form-control" placeholder="Nepali YYYY-MM-DD"/>
                                         @else
                                             <input type="text" name="dob" value="{{ old('dob') }}"
-                                                id="nepali-datepicker" class="form-control" />
+                                                id="nepali-datepicker" class="form-control" placeholder="Nepali YYYY-MM-DD" />
                                         @endif
                                         @error('dob')
                                             <div class="text-danger">
@@ -243,7 +240,7 @@
                             </div>
                         </section>
                     </div>
-                    <div class="pd-20 card-box mb-2">
+                    <div class="pd-20 card mb-2">
                         <!-- Step 2 -->
                         <h5>Organization Info</h5>
                         <section>
@@ -343,10 +340,10 @@
                         <!-- Step 4 -->
 
                     </div>
-                    <div class="pd-20 card-box mb-3">
+                    <div class="pd-20 card mb-3">
                         <div class="col-12 d-flex justify-content-end">
                             <input type="submit" value="{{ $organization->id ? 'Update' : 'Register' }}"
-                                class="btn btn-warning text-white">
+                                class="btn btn-success text-white my-bnt">
                         </div>
                     </div>
                 </form>

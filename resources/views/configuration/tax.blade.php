@@ -1,16 +1,16 @@
 @extends('layouts.app')
+@section('title','Tax')
 @section('content')
     <div class="main-container">
         <div class="pd-ltr-20 xs-pd-20-10">
             <div class="min-height-200px">
-                <div class="page-header" style="margin-bottom: 7px">
+                <div class="card p-0 px-3 mb-2">
                     <div class="row">
-                        <div class="col-md-6 col-sm-12">
-
+                        <div class="col-md-6 pt-3 col-sm-12">
                             <nav aria-label="breadcrumb" role="navigation">
-                                <ol class="breadcrumb">
+                                <ol class="breadcrumb p-0">
                                     <li class="breadcrumb-item">
-                                        <a href="{{route('home')}}">Home</a>
+                                        <a href="{{ route('home') }}">Home</a>
                                     </li>
                                     <li class="breadcrumb-item active" aria-current="page">
                                         Tax
@@ -76,7 +76,7 @@
 
                 <div class="row">
                     <div class="col-xl-5">
-                        <div class="pd-20 card-box mb-2">
+                        <div class="pd-20 card mb-2">
                             <form action="{{ $tax->id ? route('tax.update',$tax) : route('tax.store') }}" method="POST">
                                 @csrf
                                 @isset($tax->id)
@@ -112,7 +112,7 @@
                     </div>
 
                     <div class="col-xl-7">
-                        <div class="card-box mb-30">
+                        <div class="card mb-30">
                             <div class="pd-20">
                             </div>
                             <div class="pb-20">

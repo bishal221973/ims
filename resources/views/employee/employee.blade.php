@@ -1,24 +1,25 @@
 @extends('layouts.app')
+@section('title','Employee')
 @section('content')
     <div class="main-container">
         <div class="pd-ltr-20 xs-pd-20-10">
             <div class="min-height-200px">
-                <div class="page-header" style="margin-bottom: 7px">
+                <div class="card p-0 px-3 mb-2">
                     <div class="row">
-                        <div class="col-md-6 col-sm-12">
-
+                        <div class="col-md-6 pt-3 col-sm-12">
                             <nav aria-label="breadcrumb" role="navigation">
-                                <ol class="breadcrumb">
+                                <ol class="breadcrumb p-0">
                                     <li class="breadcrumb-item">
-                                        <a href="{{route('home')}}">Home</a>
+                                        <a href="{{ route('home') }}">Home</a>
                                     </li>
                                     <li class="breadcrumb-item active" aria-current="page">
-                                        Unit
+                                        Employee
                                     </li>
                                 </ol>
                             </nav>
                         </div>
                     </div>
+
                 </div>
 
                 @if (Session::has('success'))
@@ -82,7 +83,7 @@
                     @endisset
                     <div class="row">
                         <div class="col-xl-12">
-                            <div class="pd-20 card-box mb-2">
+                            <div class="pd-20 card mb-2">
                                 {{-- @isset($unit->id)
                                     @method('PUT')
                                 @endisset --}}
@@ -289,7 +290,7 @@
                     </div>
                     <div class="row">
                         <div class="col-xl-8">
-                            <div class="pd-20 card-box mb-2">
+                            <div class="pd-20 card mb-2">
                                 {{-- @isset($unit->id)
                                     @method('PUT')
                                 @endisset --}}
@@ -415,7 +416,7 @@
                             </div>
                         </div>
                         <div class="col-xl-4">
-                            <div class="pd-20 card-box mb-2">
+                            <div class="pd-20 card mb-2">
                                 {{-- @isset($unit->id)
                                 @method('PUT')
                             @endisset --}}
@@ -449,8 +450,10 @@
                         </div>
                     </div>
                     {{-- <div class="col-12"> --}}
-                        <div class="pd-20 card-box mb-2 d-flex justify-content-end">
-                            <input type="submit" value="{{ $employee->id ? 'Update' : 'Save' }}" class="btn btn-info">
+                        <div class="pd-20 card mb-2 ">
+                            <div class="d-flex col-12 justify-content-end">
+                                <input type="submit" value="{{ $employee->id ? 'Update' : 'Save' }}" class="col-md-2  btn btn-info">
+                            </div>
                         </div>
                     {{-- </div> --}}
                 </form>

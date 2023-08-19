@@ -18,6 +18,7 @@ class VerifyEmailMiddleware
         if (Auth::check() && !Auth::user()->email_verified_at) {
             return redirect()->route('emailverify.index'); // You can change this route name as needed
         }
+
         return $next($request);
     }
 }
