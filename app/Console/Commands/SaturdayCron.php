@@ -47,7 +47,7 @@ class SaturdayCron extends Command
         // DB::table('attendances')->insert($data);
         // Attendance::create($data);
 
-        $this->info('success');
+
 
         foreach (Employee::get() as $employee) {
             $MyDate = $date['year'] . "-" . $date['month'] . "-" . $date['day'];
@@ -56,6 +56,12 @@ class SaturdayCron extends Command
             if ($leave) {
                 $timezone = new DateTimeZone('Asia/Kathmandu'); // Set the Nepali time zone
                 $current_time = new DateTime('now', $timezone); // Get the current time in the specified time zone
+
+                $attendance=Attendance::where('employee_id',$employee->id)->whereDate('date',$MyDate)->first();
+
+                if($attendance){
+                    $attendance->delete();
+                }
 
                 $time = $current_time->format('H:i:s'); // Display the current time
                 $data['organization_id'] = $employee->organization_id;
@@ -109,7 +115,7 @@ class SaturdayCron extends Command
             }
         }
 
-        if ($date['weekday'] == 5) {
+        if ($date['weekday'] == 7) {
 
             foreach (Employee::get() as $employee) {
                 $MyDate = $date['year'] . "-" . $date['month'] . "-" . $date['day'];

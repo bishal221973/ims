@@ -261,3 +261,8 @@ Route::get('/seed',function(){
     $exitCode=Artisan::call('db:seed');
     return $exitCode;
 });
+
+Route::get('/schedule',function(){
+    $exitCode=Artisan::call('schedule:run');
+    return $exitCode;
+});
