@@ -2,21 +2,31 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\VerifyMail;
 use App\Models\Brand;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Mail;
 
 class BrandController extends Controller
 {
     public function index(Brand $brand)
     {
-
-        $orgId = orgId();
-        if (!$orgId) {
-            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
-        }
-        $brands = Brand::where('organization_id', $orgId)->latest()->get();
-        return view('product.brand', compact('brands', 'brand'));
+        $data=[
+            'name'=>"Bishal"
+        ];
+        Mail::send('emailVerifyMail',$data,function($message) use($data){
+            $message->to("bishalchaudhary2018bca@gmail.com");
+            $message->subject("Event testing");
+        });
+        // Event::dispatch(new VerifyMail(1));
+        // $orgId = orgId();
+        // if (!$orgId) {
+        //     return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
+        // }
+        // $brands = Brand::where('organization_id', $orgId)->latest()->get();
+        // return view('product.brand', compact('brands', 'brand'));
     }
 
     public function store(Request $request)
@@ -61,7 +71,7 @@ class BrandController extends Controller
 
     public function delete($id)
     {
-        $org_id=orgId();
+        $org_id = orgId();
         if (!$org_id) {
             return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
         }
