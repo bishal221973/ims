@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title','Country')
+@section('title', 'Country')
 @section('content')
     <div class="main-container">
         <div class="mt-4 xs-pd-20-10">
@@ -95,7 +95,7 @@
                                         </div>
                                     @enderror
                                 </div>
-
+                                <hr>
                                 <div class="form-group d-flex justify-content-end">
                                     <input type="submit" value="{{ $country->id ? 'Update' : 'Save' }}"
                                         class="btn btn-info">

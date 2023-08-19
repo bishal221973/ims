@@ -115,49 +115,49 @@
                 <div class="col p-0 text-center">
                     <a href="{{route('sales.create')}}" class="card h-100 border-0">
                         <div class="card-body responsive-text1 responsive-text1">
-                            Sales
+                            <i class="fa-solid fa-circle-dollar-to-slot mr-2"></i> Sales
                         </div>
                     </a>
                 </div>
                 <div class="col p-0 text-center">
                     <a href="{{route('purchase.create')}}" class="card h-100 border-0">
                         <div class="card-body responsive-text1">
-                            Purchase
+                            <i class="fa-solid fa-cart-shopping mr-2"></i>Purchase
                         </div>
                     </a>
                 </div>
                 <div class="col p-0 text-center">
                     <a href="{{route('employee.create')}}" class="card h-100 border-0">
                         <div class="card-body responsive-text1">
-                            Employee
+                            <i class="fa-solid fa-person mr-2"></i>Employee
                         </div>
                     </a>
                 </div>
                 <div class="col p-0 text-center">
                     <a href="{{route('project.index')}}" class="card h-100 border-0">
                         <div class="card-body responsive-text1">
-                            Project
+                            <i class="fa-solid fa-diagram-project mr-2"></i>Project
                         </div>
                     </a>
                 </div>
                 <div class="col p-0 text-center">
                     <a href="{{route('inventoryReport')}}" class="card h-100 border-0">
                         <div class="card-body responsive-text1">
-                            Inventory
+                            <i class="fa-solid fa-money-bill mr-2"></i>Inventory
                         </div>
                     </a>
                 </div>
                 <div class="col p-0 text-center">
                     <a href="{{route('supplier.index')}}" class="card h-100 border-0">
                         <div class="card-body responsive-text1">
-                            Supplier
+                            <i class="fa-solid fa-truck-field-un mr-2"></i>Supplier
                         </div>
                     </a>
                 </div>
                 <div class="col p-0 text-center">
                     <a href="{{route('customer.index')}}" class="card h-100 border-0">
                         <div class="card-body responsive-text1">
-                            Customer
+                            <i class="fa-solid fa-users mr-2"></i>Customer
                         </div>
                     </a>
                 </div>
@@ -165,21 +165,21 @@
                 <div class="col p-0 text-center">
                     <a href="{{route('product.index')}}" class="card h-100 border-0">
                         <div class="card-body responsive-text1">
-                            Product
+                            <i class="fa-brands fa-product-hunt mr-2"></i>Product
                         </div>
                     </a>
                 </div>
                 <div class="col p-0 text-center">
                     <a href="{{route('brand.index')}}" class="card h-100 border-0">
                         <div class="card-body responsive-text1">
-                            Brand
+                            <i class="fa-solid fa-code-branch mr-2"></i>Brand
                         </div>
                     </a>
                 </div>
                 <div class="col p-0 text-center">
                     <a href="{{route('category.index')}}" class="card h-100 border-0">
                         <div class="card-body responsive-text1">
-                            Category
+                            <i class="fa-solid fa-boxes-stacked mr-2"></i>Category
                         </div>
                     </a>
                 </div>

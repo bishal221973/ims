@@ -93,6 +93,8 @@
                                     @enderror
                                 </div>
 
+                                <hr>
+
                                 <div class="form-group d-flex justify-content-end">
                                     <input type="submit" value="{{$unit->id ? "Update" : "Save"}}" class="btn btn-info">
                                 </div>

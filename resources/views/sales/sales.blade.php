@@ -126,8 +126,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="pd-20 card mb-2 d-flex justify-content-end">
-                                <button class="btn btn-info" type="button" id="btnAddProduct">Add</button>
+                            <div class="pd-20 card mb-2">
+                                <div class="d-flex justify-content-end">
+                                    <button class="btn btn-info" type="button" id="btnAddProduct">Add</button>
+                                </div>
                             </div>
                         </div>
                         <div class="col-xl-7">
@@ -330,7 +332,7 @@
             var currentRoute = '{{ \Request::route()->getName() }}';
             var productWrapper = $('.productWrapper');
             if (currentRoute == "sales.create") {
-                var myfieldHtml1 = ` <div class="pd-20 card-box mb-2">
+                var myfieldHtml1 = ` <div class="pd-20 card mb-2">
                                 <div class="form-group">
                                     <label>Product *:</label>
                                     <select class="custom-select2 select2 form-control" name="product_id[]"

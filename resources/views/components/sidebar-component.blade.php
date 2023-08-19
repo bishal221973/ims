@@ -23,12 +23,9 @@
         <div class="sidebar-menu">
             <ul id="accordion-menu">
                 <li class="dropdown">
-                    <a href="javascript:;" class="dropdown-toggle">
+                    <a href="{{route("home")}}" class="dropdown-toggle">
                         <span class="micon bi bi-house"></span><span class="mtext">Home</span>
                     </a>
-                    <ul class="submenu">
-                        <li><a href="index.html">Dashboard</a></li>
-                    </ul>
                 </li>
                 <li class="dropdown">
                     <a href="javascript:;" class="dropdown-toggle">
@@ -144,7 +141,7 @@
                         <li><a href="{{ route('tax.index') }}">Tax</a></li>
                         <li><a href="{{ route('fiscalyear.index') }}">Fiscal Year</a></li>
                         <li><a href="{{ route('unit.index') }}">Unit</a></li>
-                        <li><a href="{{ route('leaveType.index') }}">Leave Type</a></li>
+                        {{-- <li><a href="{{ route('leaveType.index') }}">Leave Type</a></li> --}}
                     </ul>
                 </li>
                 <li>

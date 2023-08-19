@@ -153,6 +153,7 @@
                                     @enderror
                                 </div>
 
+                                <hr>
                                 <div class="form-group d-flex justify-content-end">
                                     <input type="submit" value="{{ $assignProject->id ? 'Update' : 'Save' }}"
                                         class="btn btn-info">

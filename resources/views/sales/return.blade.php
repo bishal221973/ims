@@ -129,7 +129,7 @@
                                     </table>
 
                                     <div class="col-12 d-flex justify-content-end">
-                                        <input type="submit" value="Return" class="btn btn-warning text-white mt-3">
+                                        <input type="submit" value="Return" class="btn btn-info text-white mt-3">
                                     </div>
                                 </div>
                             </form>
@@ -199,11 +199,6 @@
                         </div>
                     </div>
 
-                    <div class="col-xl-5">
-                        <div class="card-box mb-30">
-
-                        </div>
-                    </div>
                 </div>
 
 
