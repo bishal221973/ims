@@ -8,6 +8,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CogsController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\EmailVerifyController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\FiscalYearController;
 use App\Http\Controllers\HoleydayController;
@@ -242,6 +243,10 @@ Route::get('salary', [SalaryController::class, 'index'])->name('salary.index');
 Route::get('salary/{id}/payment', [SalaryController::class, 'payment'])->name('salary.payment');
 Route::post('salary/payment', [SalaryController::class, 'pay'])->name('salary.pay');
 
+
+Route::get('verify-mail',[EmailVerifyController::class,'index'])->name('emailverify.index');
+Route::post('verify-mail',[EmailVerifyController::class,'sendMail'])->name('emailverify.sendMail');
+Route::get('verifymail/{id}',[EmailVerifyController::class,'verify'])->name('emailverify.verify');
 
 Route::get('/foo', function () {
     Artisan::call('storage:link');

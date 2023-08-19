@@ -13,20 +13,13 @@ class BrandController extends Controller
 {
     public function index(Brand $brand)
     {
-        $data=[
-            'name'=>"Bishal"
-        ];
-        Mail::send('emailVerifyMail',$data,function($message) use($data){
-            $message->to("bishalchaudhary2018bca@gmail.com");
-            $message->subject("Event testing");
-        });
-        // Event::dispatch(new VerifyMail(1));
-        // $orgId = orgId();
-        // if (!$orgId) {
-        //     return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
-        // }
-        // $brands = Brand::where('organization_id', $orgId)->latest()->get();
-        // return view('product.brand', compact('brands', 'brand'));
+        Event::dispatch(new VerifyMail(1));
+        $orgId = orgId();
+        if (!$orgId) {
+            return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
+        }
+        $brands = Brand::where('organization_id', $orgId)->latest()->get();
+        return view('product.brand', compact('brands', 'brand'));
     }
 
     public function store(Request $request)
