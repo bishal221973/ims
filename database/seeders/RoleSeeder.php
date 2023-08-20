@@ -33,8 +33,8 @@ class RoleSeeder extends Seeder
         $admin = Role::firstOrCreate(['name' => 'admin']);
         $admin = Role::firstOrCreate(['name' => 'branch-admin']);
 
-        // $permissions = Permission::get();
+        $permissions = Permission::get();
 
-        // $superadminUser->syncPermissions($pephprmissions);
+        $superadminUser->syncPermissions($permissions);
     }
 }

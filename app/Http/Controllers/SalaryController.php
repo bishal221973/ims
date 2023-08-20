@@ -15,6 +15,10 @@ class SalaryController extends Controller
     }
     public function index()
     {
+        if(Auth()->user()->roles[0]->name=='super-admin'){
+            return
+             redirect()->back()->with('error','Please login as admin.');
+        }
         $org_id=orgId();
         if (!$org_id) {
             return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");

@@ -85,14 +85,21 @@
         </div>
         <div style="width: 40px"></div>
         <div class="user-info-dropdown">
-            <div class="dropdown">
+            <div class="dropdown mt-2 pt-1">
                 <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-                    <span class="user-icon">
-                        {{-- <img src="{{ asset('vendors/images/photo1.jpg') }}" alt="" /> --}}
-                    </span>
                     <span class="font-weight-bold user-name">{{ Auth::user()->name }}</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                    <div class="p-3">
+                        <div class="d-flex justify-content-between">
+                            <img src="{{asset('person.svg')}}" alt="">
+                            <div class="d-flex justify-content-end col-12">
+                                <div class="d-block">
+                                    <label class="font-weight-bold">{{Auth()->user()->name}}</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <a class="dropdown-item" href="{{ route('user.profile') }}"><i class="dw dw-user1"></i> Profile</a>
                     <a class="dropdown-item" href="profile.html"><i class="dw dw-settings2"></i> Setting</a>
                     <a class="dropdown-item text-danger" href="{{ route('logout') }}"
@@ -111,80 +118,80 @@
     </div>
     <div class="card col-12 p-0">
         {{-- <div class="card-body"> --}}
-            <div class="row p-0">
-                <div class="col p-0 text-center">
-                    <a href="{{route('sales.create')}}" class="card h-100 border-0">
-                        <div class="card-body responsive-text1 responsive-text1">
-                            <i class="fa-solid fa-circle-dollar-to-slot mr-2"></i> Sales
-                        </div>
-                    </a>
-                </div>
-                <div class="col p-0 text-center">
-                    <a href="{{route('purchase.create')}}" class="card h-100 border-0">
-                        <div class="card-body responsive-text1">
-                            <i class="fa-solid fa-cart-shopping mr-2"></i>Purchase
-                        </div>
-                    </a>
-                </div>
-                <div class="col p-0 text-center">
-                    <a href="{{route('employee.create')}}" class="card h-100 border-0">
-                        <div class="card-body responsive-text1">
-                            <i class="fa-solid fa-person mr-2"></i>Employee
-                        </div>
-                    </a>
-                </div>
-                <div class="col p-0 text-center">
-                    <a href="{{route('project.index')}}" class="card h-100 border-0">
-                        <div class="card-body responsive-text1">
-                            <i class="fa-solid fa-diagram-project mr-2"></i>Project
-                        </div>
-                    </a>
-                </div>
-                <div class="col p-0 text-center">
-                    <a href="{{route('inventoryReport')}}" class="card h-100 border-0">
-                        <div class="card-body responsive-text1">
-                            <i class="fa-solid fa-money-bill mr-2"></i>Inventory
-                        </div>
-                    </a>
-                </div>
-                <div class="col p-0 text-center">
-                    <a href="{{route('supplier.index')}}" class="card h-100 border-0">
-                        <div class="card-body responsive-text1">
-                            <i class="fa-solid fa-truck-field-un mr-2"></i>Supplier
-                        </div>
-                    </a>
-                </div>
-                <div class="col p-0 text-center">
-                    <a href="{{route('customer.index')}}" class="card h-100 border-0">
-                        <div class="card-body responsive-text1">
-                            <i class="fa-solid fa-users mr-2"></i>Customer
-                        </div>
-                    </a>
-                </div>
-
-                <div class="col p-0 text-center">
-                    <a href="{{route('product.index')}}" class="card h-100 border-0">
-                        <div class="card-body responsive-text1">
-                            <i class="fa-brands fa-product-hunt mr-2"></i>Product
-                        </div>
-                    </a>
-                </div>
-                <div class="col p-0 text-center">
-                    <a href="{{route('brand.index')}}" class="card h-100 border-0">
-                        <div class="card-body responsive-text1">
-                            <i class="fa-solid fa-code-branch mr-2"></i>Brand
-                        </div>
-                    </a>
-                </div>
-                <div class="col p-0 text-center">
-                    <a href="{{route('category.index')}}" class="card h-100 border-0">
-                        <div class="card-body responsive-text1">
-                            <i class="fa-solid fa-boxes-stacked mr-2"></i>Category
-                        </div>
-                    </a>
-                </div>
-
+        <div class="row p-0">
+            <div class="col p-0 text-center">
+                <a href="{{ route('sales.create') }}" class="card h-100 border-0">
+                    <div class="card-body responsive-text1 responsive-text1">
+                        <i class="fa-solid fa-circle-dollar-to-slot mr-2"></i> Sales
+                    </div>
+                </a>
             </div>
+            <div class="col p-0 text-center">
+                <a href="{{ route('purchase.create') }}" class="card h-100 border-0">
+                    <div class="card-body responsive-text1">
+                        <i class="fa-solid fa-cart-shopping mr-2"></i>Purchase
+                    </div>
+                </a>
+            </div>
+            <div class="col p-0 text-center">
+                <a href="{{ route('employee.create') }}" class="card h-100 border-0">
+                    <div class="card-body responsive-text1">
+                        <i class="fa-solid fa-person mr-2"></i>Employee
+                    </div>
+                </a>
+            </div>
+            <div class="col p-0 text-center">
+                <a href="{{ route('project.index') }}" class="card h-100 border-0">
+                    <div class="card-body responsive-text1">
+                        <i class="fa-solid fa-diagram-project mr-2"></i>Project
+                    </div>
+                </a>
+            </div>
+            <div class="col p-0 text-center">
+                <a href="{{ route('inventoryReport') }}" class="card h-100 border-0">
+                    <div class="card-body responsive-text1">
+                        <i class="fa-solid fa-money-bill mr-2"></i>Inventory
+                    </div>
+                </a>
+            </div>
+            <div class="col p-0 text-center">
+                <a href="{{ route('supplier.index') }}" class="card h-100 border-0">
+                    <div class="card-body responsive-text1">
+                        <i class="fa-solid fa-truck-field-un mr-2"></i>Supplier
+                    </div>
+                </a>
+            </div>
+            <div class="col p-0 text-center">
+                <a href="{{ route('customer.index') }}" class="card h-100 border-0">
+                    <div class="card-body responsive-text1">
+                        <i class="fa-solid fa-users mr-2"></i>Customer
+                    </div>
+                </a>
+            </div>
+
+            <div class="col p-0 text-center">
+                <a href="{{ route('product.index') }}" class="card h-100 border-0">
+                    <div class="card-body responsive-text1">
+                        <i class="fa-brands fa-product-hunt mr-2"></i>Product
+                    </div>
+                </a>
+            </div>
+            <div class="col p-0 text-center">
+                <a href="{{ route('brand.index') }}" class="card h-100 border-0">
+                    <div class="card-body responsive-text1">
+                        <i class="fa-solid fa-code-branch mr-2"></i>Brand
+                    </div>
+                </a>
+            </div>
+            <div class="col p-0 text-center">
+                <a href="{{ route('category.index') }}" class="card h-100 border-0">
+                    <div class="card-body responsive-text1">
+                        <i class="fa-solid fa-boxes-stacked mr-2"></i>Category
+                    </div>
+                </a>
+            </div>
+
+        </div>
         {{-- </div> --}}
     </div>
 </div>
