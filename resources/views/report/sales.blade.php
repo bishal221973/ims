@@ -75,43 +75,45 @@
                     @endpush
                 @endif
 
-                <div class="row">
-                    <div class="col-xl-12">
-                        <div class="card mb-30">
-                            <div class="pd-20">
-                            </div>
-                            <div class="pb-20">
-                                <table class="table hover multiple-select-row data-table-export nowrap">
-                                    <thead>
-                                        <tr>
-                                            <th>SN</th>
-                                            <th>Product</th>
-                                            <th>Quantity</th>
-                                            <th>Sales Rate</th>
-                                            <th>Customer Name</th>
-                                            <th>Transaction Date</th>
-                                            <th>Invoice Number</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($sales as $purchase)
+                @can('report_sales'     )
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="card mb-30">
+                                <div class="pd-20">
+                                </div>
+                                <div class="pb-20">
+                                    <table class="table hover multiple-select-row data-table-export nowrap">
+                                        <thead>
                                             <tr>
-                                                <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $purchase->product->name }}</td>
-                                                <td>{{ $purchase->quantity }} ({{ $purchase->product->unit->name }})</td>
-                                                <td>RS. {{ $purchase->price }} /-</td>
-                                                <td>{{ $purchase->sales->customer->name }}</td>
-                                                <td>{{ $purchase->sales->transaction_date }}</td>
-                                                <td>{{ $purchase->sales->invoice_number }}</td>
+                                                <th>SN</th>
+                                                <th>Product</th>
+                                                <th>Quantity</th>
+                                                <th>Sales Rate</th>
+                                                <th>Customer Name</th>
+                                                <th>Transaction Date</th>
+                                                <th>Invoice Number</th>
                                             </tr>
-                                        @endforeach
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($sales as $purchase)
+                                                <tr>
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td>{{ $purchase->product->name }}</td>
+                                                    <td>{{ $purchase->quantity }} ({{ $purchase->product->unit->name }})</td>
+                                                    <td>RS. {{ $purchase->price }} /-</td>
+                                                    <td>{{ $purchase->sales->customer->name }}</td>
+                                                    <td>{{ $purchase->sales->transaction_date }}</td>
+                                                    <td>{{ $purchase->sales->invoice_number }}</td>
+                                                </tr>
+                                            @endforeach
 
-                                    </tbody>
-                                </table>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                @endcan
 
 
                 <!-- success Popup html End -->
