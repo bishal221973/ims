@@ -37,7 +37,7 @@
                                     class="form-control">
                             </div>
                             <div class="d-flex justify-content-end">
-                                <input type="submit" class="btn btn-info mt-3" value="Send">
+                                <input type="submit" class="btn btn-info mt-3" value="Send Request">
                             </div>
                         </form>
                     </div>

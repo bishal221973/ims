@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 class RoleController extends Controller
@@ -25,10 +26,12 @@ class RoleController extends Controller
         if (!$org_id) {
             return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
         }
-        return view('role.role',compact('role'));
+        $permissions=Permission::get();
+        return view('role.role',compact('role','permissions'));
     }
 
     public function store(Request $request){
+
         $org_id=orgId();
         if (!$org_id) {
             return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
@@ -42,7 +45,7 @@ class RoleController extends Controller
             'organization_id'=>$org_id,
         ]);
 
-        // $role->syncPermissions($request->premissions);
+        $role->syncPermissions($request->premissions);
 
         return redirect()->back()->with('success',"New role saved");
     }
@@ -52,7 +55,9 @@ class RoleController extends Controller
         if (!$org_id) {
             return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
         }
-        return view('role.role',compact('role'));
+        $permissions=Permission::get();
+
+        return view('role.role',compact('role','permissions'));
     }
 
     public function update(Role $role,Request $request){

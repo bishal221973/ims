@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title','Purchase-Report')
+@section('title', 'Purchase-Report')
 @section('content')
     <div class="main-container">
         <div class="mt-4 xs-pd-20-10">
@@ -75,43 +75,45 @@
                     @endpush
                 @endif
 
-                <div class="row">
-                    <div class="col-xl-12">
-                        <div class="card mb-30">
-                            <div class="pd-20">
-                            </div>
-                            <div class="pb-20">
-                                <table class="table hover multiple-select-row data-table-export nowrap">
-                                    <thead>
-                                        <tr>
-                                            <th>SN</th>
-                                            <th>Product</th>
-                                            <th>Quantity</th>
-                                            <th>Purchase Rate</th>
-                                            <th>Supplier Name</th>
-                                            <th>Transaction Date</th>
-                                            <th>Invoice Number</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($purchases as $purchase)
-                                        <tr>
-                                            <td>{{$loop->iteration}}</td>
-                                            <td>{{$purchase->product->name}}</td>
-                                            <td>{{$purchase->quantity}} ({{$purchase->product->unit->name}})</td>
-                                            <td>RS. {{$purchase->price}} /-</td>
-                                            <td>{{$purchase->purchase->supplier->name}}</td>
-                                            <td>{{$purchase->purchase->transaction_date}}</td>
-                                            <td>{{$purchase->purchase->invoice_number}}</td>
-                                        </tr>
-                                        @endforeach
+                @can('report_purchase')
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="card mb-30">
+                                <div class="pd-20">
+                                </div>
+                                <div class="pb-20">
+                                    <table class="table hover multiple-select-row data-table-export nowrap">
+                                        <thead>
+                                            <tr>
+                                                <th>SN</th>
+                                                <th>Product</th>
+                                                <th>Quantity</th>
+                                                <th>Purchase Rate</th>
+                                                <th>Supplier Name</th>
+                                                <th>Transaction Date</th>
+                                                <th>Invoice Number</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($purchases as $purchase)
+                                                <tr>
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td>{{ $purchase->product->name }}</td>
+                                                    <td>{{ $purchase->quantity }} ({{ $purchase->product->unit->name }})</td>
+                                                    <td>RS. {{ $purchase->price }} /-</td>
+                                                    <td>{{ $purchase->purchase->supplier->name }}</td>
+                                                    <td>{{ $purchase->purchase->transaction_date }}</td>
+                                                    <td>{{ $purchase->purchase->invoice_number }}</td>
+                                                </tr>
+                                            @endforeach
 
-                                    </tbody>
-                                </table>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                @endcan
 
 
                 <!-- success Popup html End -->

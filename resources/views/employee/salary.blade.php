@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title','Salary')
+@section('title', 'Salary')
 @section('content')
     <div class="main-container">
         <div class="mt-4 xs-pd-20-10">
@@ -76,86 +76,90 @@
                 @endif
 
                 <!-- multiple select row Datatable start -->
-                <div class="card mb-30">
-                    <div class="pd-20">
-                    </div>
-                    <div class="pb-20">
-                        {{-- multiple-select-row --}}
-                        <table class="data-table table hover  nowrap">
-                            <thead>
-                                <tr>
-                                    <th>SN</th>
-                                    <th>Employee</th>
-                                    <th>Shift</th>
-                                    <th>Last Payment Date</th>
-                                    <th>Worked Time</th>
-                                    <th>Salary (per hour)</th>
-                                    <th>Total Salary</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($employees as $employee)
+                @can('salary_read')
+                    <div class="card mb-30">
+                        <div class="pd-20">
+                        </div>
+                        <div class="pb-20">
+                            {{-- multiple-select-row --}}
+                            <table class="data-table table hover  nowrap">
+                                <thead>
                                     <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $employee->user->name }} <br> {{ $employee->user->email }}</td>
-                                        <td>
-                                            From : {{ $employee->schedule ? $employee->schedule->in_time : 'NULL' }} <br>
-                                            To : {{ $employee->schedule ? $employee->schedule->out_time : 'NULL' }}
-                                            {{-- {{$employee->schedule}} --}}
-                                        </td>
-                                        <td>Null</td>
-                                        {{-- <td>{{$employee->user->dob}}</td> --}}
-                                        <td>
-                                            @php
-                                                $totalWorkedTime = 0;
-                                            @endphp
-                                            @foreach ($employee->attendance as $attendance)
-                                                @php
-                                                    $totalWorkedTime = $totalWorkedTime + $attendance->workHour;
-                                                @endphp
-                                            @endforeach
-                                            {{ $totalWorkedTime }} Hour
-                                        </td>
-                                        <td>RS.
-                                            @php
-                                                echo number_format($employee->per_hour_salary, 2);
-                                            @endphp
-                                        </td>
-                                        <td>
-                                            @php
-                                                $totalSalary = 0;
-                                            @endphp
-                                            @foreach ($employee->attendance as $attendance)
-                                                @php
-                                                    $totalSalary = $totalSalary + $attendance->salary;
-                                                @endphp
-                                            @endforeach
-
-                                            @php
-                                                echo "RS. ".number_format($totalSalary,1). " Only"
-                                            @endphp
-                                        </td>
-                                        <td>
-                                            <div class="dropdown">
-                                                <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle text-decoration-none"
-                                                    href="#" role="button" data-toggle="dropdown">
-                                                    <i class="dw dw-more"></i>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                                                    <a class="dropdown-item"
-                                                        href="{{ route('salary.payment', $employee->id) }}">
-                                                        Pay Salary</a>
-
-                                                </div>
-                                            </div>
-                                        </td>
+                                        <th>SN</th>
+                                        <th>Employee</th>
+                                        <th>Shift</th>
+                                        <th>Last Payment Date</th>
+                                        <th>Worked Time</th>
+                                        <th>Salary (per hour)</th>
+                                        <th>Total Salary</th>
+                                        <th>Action</th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    @foreach ($employees as $employee)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $employee->user->name }} <br> {{ $employee->user->email }}</td>
+                                            <td>
+                                                From : {{ $employee->schedule ? $employee->schedule->in_time : 'NULL' }} <br>
+                                                To : {{ $employee->schedule ? $employee->schedule->out_time : 'NULL' }}
+                                                {{-- {{$employee->schedule}} --}}
+                                            </td>
+                                            <td>Null</td>
+                                            {{-- <td>{{$employee->user->dob}}</td> --}}
+                                            <td>
+                                                @php
+                                                    $totalWorkedTime = 0;
+                                                @endphp
+                                                @foreach ($employee->attendance as $attendance)
+                                                    @php
+                                                        $totalWorkedTime = $totalWorkedTime + $attendance->workHour;
+                                                    @endphp
+                                                @endforeach
+                                                {{ $totalWorkedTime }} Hour
+                                            </td>
+                                            <td>RS.
+                                                @php
+                                                    echo number_format($employee->per_hour_salary, 2);
+                                                @endphp
+                                            </td>
+                                            <td>
+                                                @php
+                                                    $totalSalary = 0;
+                                                @endphp
+                                                @foreach ($employee->attendance as $attendance)
+                                                    @php
+                                                        $totalSalary = $totalSalary + $attendance->salary;
+                                                    @endphp
+                                                @endforeach
+
+                                                @php
+                                                    echo 'RS. ' . number_format($totalSalary, 1) . ' Only';
+                                                @endphp
+                                            </td>
+                                            <td>
+                                                <div class="dropdown">
+                                                    <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle text-decoration-none"
+                                                        href="#" role="button" data-toggle="dropdown">
+                                                        <i class="dw dw-more"></i>
+                                                    </a>
+                                                    @can('salary_payment')
+                                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                                                            <a class="dropdown-item"
+                                                                href="{{ route('salary.payment', $employee->id) }}">
+                                                                Pay Salary</a>
+
+                                                        </div>
+                                                    @endcan
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                </div>
+                @endcan
                 <!-- multiple select row Datatable End -->
 
             </div>

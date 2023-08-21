@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title','Role')
+@section('title', 'Role')
 @section('content')
     <div class="main-container">
         <div class="mt-4 xs-pd-20-10">
@@ -76,57 +76,63 @@
                 @endif
 
                 <div class="row">
-                    <div class="col-xl-12">
-                        <div class="card mb-30">
-                            <div class="pd-20">
-                            </div>
-                            <div class="pb-20">
-                                <table class="data-table table hover  nowrap">
-                                    <thead>
-                                        <tr>
-                                            <th>SN</th>
-                                            <th>Role Name</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($roles as $role)
+                    @can('role_read')
+                        <div class="col-xl-12">
+                            <div class="card mb-30">
+                                <div class="pd-20">
+                                </div>
+                                <div class="pb-20">
+                                    <table class="data-table table hover  nowrap">
+                                        <thead>
                                             <tr>
-                                                <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $role->name }}</td>
-                                                <td>
-                                                    <div class="dropdown">
-                                                        <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle text-decoration-none"
-                                                            href="#" role="button" data-toggle="dropdown">
-                                                            <i class="dw dw-more"></i>
-                                                        </a>
-                                                        <div
-                                                            class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-
-                                                            <a class="dropdown-item"
-                                                                href="{{ route('role.edit', $role) }}"><i
-                                                                    class="dw dw-edit2"></i>
-                                                                Edit</a>
-                                                            <form action="{{ route('role.delete', $role->id) }}"
-                                                                method="post"
-                                                                onsubmit="return confirm('Are you sure to delete ?')"
-                                                                class="form-inline d-inline">
-                                                                @csrf
-                                                                @method('delete')
-                                                                <button type="submit" class="dropdown-item"><i
-                                                                        class="dw dw-delete-3"></i>
-                                                                    Delete</button>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </td>
+                                                <th>SN</th>
+                                                <th>Role Name</th>
+                                                <th>Action</th>
                                             </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($roles as $role)
+                                                <tr>
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td>{{ $role->name }}</td>
+                                                    <td>
+                                                        <div class="dropdown">
+                                                            <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle text-decoration-none"
+                                                                href="#" role="button" data-toggle="dropdown">
+                                                                <i class="dw dw-more"></i>
+                                                            </a>
+                                                            <div
+                                                                class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+
+                                                                @can('role_edit')
+                                                                    <a class="dropdown-item"
+                                                                        href="{{ route('role.edit', $role) }}"><i
+                                                                            class="dw dw-edit2"></i>
+                                                                        Edit</a>
+                                                                @endcan
+                                                                @can('role_delete')
+                                                                    <form action="{{ route('role.delete', $role->id) }}"
+                                                                        method="post"
+                                                                        onsubmit="return confirm('Are you sure to delete ?')"
+                                                                        class="form-inline d-inline">
+                                                                        @csrf
+                                                                        @method('delete')
+                                                                        <button type="submit" class="dropdown-item"><i
+                                                                                class="dw dw-delete-3"></i>
+                                                                            Delete</button>
+                                                                    </form>
+                                                                @endcan
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    @endcan
                 </div>
 
 

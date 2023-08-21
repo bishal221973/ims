@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title','Sales-Return')
+@section('title', 'Sales-Return')
 @section('content')
     <div class="main-container">
         <div class="mt-4 xs-pd-20-10">
@@ -76,99 +76,103 @@
                 @endif
 
                 <div class="row">
-                    <div class="col-xl-12">
-                        <div class="pd-20 card mb-2">
-                            <small class="text-danger">Warning: You can not remove or update returned record.</small>
+                    @can('sales_return_create')
+                        <div class="col-xl-12">
+                            <div class="pd-20 card mb-2">
+                                <small class="text-danger">Warning: You can not remove or update returned record.</small>
 
-                            <form action="{{ route('salesreturn.store') }}" method="POST">
-                                @csrf
-                                <input type="hidden" name="sales_id" id="salesId">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="form-group">
-                                            <label>Invoice Number</label>
-                                            <input type="number" class="form-control" id="txtSalesInvoiceNumber">
+                                <form action="{{ route('salesreturn.store') }}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="sales_id" id="salesId">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label>Invoice Number</label>
+                                                <input type="number" class="form-control" id="txtSalesInvoiceNumber">
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <div class="col-xl-4">
-                                        <div class="form-group">
-                                            <label>Customer Name</label>
-                                            <input type="text" class="form-control" id="txtSalesCustomerName" readonly>
+                                        <div class="col-xl-4">
+                                            <div class="form-group">
+                                                <label>Customer Name</label>
+                                                <input type="text" class="form-control" id="txtSalesCustomerName" readonly>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-xl-4">
-                                        <div class="form-group">
-                                            <label>Phone number</label>
-                                            <input type="text" class="form-control" id="txtSalesCustomerPhone" readonly>
+                                        <div class="col-xl-4">
+                                            <div class="form-group">
+                                                <label>Phone number</label>
+                                                <input type="text" class="form-control" id="txtSalesCustomerPhone" readonly>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-xl-4">
-                                        <div class="form-group">
-                                            <label>Transaction Date</label>
-                                            <input type="text" class="form-control" id="txtSalesCustomerDate" readonly>
+                                        <div class="col-xl-4">
+                                            <div class="form-group">
+                                                <label>Transaction Date</label>
+                                                <input type="text" class="form-control" id="txtSalesCustomerDate" readonly>
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <table class="table">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>
+
+                                                    </th>
+                                                    <th>Product</th>
+                                                    <th>Purchased Quantity</th>
+                                                    <th>Sales Rate</th>
+                                                    <th>Return Quantity</th>
+                                                    <th>Return Reason</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="myData">
+
+                                            </tbody>
+                                        </table>
+
+                                        <div class="col-12 d-flex justify-content-end">
+                                            <input type="submit" value="Return" class="btn btn-info text-white mt-3">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    @endcan
+
+                    @can('sales_return_read')
+                        <div class="col-xl-12">
+                            <div class="card mb-30">
+                                <div class="pd-20">
+                                </div>
+                                <div class="pb-20">
+                                    <table class="data-table table hover  nowrap">
                                         <thead>
                                             <tr>
-                                                <th>
-
-                                                </th>
+                                                <th>SN</th>
+                                                <th>Branch</th>
                                                 <th>Product</th>
-                                                <th>Purchased Quantity</th>
-                                                <th>Sales Rate</th>
+                                                <th>Customer</th>
                                                 <th>Return Quantity</th>
                                                 <th>Return Reason</th>
+                                                <th>Return Date</th>
+                                                <th>Action</th>
                                             </tr>
                                         </thead>
-                                        <tbody id="myData">
-
-                                        </tbody>
-                                    </table>
-
-                                    <div class="col-12 d-flex justify-content-end">
-                                        <input type="submit" value="Return" class="btn btn-info text-white mt-3">
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-
-                    <div class="col-xl-12">
-                        <div class="card mb-30">
-                            <div class="pd-20">
-                            </div>
-                            <div class="pb-20">
-                                <table class="data-table table hover  nowrap">
-                                    <thead>
-                                        <tr>
-                                            <th>SN</th>
-                                            <th>Branch</th>
-                                            <th>Product</th>
-                                            <th>Customer</th>
-                                            <th>Return Quantity</th>
-                                            <th>Return Reason</th>
-                                            <th>Return Date</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($salesReturns as $salesReturn)
-                                            <tr>
-                                                <td>{{ $loop->iteration }}</td>
-                                                <td class="font-weight-bold">{{$salesReturn->branch->branch_name}}</td>
-                                                <td>{{$salesReturn->product->name}}</td>
-                                                <td>{{$salesReturn->sales->customer->name}}</td>
-                                                <td>{{$salesReturn->quantity}} {{$salesReturn->product->unit->name}}</td>
-                                                <td>{{$salesReturn->reason}}</td>
-                                                <td>{{$salesReturn->returnDate}}</td>
+                                        <tbody>
+                                            @foreach ($salesReturns as $salesReturn)
+                                                <tr>
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td class="font-weight-bold">{{ $salesReturn->branch->branch_name }}</td>
+                                                    <td>{{ $salesReturn->product->name }}</td>
+                                                    <td>{{ $salesReturn->sales->customer->name }}</td>
+                                                    <td>{{ $salesReturn->quantity }} {{ $salesReturn->product->unit->name }}
+                                                    </td>
+                                                    <td>{{ $salesReturn->reason }}</td>
+                                                    <td>{{ $salesReturn->returnDate }}</td>
 
 
-                                                <td>
-                                                    <div class="dropdown">
-                                                        {{-- <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle text-decoration-none"
+                                                    <td>
+                                                        <div class="dropdown">
+                                                            {{-- <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle text-decoration-none"
                                                             href="#" role="button" data-toggle="dropdown">
                                                             <i class="dw dw-more"></i>
                                                         </a>
@@ -189,15 +193,16 @@
                                                                     Delete</button>
                                                             </form>
                                                         </div> --}}
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    @endcan
 
                 </div>
 

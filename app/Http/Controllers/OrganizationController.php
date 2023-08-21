@@ -8,6 +8,7 @@ use App\Models\Organization;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Permission;
 
 class OrganizationController extends Controller
 {
@@ -97,6 +98,9 @@ class OrganizationController extends Controller
             'branch_id'=>$branch->id,
         ]);
 
+        $permissions = Permission::get();
+
+        $user->syncPermissions($permissions);
         return redirect()->back()->with('success', "New Organization Registered successfully.");
     }
 

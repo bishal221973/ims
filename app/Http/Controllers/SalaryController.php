@@ -23,7 +23,7 @@ class SalaryController extends Controller
         if (!$org_id) {
             return redirect()->back()->with('error', "Please select an organization before perform any operation on it.");
         }
-        $branch_id = Auth()->user()->branch->id;
+        $branch_id = Auth()->user()->employee->branch->id;
         $employees = Employee::with('schedule', 'attendance')->where('organization_id', $org_id)->where('branch_id', $branch_id)->latest()->get();
         return view('employee.salary', compact('employees'));
     }

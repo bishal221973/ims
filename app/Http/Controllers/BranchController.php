@@ -7,6 +7,7 @@ use App\Models\Employee;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Permission;
 
 class BranchController extends Controller
 {
@@ -91,6 +92,10 @@ class BranchController extends Controller
             'organization_id' => $org_id,
             'branch_id' => $branch->id,
         ]);
+
+        $permissions = Permission::get();
+
+        $user->syncPermissions($permissions);
 
         return redirect()->back()->with('success', "New branch saved.");
     }
