@@ -112,18 +112,10 @@
                         <div class="profile-tab height-100-p">
                             <div class="tab height-100-p">
                                 <ul class="nav nav-tabs customtab" role="tablist">
+
                                     <li class="nav-item">
                                         <a
                                             class="nav-link active"
-                                            data-toggle="tab"
-                                            href="#timeline"
-                                            role="tab"
-                                            >Timeline</a
-                                        >
-                                    </li>
-                                    <li class="nav-item">
-                                        <a
-                                            class="nav-link"
                                             data-toggle="tab"
                                             href="#tasks"
                                             role="tab"
@@ -141,143 +133,9 @@
                                     </li>
                                 </ul>
                                 <div class="tab-content">
-                                    <!-- Timeline Tab start -->
-                                    <div
-                                        class="tab-pane fade show active"
-                                        id="timeline"
-                                        role="tabpanel"
-                                    >
-                                        <div class="pd-20">
-                                            <div class="profile-timeline">
-                                                <div class="timeline-month">
-                                                    <h5>August, 2020</h5>
-                                                </div>
-                                                <div class="profile-timeline-list">
-                                                    <ul>
-                                                        <li>
-                                                            <div class="date">12 Aug</div>
-                                                            <div class="task-name">
-                                                                <i class="ion-android-alarm-clock"></i> Task
-                                                                Added
-                                                            </div>
-                                                            <p>
-                                                                Lorem ipsum dolor sit amet, consectetur
-                                                                adipisicing elit.
-                                                            </p>
-                                                            <div class="task-time">09:30 am</div>
-                                                        </li>
-                                                        <li>
-                                                            <div class="date">10 Aug</div>
-                                                            <div class="task-name">
-                                                                <i class="ion-ios-chatboxes"></i> Task Added
-                                                            </div>
-                                                            <p>
-                                                                Lorem ipsum dolor sit amet, consectetur
-                                                                adipisicing elit.
-                                                            </p>
-                                                            <div class="task-time">09:30 am</div>
-                                                        </li>
-                                                        <li>
-                                                            <div class="date">10 Aug</div>
-                                                            <div class="task-name">
-                                                                <i class="ion-ios-clock"></i> Event Added
-                                                            </div>
-                                                            <p>
-                                                                Lorem ipsum dolor sit amet, consectetur
-                                                                adipisicing elit.
-                                                            </p>
-                                                            <div class="task-time">09:30 am</div>
-                                                        </li>
-                                                        <li>
-                                                            <div class="date">10 Aug</div>
-                                                            <div class="task-name">
-                                                                <i class="ion-ios-clock"></i> Event Added
-                                                            </div>
-                                                            <p>
-                                                                Lorem ipsum dolor sit amet, consectetur
-                                                                adipisicing elit.
-                                                            </p>
-                                                            <div class="task-time">09:30 am</div>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div class="timeline-month">
-                                                    <h5>July, 2020</h5>
-                                                </div>
-                                                <div class="profile-timeline-list">
-                                                    <ul>
-                                                        <li>
-                                                            <div class="date">12 July</div>
-                                                            <div class="task-name">
-                                                                <i class="ion-android-alarm-clock"></i> Task
-                                                                Added
-                                                            </div>
-                                                            <p>
-                                                                Lorem ipsum dolor sit amet, consectetur
-                                                                adipisicing elit.
-                                                            </p>
-                                                            <div class="task-time">09:30 am</div>
-                                                        </li>
-                                                        <li>
-                                                            <div class="date">10 July</div>
-                                                            <div class="task-name">
-                                                                <i class="ion-ios-chatboxes"></i> Task Added
-                                                            </div>
-                                                            <p>
-                                                                Lorem ipsum dolor sit amet, consectetur
-                                                                adipisicing elit.
-                                                            </p>
-                                                            <div class="task-time">09:30 am</div>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div class="timeline-month">
-                                                    <h5>June, 2020</h5>
-                                                </div>
-                                                <div class="profile-timeline-list">
-                                                    <ul>
-                                                        <li>
-                                                            <div class="date">12 June</div>
-                                                            <div class="task-name">
-                                                                <i class="ion-android-alarm-clock"></i> Task
-                                                                Added
-                                                            </div>
-                                                            <p>
-                                                                Lorem ipsum dolor sit amet, consectetur
-                                                                adipisicing elit.
-                                                            </p>
-                                                            <div class="task-time">09:30 am</div>
-                                                        </li>
-                                                        <li>
-                                                            <div class="date">10 June</div>
-                                                            <div class="task-name">
-                                                                <i class="ion-ios-chatboxes"></i> Task Added
-                                                            </div>
-                                                            <p>
-                                                                Lorem ipsum dolor sit amet, consectetur
-                                                                adipisicing elit.
-                                                            </p>
-                                                            <div class="task-time">09:30 am</div>
-                                                        </li>
-                                                        <li>
-                                                            <div class="date">10 June</div>
-                                                            <div class="task-name">
-                                                                <i class="ion-ios-clock"></i> Event Added
-                                                            </div>
-                                                            <p>
-                                                                Lorem ipsum dolor sit amet, consectetur
-                                                                adipisicing elit.
-                                                            </p>
-                                                            <div class="task-time">09:30 am</div>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Timeline Tab End -->
+
                                     <!-- Tasks Tab start -->
-                                    <div class="tab-pane fade" id="tasks" role="tabpanel">
+                                    <div class="tab-pane fade active" id="tasks" role="tabpanel">
                                         <div class="pd-20 profile-task-wrap">
                                             <div class="container pd-0">
                                                 <!-- Open Task start -->
